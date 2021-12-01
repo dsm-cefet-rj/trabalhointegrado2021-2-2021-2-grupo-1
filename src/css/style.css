@@ -39,7 +39,11 @@ body {
 }
 
 .header-wrapper {
-  padding: 30px;
+  padding: 15px;
+}
+
+.user-section > .anchor{
+  margin-right: 20px;
 }
 
 .menu-container {
@@ -58,6 +62,7 @@ body {
 
 .title {
   font-size: 3rem;
+  margin-right: 20px;
 }
 
 .enter-user {
@@ -84,11 +89,9 @@ body {
   width: 60%;
   max-width: 500px;
   outline: none;
-}
-
-.primary-content-input {
   color: #b7c2c5;
 }
+
 
 .btn {
   background-color: rgba(255, 255, 255, 0);

@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/css/style.css" />
-    <title>Meu Ingresso</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/sports.css" />
+    <link rel="stylesheet" href="../css/checkout.css">
+    <title>Meu Ingresso - Ingressos Comprados</title>
   </head>
   <body>
     <header>
@@ -13,17 +15,15 @@
         <h1 class="title">Meu Ingresso</h1>
         <div class="user-section">
           <a href="#" class="anchor">Thales</a>
-          <a href="./src/pages/events-cart.html">
-            <img src="./src/img/shopping-cart.png">
-            <span>1</span>
-          </a>
+          <img src="../img/shopping-cart.png">
+          <span>1</span>
         </div>
       </div>
       <nav class="menu-container">
         <ul class="centralize-content menu-content">
           <li>
             <a 
-              href="./src/pages/sports.html" 
+              href="./sports.html" 
               class="menu-item anchor">
               Esportes
             </a>
@@ -33,17 +33,18 @@
         </ul>
       </nav>
     </header>
-    <main class="">
-      <div class="primary-content">
-        <h2 class="primary-content-title">Procure Por Um Evento</h2>
-        <form>
-          <input
-            type="input"
-            placeholder="nome do evento"
-            class="primary-content-input"
-          />
-          <button class="btn">Procurar</button>
-        </form>
+    <main>
+      <div class="checkout-quantity">
+        <h2>Meus Ingressos</h2>
+      </div>
+      <div class="event-container-checkout">
+        <h2 class="event-name">Jogo das Estrelas - 2021</h2>
+        <img
+          src="https://www.lance.com.br/files/article_main/uploads/2020/06/21/5eefd5243192a.jpeg"
+          alt="imagem do evento"
+          class="event-img"
+        />
+        <button class="btn event-btn">Gerar Ingresso</button>
       </div>
     </main>
   </body>
