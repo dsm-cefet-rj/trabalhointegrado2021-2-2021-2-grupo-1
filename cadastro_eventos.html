@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro de Eventos (rascunho)</title>
+    </head>
+    <body>
+        <style>
+            .centro{
+                text-align: center;
+            }
+        </style>
+        <h1 class="centro">Cadastre seu Evento</h1>
+        <h2 class="centro">Preencha com as informacoes necessarias</h2>
+        <hr>
+        <form class="centro">
+            <p>Nome do Evento: <input type="text"></p>
+            <input type="radio" name="evento" value="esporte">Esportes
+            <input type="radio" name="evento" value="show">Show
+            <input type="radio" name="evento" value="familia">Familia
+            <p>Estado: 
+            <select class="centro">
+                <option>RJ</option>
+                <option>SP</option>
+                <option>MG</option>
+                <option>ES</option>
+            </select></p>
+            <p>Cidade: <input type="text"></p>
+            <hr>
+            <p>Quantidade de Ingressos:</p>
+            <input type="number"><br>
+            <input type="radio" name="qtd" value="k">Mil
+            <input type="radio" name="qtd" value="m">Milhoes
+            <hr>
+            <p>Tempo de disponibilidade: </p>
+            <label for="inicio">De </label>
+            <input type="datetime-local" id="inicio" name="inicio"><br>
+            <label for="fim">Ate </label>
+            <input type="datetime-local" id="fim" name="fim">
+            <hr>
+            <p>Valor de Cada Ingresso:</p>
+            <input type="radio" name="grana" value="real">R$ 
+            <input type="radio" name="grana" value="dolar">US$ 
+            <input type="number">
+        </form><br>
+        <div class="centro">
+            <button>
+                Enviar
+            </button>
+            <button>
+                Cancelar
+            </button>
+        </div>
+    </body>
+</html>

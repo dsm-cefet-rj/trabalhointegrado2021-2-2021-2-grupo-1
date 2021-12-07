@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Revenda de Ingressos (rascunho)</title>
+    </head>
+    <body>
+        <style>
+            .centro{
+                text-align: center;
+            }
+        </style>
+        <h1 class="centro">Cadastre Seus Ingressos para Revenda</h1>
+        <h2 class="centro">Preencha com as informacoes necessarias</h2>
+        <hr>
+        <form class="centro">
+            <p>Nome do Evento:</p> 
+            <select class="centro">
+                <option>Fla x Flu (RJ)</option>
+                <option>Lolapaloosa Dia 2 (SP)</option>
+                <option>Show Zeca Pagods (MG)</option>
+                <option>Teatro Estadual (ES)</option>
+                <!-- a ideia é q só vai aparecer como opção eventos q a pessoa comprou o ingresso-->
+            </select></p>
+            <hr>
+            <p>Quantidade de Ingressos:</p>
+            <input type="number"><br>
+            <!-- adicionar limite de ingressos (?)-->
+            <hr>
+            <p>Valor de Cada Ingresso:</p>
+            <input type="radio" name="grana" value="real">R$ 
+            <input type="radio" name="grana" value="dolar">US$ 
+            <input type="number">
+            <!-- adicionar limite de preço (?)-->
+        </form><br>
+        <div class="centro">
+            <button>
+                Enviar
+            </button>
+            <button>
+                Cancelar
+            </button>
+        </div>
+    </body>
+</html>
