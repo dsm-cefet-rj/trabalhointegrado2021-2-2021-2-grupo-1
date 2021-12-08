@@ -1,0 +1,30 @@
+.titulo , .subtitulo , .escolha , .submit , .centro{
+    text-align: center;
+}
+
+
+button {
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #22223b;
+    border-radius: 1px;
+    padding: 5px;
+}
+
+select{
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid #22223b;
+    width: 60%;
+    max-width: 500px;
+    outline: none;
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+}
+input[type="number"]{
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid #22223b;
+    width: 60%;
+    max-width: 500px;
+    outline: none;
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+}
