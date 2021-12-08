@@ -1,0 +1,66 @@
+.titulo, .subtitulo{
+    text-align: center;
+}
+
+.input {
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid #22223b;
+    width: 60%;
+    max-width: 375px;
+    outline: none;
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+}
+
+.inputValor{
+    max-width: 75px;
+}
+
+.inputQuantidade{
+    max-width: 110px;
+}
+
+.inputCep{
+    max-width: 200px;
+    font-size: 20px;
+}
+
+.inputData{
+    max-width: 190px;
+    font-size: 17px;
+}
+
+select{
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 2px solid #22223b;
+    width: 60%;
+    max-width: 75px;
+    outline: none;
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+}
+
+select[nome = "genero"]{
+    max-width: 100px;
+}
+
+select[nome = "evento"]{
+    max-width: 375px;
+}
+
+
+.button {
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #22223b;
+    border-radius: 1px;
+    padding: 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    touch-action: start;
+}
+
+.button1:hover {
+
+    background-color: rgba(200, 200, 200, 25);
+}
+
