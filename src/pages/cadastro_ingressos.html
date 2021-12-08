@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href= "../css/style.css" />
+        <link rel="stylesheet" href="../css/Cadastro.css"/>
+        <title>Cadastro de Eventos (rascunho)</title>
+    </head>
+    <header>
+        <div class="centralize-content header-wrapper">
+            <h1 class="title">Meu Ingresso</h1>
+            <div class="user-section">
+              <a href="#" class="anchor">Thales</a>
+              <img src="../img/shopping-cart.png">
+              <span>1</span>
+            </div>
+        </div>
+        <nav class="menu-container">
+            <ul class="centralize-content menu-content">
+                <li>
+                    <a  href="cadastro_eventos.html" class="menu-item anchor">
+                        Cadastro do Evento
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-item anchor">
+                        Cadastro dos Ingressos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <body>
+        <style>
+            .centro{
+                text-align: center;
+            }
+        </style>
+        <h1 class="titulo">Cadastre seu Ingresso</h1>
+        <h2 class="subtitulo">Preencha com as informações necessarias</h2>
+        <br>
+        <hr>
+        <form class="centro">
+            <p>
+                Selecione um Evento
+                <select class="centro" nome = "evento">
+                    <option>Evento1</option>
+                    <option>Evento2</option>
+                </select>
+            </p>
+            <br>
+            <p>
+                Nome do Ingresso:
+                <input type="text" class = "input">
+            </p>
+            <br>
+            <p>
+                Quantidade de Ingressos:
+                <input type="number" class = "input inputQuantidade"> <br>
+            <!--
+            <input type="radio" name="qtd" value="k">Mil
+            <input type="radio" name="qtd" value="m">Milhoes>
+            -->
+            </p>
+            <hr>
+            <br>
+            <p>Valor de Cada Ingresso:
+                <select class="centro" nome = "estado">
+                    <option>R$</option>
+                    <option>US$</option>
+                </select>
+                <input type="number" class = "input inputValor">
+            </p>
+            <hr>
+            <br>
+            <p class="tempo_disp">Data Do Evento: 
+                <input type="datetime-local" id="inicio" name="inicio" class="input inputData">
+                <label for="fim">Até </label>
+                <input type="datetime-local" id="fim" name="fim" class="input inputData">
+            </p>
+            <br>
+            <p>Dados Adicionais:
+                <input type="text" class = "input inputNome">
+            </p>
+        </form><br>
+        <div class="centro">
+            <button class = "button button1">
+                Cancelar
+            </button>
+            <button class = "button button1">
+                Finalizar
+            </button>
+        </div>
+    </body>
+</html>
