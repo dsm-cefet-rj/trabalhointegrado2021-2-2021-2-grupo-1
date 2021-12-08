@@ -6,27 +6,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href= "../css/style.css" />
         <link rel="stylesheet" href="../css/cadastro.css"/>
-        <title>Cadastro de Eventos (rascunho)</title>
+        <link rel="stylesheet" href="../css/checkout.css">
+        <link rel="stylesheet" href="../css/responsividade.css">
+        <title>Meu Ingresso - Cadastrar Ingresso</title>
     </head>
     <header>
         <div class="centralize-content header-wrapper">
             <h1 class="title">Meu Ingresso</h1>
             <div class="user-section">
-              <a href="#" class="anchor">Thales</a>
-              <img src="../img/shopping-cart.png">
-              <span>1</span>
+              <a href="#" class="anchor">Rock in Rio</a>
             </div>
         </div>
         <nav class="menu-container">
             <ul class="centralize-content menu-content">
                 <li>
-                    <a  href="cadastro_eventos.html" class="menu-item anchor">
-                        Cadastro do Evento
+                    <a  href="cadastro-eventos.html" class="menu-item anchor">
+                        Cadastrar Evento
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="menu-item anchor">
-                        Cadastro dos Ingressos
+                    <a href="#" class="menu-item anchor active-anchor">
+                        Cadastrar Ingresso
                     </a>
                 </li>
             </ul>
@@ -39,53 +39,52 @@
             }
         </style>
         <h1 class="titulo">Cadastre seu Ingresso</h1>
-        <h2 class="subtitulo">Preencha com as informações necessarias</h2>
+        <h2 class="subtitulo">Preencha com as Informações Necessárias</h2>
         <br>
         <hr>
-        <form class="centro">
+        <form class="checkout-form">
             <p>
                 Selecione um Evento
-                <select class="centro" nome = "evento">
+                <select class="centro primary-content-input" nome = "evento" >
                     <option>Evento1</option>
                     <option>Evento2</option>
                 </select>
             </p>
             <br>
             <p>
-                Nome do Ingresso:
-                <input type="text" class = "input">
+                Nome do Ingresso
+                <input type="text" placeholder="Rock in Rio - 3º dia" class = "primary-content-input">
             </p>
             <br>
             <p>
-                Quantidade de Ingressos:
-                <input type="number" class = "input inputQuantidade"> <br>
+                Quantidade de Ingressos
+                <input type="number" placeholder="2"  class = "primary-content-input"> <br>
             <!--
             <input type="radio" name="qtd" value="k">Mil
             <input type="radio" name="qtd" value="m">Milhoes>
             -->
             </p>
             <hr>
-            <br>
-            <p>Valor de Cada Ingresso:
-                <select class="centro" nome = "estado">
+            <p>Valor de Cada Ingresso
+                <!-- <select class="centro" nome = "estado">
                     <option>R$</option>
                     <option>US$</option>
-                </select>
-                <input type="number" class = "input inputValor">
+                </select> -->
+                <input type="number" placeholder="R$ 100" class = "primary-content-input">
             </p>
             <hr>
             <br>
-            <p class="tempo_disp">Data Do Evento: 
-                <input type="datetime-local" id="inicio" name="inicio" class="input inputData">
+            <p class="tempo_disp">Data Do Evento
+                <input type="datetime-local" id="inicio" name="inicio" class="primary-content-input">
                 <label for="fim">Até </label>
-                <input type="datetime-local" id="fim" name="fim" class="input inputData">
+                <input type="datetime-local" id="fim" name="fim" class="primary-content-input">
             </p>
             <br>
-            <p>Dados Adicionais:
-                <input type="text" class = "input inputNome">
+            <p>Dados Adicionais
+                <input type="text" placeholder="Coloque alguma informação sobre o ingresso" class = "primary-content-input">
             </p>
         </form><br>
-        <div class="centro">
+        <div class="centro container-buttons">
             <button class = "button button1">
                 Cancelar
             </button>

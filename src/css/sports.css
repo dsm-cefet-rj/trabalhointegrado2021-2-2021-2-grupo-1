@@ -12,11 +12,11 @@
 
 .event-name {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 .event-details {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .event-details-item {
@@ -34,5 +34,4 @@
 .event-btn {
   display: block;
   margin: 0 auto;
-  font-size: 1rem;
 }

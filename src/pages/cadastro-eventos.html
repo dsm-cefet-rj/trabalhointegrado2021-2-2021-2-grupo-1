@@ -6,65 +6,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href= "../css/style.css" />
         <link rel="stylesheet" href="../css/cadastro.css"/>
-        <title>Cadastro de Eventos (rascunho)</title>
+        <link rel="stylesheet" href="../css/checkout.css">
+        <link rel="stylesheet" href="../css/responsividade.css">
+        <title>Meu Ingresso - Cadastrar Evento</title>
     </head>
     <header>
         <div class="centralize-content header-wrapper">
             <h1 class="title">Meu Ingresso</h1>
             <div class="user-section">
-                <a href="#" class="anchor">Thales</a>
-                <img src="../img/shopping-cart.png">
-                <span>1</span>
-            </div>
+                <a href="#" class="anchor">Rock in Rio</a>
+              </div>
         </div>
         <nav class="menu-container">
             <ul class="centralize-content menu-content">
                 <li>
-                    <a href = "#" class="menu-item anchor">
-                        Cadastro do Evento
+                    <a href = "#" class="menu-item anchor active-anchor">
+                        Cadastrar Evento
                     </a>
                 </li>
                 <li>
-                    <a href = "cadastro_ingressos.html" class = "menu-item anchor">
-                        Cadastro dos Ingressos
+                    <a href = "cadastro-ingressos.html" class = "menu-item anchor">
+                        Cadastrar Ingresso
                     </a>
                 </li>
             </ul>
         </nav>
     </header>
     <body>
-        <style>
-            .centro{
-                text-align: center;
-            }
-        </style>
         <h1 class="titulo"> Cadastre seu Evento </h1>
-        <h2 class="subtitulo"> Preencha com as informações necessarias </h2>
+        <h2 class="subtitulo"> Preencha com as Informações Necessárias </h2>
         <hr>
-        <form class="centro">
+        <form class="checkout-form">
             <br>
-            <p>Nome do Evento:
-                <input type="text" class = "input input">
+            <p>Nome do Evento
+                <input type="text" class = "input primary-content-input" placeholder="Rock in Rio">
             </p>
-            <br>
-            <p>Genero:
-            <select class="centro" nome = "genero">
+            <p>Genero
+            <select class="primary-content-input" nome = "genero">
                 <option>Esportes</option>
                 <option>Shows</option>
                 <option>Família</option>
             </select>
-            Estado:
-            <select class="centro" nome = "estado">
+            <br>
+            Estado
+            <select class="primary-content-input" nome = "estado">
                 <option>RJ</option>
                 <option>SP</option>
                 <option>MG</option>
                 <option>ES</option>
             </select>
-            <br><br>
-            <p>Cidade: <input type="text" class="input"></p>
+            <br>
+            <p>Cidade <input type="text" placeholder="Rio de Janeiro" class="primary-content-input"></p>
             <hr>
             <br>
-            <p>CEP: <input type="text" class = "input inputCep"></p>
+            <p>CEP <input type="text" placeholder="20270090" class = "primary-content-input"></p>
             <!--
             <p>Quantidade de Ingressos:
             <input type="number"><br>
@@ -86,13 +81,16 @@
             -->
             <hr>
             <br>
-            <p class="tempo_disp"> Data Do Evento: 
+            <p class="tempo_disp"> Data Do Evento
+                <br>
                 <input type="datetime-local" id="inicio" name="inicio" class="input inputData">
+                <br>
                 <label for="fim">Até </label>
+                <br>
                 <input type="datetime-local" id="fim" name="fim" class="input inputData">
             </p>
         </form><br>
-        <div class="centro">
+        <div class="container-buttons centro">
             <button class = "button button1">
                 Cancelar
             </button>

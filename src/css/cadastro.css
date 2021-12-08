@@ -1,10 +1,25 @@
+.centro{
+    text-align: center;
+}
+
 .titulo, .subtitulo{
     text-align: center;
+    padding: 0 20px;
+}
+
+.titulo {
+    margin-top: 50px;
+}
+
+.subtitulo{
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .input {
     background-color: rgba(255, 255, 255, 0);
     border-bottom: 2px solid #22223b;
+    margin-bottom: 20px;
     width: 60%;
     max-width: 375px;
     outline: none;
@@ -13,11 +28,11 @@
 }
 
 .inputValor{
-    max-width: 75px;
+    max-width: 200px;
 }
 
 .inputQuantidade{
-    max-width: 110px;
+    max-width: 200px;
 }
 
 .inputCep{
@@ -26,8 +41,18 @@
 }
 
 .inputData{
-    max-width: 190px;
+    max-width: 200px;
     font-size: 17px;
+}
+
+.container-buttons{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.primary-content-input{
+    display: block;
+    font-size: 0.6rem;
 }
 
 select{
@@ -40,9 +65,9 @@ select{
     font-size: 17px;
 }
 
-select[nome = "genero"]{
+/* select[nome = "genero"]{
     max-width: 100px;
-}
+} */
 
 select[nome = "evento"]{
     max-width: 375px;

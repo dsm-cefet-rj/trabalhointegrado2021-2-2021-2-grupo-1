@@ -16,9 +16,6 @@ html {
   font-family: "Nunito", sans-serif;
 }
 
-body {
-  font-size: 20px;
-}
 
 .centralize-content {
   display: flex;
@@ -42,8 +39,28 @@ body {
   padding: 15px;
 }
 
+.user-section {
+  text-align: center;
+}
+
 .user-section > .anchor{
-  margin-right: 20px;
+  font-size: 1rem;
+}
+
+
+.cart-container {
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.cart-container > a > span {
+  font-size: 1rem;
+  color: #22223b;
+}
+
+.img-cart {
+  width: 20px;
+  height: 20px;
 }
 
 .menu-container {
@@ -57,11 +74,11 @@ body {
 }
 
 .menu-item {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
   margin-right: 20px;
 }
 
@@ -71,7 +88,7 @@ body {
 
 .primary-content {
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
   position: absolute;
   top: 50%;
@@ -88,6 +105,7 @@ body {
   border-bottom: 2px solid #22223b;
   width: 60%;
   max-width: 500px;
+  font-size: 0.6rem;
   outline: none;
   color: #b7c2c5;
 }
@@ -97,5 +115,6 @@ body {
   background-color: rgba(255, 255, 255, 0);
   border: 1px solid #22223b;
   border-radius: 1px;
-  padding: 5px;
+  padding: 3px;
+  font-size: 0.7rem;
 }

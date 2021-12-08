@@ -1,0 +1,25 @@
+@media (min-width: 325px){
+  .user-section > .anchor {
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 425px) {
+  html{
+    font-size: 20px;
+  }
+
+  .btn{
+    padding: 5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html{
+    font-size: 22px;
+  }
+
+  .btn{
+    padding: 7px;
+  }
+}
