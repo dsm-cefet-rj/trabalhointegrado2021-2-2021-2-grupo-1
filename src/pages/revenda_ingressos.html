@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/sports.css" />
+        <link rel="stylesheet" href="../css/checkout.css">
+        <link rel="stylesheet" href="../css/ri.css">
+        <title>Meu Ingresso - Revenda de Ingressos </title>
+    </head>
+    <header>
+        <div class="centralize-content header-wrapper">
+          <h1 class="title">Meu Ingresso</h1>
+          <div class="user-section">
+            <a href="#" class="anchor">Thales</a>
+            <img src="../img/shopping-cart.png">
+            <span>1</span>
+          </div>
+        </div>
+        <nav class="menu-container">
+          <ul class="centralize-content menu-content">
+            <li>
+              <a 
+                href="./sports.html" 
+                class="menu-item anchor">
+                Esportes
+              </a>
+            </li>
+            <li><a href="#" class="menu-item anchor">Shows</a></li>
+            <li><a href="#" class="menu-item anchor">Família</a></li>
+          </ul>
+        </nav>
+      </header>
+    <body>
+        <h1 class="titulo">Cadastre Seus Ingressos para Revenda</h1>
+        <h2 class="subtitulo">Preencha com as informacoes necessarias</h2>
+        <hr>
+        <form class="centro">
+            <p>Nome do Evento:</p> 
+            <select class="escolha">
+                <option>Fla x Flu (RJ)</option>
+                <option>Lolapaloosa Dia 2 (SP)</option>
+                <option>Show Zeca Pagods (MG)</option>
+                <option>Teatro Estadual (ES)</option>
+                <!-- a ideia é q só vai aparecer como opção eventos q a pessoa comprou o ingresso-->
+            </select></p>
+            <hr>
+            <p>Quantidade de Ingressos:</p>
+            <input type="number"><br>
+            <!-- adicionar limite de ingressos (?)-->
+            <hr>
+            <p>Valor de Cada Ingresso:</p>
+            <input type="radio" name="grana" value="real">R$ 
+            <input type="radio" name="grana" value="dolar">US$ 
+            <p>
+            <input type="number">
+            </p>
+            <!-- adicionar limite de preço (?)-->
+        </form><br>
+        <div class="submit">
+            <button>
+                Enviar
+            </button>
+            <button>
+                Cancelar
+            </button>
+        </div>
+    </body>
+</html>
