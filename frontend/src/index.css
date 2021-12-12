@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+/* variaveis */
+:root {
+  --main-color: #22223b;
+  --secundary-color: #edf6f9;
+}
+
+/* geral */
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  box-sizing: border-box;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background-color: var(--secundary-color);
+  color: var(--main-color);
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  max-width: 1200px;
+  max-height: 2000px;
+  margin: 0 auto;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+a,
+span {
+  font-size: 1rem;
+  color: var(--main-color);
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* classes reutilizaveis */
+.centralizar-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centralizar-x {
+  margin: 0 auto;
+}
+
+.ancora {
+  color: #22223b;
+}
+
+.ancora:hover {
+  border-bottom: 2px solid #22223b;
+}
+
+.ancora-ativa {
+  font-weight: bold;
+}
+
+.input-text {
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom: 2px solid #22223b;
+  width: 70%;
+  max-width: 500px;
+  font-size: 4vw;
+  outline: none;
+}
+
+.input-text::placeholder {
+  color: #b7c2c5;
+}
+
+.botao {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid #22223b;
+  border-radius: 1px;
+  padding: 4px;
+  font-size: 4vw;
+}
+
+@media (min-width: 400px){
+  .input-text, .botao {
+    font-size: 16px;
+  }
+}

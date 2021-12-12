@@ -1,0 +1,18 @@
+.menu-container {
+  padding: 10px;
+}
+
+.menu-conteudo {
+  width: 80%;
+  justify-content: space-around;
+}
+
+.menu-item {
+  font-size: 5vw;
+}
+
+@media (min-width: 400px) {
+  .menu-item {
+    font-size: 20px;
+  }
+}
