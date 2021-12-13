@@ -1,11 +1,15 @@
 import "./Home.css";
 
-import Cabecalho from "../Cabecalho/Cabecalho";
+import CabecalhoPessoa from "../Cabecalho/CabecalhoPessoa";
+import MenuPessoa from "../Menu/MenuPessoa";
 
 function Home() {
   return (
     <>
-      <Cabecalho items={["Esporte", "Show", "Família"]} user="Thales" />
+      <header>
+        <CabecalhoPessoa />
+        <MenuPessoa />
+      </header>
       <main className="centralizar-xy">
         <div className="conteudo-principal-container">
           <h2>Procure Por Um Evento</h2>
