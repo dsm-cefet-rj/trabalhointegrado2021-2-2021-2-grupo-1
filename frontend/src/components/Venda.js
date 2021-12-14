@@ -1,9 +1,14 @@
 import "./Venda.css";
 
+import CabecalhoPessoa from "../Cabecalho/CabecalhoPessoa";
+import MenuPessoa from "../Menu/MenuPessoa";
+
 function Venda() {
   return (
     <>
       <header>
+        <CabecalhoPessoa />
+        <MenuPessoa />
         <div className="centralize-content header-wrapper">
           <h1 className="title">Meu Ingresso</h1>
           <div className="usuario-section">
