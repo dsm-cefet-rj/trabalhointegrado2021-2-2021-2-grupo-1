@@ -1,39 +1,14 @@
 import "./Venda.css";
 
-import CabecalhoPessoa from "../Cabecalho/CabecalhoPessoa";
-import MenuPessoa from "../Menu/MenuPessoa";
+import CabecalhoEmpresa from "../Cabecalho/CabecalhoEmpresa";
+import MenuEmpresa from "../Menu/MenuEmpresa";
 
-function Venda() {
+function CriarVenda() {
   return (
     <>
       <header>
-        <CabecalhoPessoa />
-        <MenuPessoa />
-        <div className="centralize-content header-wrapper">
-          <h1 className="title">Meu Ingresso</h1>
-          <div className="usuario-section">
-            <a href="#" className="ancora">Thales</a>
-            <div className="carrinho-container">
-              <a href="events-cart.html">
-                <img src="../img/shopping-cart.png" className="img-cart"></img>
-                <span>1</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <nav className="menu-container">
-          <ul className="centralize-content menu-content">
-            <li>
-              <a
-                href="./sports.html"
-                className="menu-item ancora">
-                Esportes
-              </a>
-            </li>
-            <li><a href="#" className="menu-item ancora">Shows</a></li>
-            <li><a href="#" className="menu-item ancora">Família</a></li>
-          </ul>
-        </nav>
+        <CabecalhoEmpresa />
+        <MenuEmpresa />
       </header>
       <main>
         <h1 className="titulo">Revenda seus Ingressos</h1>
@@ -72,4 +47,4 @@ function Venda() {
   );
 }
 
-export default Venda;
+export default CriarVenda;
