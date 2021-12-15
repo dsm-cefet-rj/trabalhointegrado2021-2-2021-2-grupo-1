@@ -9,7 +9,7 @@ function CabecalhoPessoa() {
       <div className="cabecalho-container centralizar-xy">
         <h1>Meu Ingresso</h1>
         <div className="usuario-container centralizar-xy">
-          <a href="#">Thales</a>
+          <a href="#" className="ancora">Thales</a>
           <div className="carrinho-compra-container">
             <a href="#">
               <FontAwesomeIcon

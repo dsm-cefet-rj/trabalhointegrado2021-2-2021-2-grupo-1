@@ -3,17 +3,7 @@
   width: 100%;
 }
 
-.conteudo-principal-container > h2 {
-  font-size: 6vw;
-  margin-bottom: 30px;
-}
-
 .conteudo-principal-input {
   margin-right: 10px;
-}
-
-@media (min-width: 650px) {
-  .conteudo-principal-container > h2 {
-    font-size: 40px;
-  }
+  display: inline-block;
 }

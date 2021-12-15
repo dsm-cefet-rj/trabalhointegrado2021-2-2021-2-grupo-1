@@ -6,7 +6,7 @@ function CabecalhoEmpresa() {
       <div className="cabecalho-container centralizar-xy">
         <h1>Meu Ingresso</h1>
         <div className="usuario-container centralizar-xy">
-          <a href="#">Rock in Rio</a>
+          <a href="#" className="ancora">Rock in Rio</a>
         </div>
       </div>
     </header>

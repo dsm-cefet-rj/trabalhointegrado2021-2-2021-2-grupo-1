@@ -46,6 +46,10 @@ span {
   color: var(--main-color);
 }
 
+label {
+  font-size: 4vw;
+}
+
 main {
   flex-grow: 1;
 }
@@ -61,8 +65,18 @@ main {
   margin: 0 auto;
 }
 
+.centralizar-y {
+  flex-direction: column;
+}
+
+.subtitulo {
+  font-size: 6vw;
+  margin: 30px 0;
+}
+
 .ancora {
   color: #22223b;
+  cursor: pointer;
 }
 
 .ancora:hover {
@@ -73,16 +87,26 @@ main {
   font-weight: bold;
 }
 
-.input-text {
+.formulario {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.input-box {
   background-color: rgba(255, 255, 255, 0);
   border-bottom: 2px solid #22223b;
   width: 70%;
-  max-width: 500px;
+  max-width: 390px;
   font-size: 4vw;
   outline: none;
+  margin-bottom: 30px;
+  display: block;
 }
 
-.input-text::placeholder {
+.input-box::placeholder {
   color: #b7c2c5;
 }
 
@@ -92,10 +116,24 @@ main {
   border-radius: 1px;
   padding: 4px;
   font-size: 4vw;
+  cursor: pointer;
 }
 
-@media (min-width: 400px){
-  .input-text, .botao {
+@media (min-width: 400px) {
+  .input-box,
+  .botao {
     font-size: 16px;
+  }
+}
+
+@media (min-width: 450px) {
+  label {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 650px) {
+  .subtitulo {
+    font-size: 40px;
   }
 }

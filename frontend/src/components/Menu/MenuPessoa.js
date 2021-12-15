@@ -6,13 +6,13 @@ function MenuPessoa() {
       <nav className="menu-container centralizar-x">
         <ul className="menu-conteudo centralizar-xy centralizar-x">
           <li>
-            <a className="menu-item anchor">Esportes</a>
+            <a className="menu-item ancora">Esportes</a>
           </li>
           <li>
-            <a className="menu-item anchor">Shows</a>
+            <a className="menu-item ancora">Shows</a>
           </li>
           <li>
-            <a className="menu-item anchor">Família</a>
+            <a className="menu-item ancora">Família</a>
           </li>
         </ul>
       </nav>

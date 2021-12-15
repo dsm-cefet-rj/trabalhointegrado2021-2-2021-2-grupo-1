@@ -12,12 +12,12 @@ function Home() {
       </header>
       <main className="centralizar-xy">
         <div className="conteudo-principal-container">
-          <h2>Procure Por Um Evento</h2>
+          <h2 className="subtitulo">Procure Por Um Evento</h2>
           <form>
             <input
               type="text"
               placeholder="Nome do Evento"
-              className="conteudo-principal-input input-text"
+              className="input-box conteudo-principal-input"
             />
             <button className="botao">Procurar</button>
           </form>
