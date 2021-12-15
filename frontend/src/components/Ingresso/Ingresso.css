@@ -1,0 +1,32 @@
+.ingressos-criados-container > h2 {
+    font-size: 9vw;
+  }
+  
+  .ingressos-criados-container > div > h3{
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 30px;
+    font-size: 8vw;
+  }
+  
+  .ingressos-criados-container > div > a{
+    font-size: 4vw;
+  }
+  
+  @media (min-width: 445px){
+    .ingressos-criados-container > h2 {
+      font-size: 40px;
+    }
+  }
+  
+  @media (min-width: 560px) {
+    .ingressos-criados-container > div > h3 {
+      font-size: 40px;
+    }
+  }
+  
+  @media (min-width: 620px){
+    .ingressos-criados-container > div > a{
+      font-size: 25px;
+    }
+  }
