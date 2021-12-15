@@ -18,3 +18,9 @@
 .botao:nth-of-type(1){
   margin-right: 20px;
 }
+
+.botao-comprar{
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid black;
+  color: black;
+}
