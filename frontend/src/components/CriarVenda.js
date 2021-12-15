@@ -12,7 +12,7 @@ function CriarVenda() {
         <MenuEmpresa />
         </header>
       <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">Editar Venda</h2>
+        <h2 className="subtitulo">Criar Venda</h2>
         <form className="formulario">
           <label>Nome do Evento</label>
           <input type="text" className="input-box" placeholder="Rock in Rio" />
