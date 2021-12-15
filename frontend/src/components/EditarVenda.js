@@ -1,49 +1,60 @@
-import "./Venda.css";
+import "./eventos.css";
 
-import CabecalhoEmpresa from "../Cabecalho/CabecalhoEmpresa";
-import MenuEmpresa from "../Menu/MenuEmpresa";
+import CabecalhoEmpresa from "../../components/Cabecalho/CabecalhoEmpresa";
+import MenuEmpresa from "../../components/Menu/MenuEmpresa";
 import EditarEDeletar from "../Botoes/EditarEDeletar";
 
 function EditarVenda() {
-    return (
-        <>
-            <header>
-                <CabecalhoEmpresa />
-                <MenuEmpresa />
-            </header>
-            <main>
-                <h1 className="titulo">Edite Sua Venda</h1>
-                <h2 className="subtitulo">Selecione uma de suas vendas para alterção</h2>
-                <hr/>
-        <form className="checkout-form">
-            <p>Evento</p>
-            <select className="primary-content-input">
-                <option>Fla x Flu (RJ)</option>
-                <option>Lolapalooza Dia 2 (SP)</option>
-                <option>Show Zeca Pagods (MG)</option>
-                <option>Teatro Estadual (ES)</option>
+  return (
+    <>
+      <header>
+        <CabecalhoEmpresa />
+        <MenuEmpresa />
+      </header>
+      <main className="centralizar-xy centralizar-y">
+        <h2 className="subtitulo">Editar Venda</h2>
+        <form className="formulario">
+          <label>Nome do Evento</label>
+          <input type="text" className="input-box" placeholder="Rock in Rio" />
+          <label>
+            Genero
+            <select className="input-box">
+              <option>Esportes</option>
+              <option>Shows</option>
+              <option>Família</option>
             </select>
-            <hr/>
-            <p>Quantidade de Ingressos</p>
-            <p>
-              <input type="number" className="primary-content-input" placeholder="2"/>
-            </p>
-            <hr/>
-            <p>Valor de Cada Ingresso</p>
-            <p>
-              <input type="number" placeholder="R$ 100" className="primary-content-input"/>
-            </p>
+          </label>
+          <label>
+            Estado
+            <select className="input-box">
+              <option>RJ</option>
+              <option>SP</option>
+              <option>MG</option>
+              <option>ES</option>
+            </select>
+          </label>
+          <label>
+            Cidade
+            <input
+              type="text"
+              placeholder="Rio de Janeiro"
+              className="input-box"
+            />
+          </label>
+          <label>
+            CEP
+            <input type="number" placeholder="20270090" className="input-box" />
+          </label>
+          <label>
+            Valor do Ingresso
+            <input type="number" placeholder="R$ 100" className="primary-content-input"/>
+          </label>
+          <label>
+            Quantidade de Ingressos
+            <input type="number" placeholder="2" className="primary-content-input"/>
+          </label>
+          <EditarEDeletar />
         </form>
-        <br/>
-        <div className="submit container-botao">
-          <button className = "botao">
-            Cancelar
-          </button>
-          <button className = "botao">
-            Finalizar
-          </button>
-        </div>
-        <EditarEDeletar />
       </main>
     </>
   );
