@@ -14,7 +14,7 @@ function App() {
         <Route path="/criar-eventos" element={<CriarEvento />}></Route>
         <Route path="/editar-eventos" element={<EditarEvento />}></Route>
         <Route path="/dashboard"></Route>
-      </Routes> 
+      </Routes>
     </Router>
   );
 }
