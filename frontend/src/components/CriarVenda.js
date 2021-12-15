@@ -2,6 +2,7 @@ import "./Venda.css";
 
 import CabecalhoEmpresa from "../Cabecalho/CabecalhoEmpresa";
 import MenuEmpresa from "../Menu/MenuEmpresa";
+import EditarECriar from "../Botoes/EditarECriar";
 
 function CriarVenda() {
   return (
@@ -42,6 +43,7 @@ function CriarVenda() {
             Finalizar
           </button>
         </div>
+        <EditarECriar />
       </main>
     </>
   );
