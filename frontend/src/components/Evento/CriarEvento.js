@@ -1,18 +1,19 @@
-import "./eventos.css";
+import Cabecalho from "../Cabecalho/Cabecalho";
+import Botao from "../Botoes/Botoes";
 
-import CabecalhoEmpresa from "../../components/Cabecalho/CabecalhoEmpresa";
-import MenuEmpresa from "../../components/Menu/MenuEmpresa";
-import EditarEDeletar from "../Botoes/EditarEDeletar";
+function CriarEvento() {
+  const botao = [
+    {
+      nome: "Criar",
+      url: "/",
+    },
+  ];
 
-function EditarEvento() {
   return (
     <>
-      <header>
-        <CabecalhoEmpresa />
-        <MenuEmpresa />
-      </header>
+      <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">Editar Evento</h2>
+        <h2 className="subtitulo">Criar Evento</h2>
         <form className="formulario">
           <label>Nome do Evento</label>
           <input type="text" className="input-box" placeholder="Rock in Rio" />
@@ -23,23 +24,6 @@ function EditarEvento() {
               <option>Shows</option>
               <option>Família</option>
             </select>
-          </label>
-          <label>
-            Estado
-            <select className="input-box">
-              <option>RJ</option>
-              <option>SP</option>
-              <option>MG</option>
-              <option>ES</option>
-            </select>
-          </label>
-          <label>
-            Cidade
-            <input
-              type="text"
-              placeholder="Rio de Janeiro"
-              className="input-box"
-            />
           </label>
           <label>
             CEP
@@ -53,11 +37,11 @@ function EditarEvento() {
             Finalização do Evento
             <input type="datetime-local" className="input-box" />
           </label>
-          <EditarEDeletar />
+          <Botao botoes={botao} />
         </form>
       </main>
     </>
   );
 }
 
-export default EditarEvento;
+export default CriarEvento;

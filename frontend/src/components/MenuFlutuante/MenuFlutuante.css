@@ -1,0 +1,23 @@
+.menu-flutuante {
+  display: inline-block;
+  position: relative;
+}
+
+.menu-flutuante > a {
+  font-size: 0.8rem;
+}
+
+.menu-flutuante-conteudo {
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  background-color: var(--secundary-color);
+  position: absolute;
+  right: 0%;
+  border-radius: 2px;
+}
+
+.menu-flutuante-conteudo > a {
+  display: block;
+  margin: 30px;
+  font-size: 0.8rem;
+}

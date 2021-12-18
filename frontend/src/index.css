@@ -26,6 +26,7 @@ html {
   background-color: var(--secundary-color);
   color: var(--main-color);
   font-family: "Nunito", sans-serif;
+  font-size: 20px;
 }
 
 body {
@@ -47,7 +48,7 @@ span {
 }
 
 label {
-  font-size: 4vw;
+  font-size: 0.8rem;
 }
 
 main {
@@ -70,17 +71,18 @@ main {
 }
 
 .subtitulo {
-  font-size: 6vw;
-  margin: 30px 0;
+  font-size: 1.2rem;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .ancora {
-  color: #22223b;
+  color: var(--main-color);
   cursor: pointer;
 }
 
 .ancora:hover {
-  border-bottom: 2px solid #22223b;
+  border-bottom: 2px solid var(--main-color);
 }
 
 .ancora-ativa {
@@ -96,44 +98,53 @@ main {
 }
 
 .input-box {
-  background-color: rgba(255, 255, 255, 0);
-  border-bottom: 2px solid #22223b;
+  background-color: transparent;
+  border-bottom: 2px solid var(--main-color);
   width: 70%;
   max-width: 390px;
-  font-size: 4vw;
+  font-size: 0.8rem;
   outline: none;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  margin-left: 0;
   display: block;
+  text-align: left;
 }
 
 .input-box::placeholder {
   color: #b7c2c5;
 }
 
-.botao {
-  background-color: rgba(255, 255, 255, 0);
-  border: 1px solid #22223b;
-  border-radius: 1px;
-  padding: 4px;
-  font-size: 4vw;
-  cursor: pointer;
+.listagem-container-empresa > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-@media (min-width: 400px) {
-  .input-box,
-  .botao {
-    font-size: 16px;
+.listagem-container-empresa .botoes-container {
+  margin-top: 0;
+  margin-left: 30px;
+}
+
+.listagem-container-empresa .subtitulo {
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+.listagem-container-empresa p {
+  margin-left: 30px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 23px;
   }
 }
 
-@media (min-width: 450px) {
-  label {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 650px) {
-  .subtitulo {
-    font-size: 40px;
+@media (min-width: 1024px) {
+  html {
+    font-size: 26px;
   }
 }

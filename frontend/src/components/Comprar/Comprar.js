@@ -1,36 +1,67 @@
-import "./Comprar.css";
-import Evento from "./Event";
-import BotComprar from "../Botoes/BotComprar";
-import Menu from "../Menu/MenuPessoa";
-import Cabecalho from "../Cabecalho/CabecalhoPessoa";
+import "./comprar.css";
+
+import Cabecalho from "../Cabecalho/Cabecalho";
+import Ingresso from "../Ingresso/Pessoa/Ingresso";
+import Botao from "../Botoes/Botoes";
 
 function Comprar() {
+  const botao = [
+    {
+      nome: "Comprar",
+      url: "/",
+    }
+  ]
+
   return (
     <>
-      <header>
-        <Cabecalho />
-        <Menu />
-      </header>
-      <div>
-        <Evento />
-      </div>
-      <div className="centro">
-        <h2 className="titulo">Finalizar Compra</h2>
-        <form className="checkout">
-          <p className="subt">Nome do Cartão de Crédito</p>
-          <input type="text" className="CartaoCompra" />
-          <p className="subt">Número do Cartão de Crédito</p>
-          <input type="number" className="NumeroCartao" />
-          <p className="subt">Data de Validade</p>
-          <input type="month" className="DtvCartao" />
-          <p className="subt">Código de Segurança</p>
-          <input type="number" className="CodCartao" />
-          <p></p>
+      <Cabecalho usuario={"pessoa"} />
+      <main className="centralizar-xy centralizar-y">
+        <>
+          <h2 className="subtitulo">
+            Meu carrinho <span>1</span>
+          </h2>
+          <Ingresso />
+          <p className="total-compra">Total: R$ 100,00</p>
+        </>
+        <h2 className="subtitulo">Finalizar Compra</h2>
+        <form className="formulario">
+          CPF
+          <input
+            type="number"
+            placeholder="32878887873"
+            className="input-box"
+          />
+          <label>
+            Nome do Cartão de Crédito
+            <input
+              type="text"
+              placeholder="Alfredo Alberto de Souza"
+              className="input-box"
+            />
+          </label>
+          <label>
+            Número do Cartão de Crédito
+            <input
+              type="number"
+              placeholder="3287888787382188"
+              className="input-box"
+            />
+          </label>
+          <label>
+            Data de Validade
+            <input
+              type="month"
+              placeholder="março de 2024"
+              className="input-box"
+            />
+          </label>
+          <label>
+            Código de Segurança
+            <input type="number" placeholder="999" className="input-box" />
+          </label>
+          <Botao botoes={botao} />
         </form>
-        <form className="butao">
-          <BotComprar />
-        </form>
-      </div>
+      </main>
     </>
   );
 }

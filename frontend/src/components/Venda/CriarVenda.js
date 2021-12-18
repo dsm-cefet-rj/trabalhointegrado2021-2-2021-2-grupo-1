@@ -1,59 +1,43 @@
-import "./Venda.css";
-
-import CabecalhoEmpresa from "../Cabecalho/CabecalhoEmpresa";
-import MenuEmpresa from "../Menu/MenuEmpresa";
-import EditarECriar from "../Botoes/EditarECriar";
+import Cabecalho from "../Cabecalho/Cabecalho";
+import Botao from "../Botoes/Botoes";
 
 function CriarVenda() {
+  const botao = [
+    {
+      nome: "Criar",
+      url: "/",
+    },
+  ];
+
   return (
     <>
-      <header>
-        <CabecalhoEmpresa />
-        <MenuEmpresa />
-        </header>
+      <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Venda</h2>
         <form className="formulario">
-          <label>Nome do Evento</label>
-          <input type="text" className="input-box" placeholder="Rock in Rio" />
           <label>
-            Genero
+            Nome do Evento
             <select className="input-box">
-              <option>Esportes</option>
-              <option>Shows</option>
-              <option>Família</option>
+              <option>Rock in Rio 2021</option>
+              <option>Rock in Rio 2021</option>
             </select>
           </label>
           <label>
-            Estado
+            Nome do Ingresso
             <select className="input-box">
-              <option>RJ</option>
-              <option>SP</option>
-              <option>MG</option>
-              <option>ES</option>
+              <option>Rock in Rio 2021 - Dia 5</option>
+              <option>Rock in Rio 2021 - Dia 7</option>
             </select>
-          </label>
-          <label>
-            Cidade
-            <input
-              type="text"
-              placeholder="Rio de Janeiro"
-              className="input-box"
-            />
-          </label>
-          <label>
-            CEP
-            <input type="number" placeholder="20270090" className="input-box" />
           </label>
           <label>
             Valor do Ingresso
-            <input type="number" placeholder="R$ 100" className="primary-content-input"/>
+            <input type="number" placeholder="100" className="input-box" />
           </label>
           <label>
             Quantidade de Ingressos
-            <input type="number" placeholder="2" className="primary-content-input"/>
+            <input type="number" placeholder="2" className="input-box" />
           </label>
-          <EditarECriar />
+          <Botao botoes={botao} />
         </form>
       </main>
     </>

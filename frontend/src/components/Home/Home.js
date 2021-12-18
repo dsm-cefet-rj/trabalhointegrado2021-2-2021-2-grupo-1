@@ -1,25 +1,29 @@
-import "./Home.css";
+import "./home.css";
 
-import CabecalhoPessoa from "../Cabecalho/CabecalhoPessoa";
-import MenuPessoa from "../Menu/MenuPessoa";
+import Cabecalho from "../Cabecalho/Cabecalho";
+import Botao from "../Botoes/Botoes";
 
 function Home() {
+  const botao = [
+    {
+      nome: "Procurar",
+      url: "/",
+    },
+  ];
+
   return (
     <>
-      <header>
-        <CabecalhoPessoa />
-        <MenuPessoa />
-      </header>
+      <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy">
-        <div className="conteudo-principal-container">
+        <div className="pagina-inicial-container">
           <h2 className="subtitulo">Procure Por Um Evento</h2>
-          <form>
+          <form className="formulario">
             <input
               type="text"
               placeholder="Nome do Evento"
-              className="input-box conteudo-principal-input"
+              className="input-box"
             />
-            <button className="botao">Procurar</button>
+            <Botao botoes={botao} />
           </form>
         </div>
       </main>

@@ -1,0 +1,20 @@
+.pagina-inicial-container > .subtitulo {
+  text-align: center;
+}
+
+.pagina-inicial-container > .formulario {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.pagina-inicial-container .input-box {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.pagina-inicial-container .botoes-container {
+  margin-top: 0;
+  margin-left: 30px;
+}

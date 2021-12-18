@@ -1,19 +1,54 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
-import ListarEventos from "./components/Eventos/ListarEventos";
-import EditarEvento from "./components/Eventos/EditarEvento";
-import CriarEvento from "./components/Eventos/CriarEvento";
+import ListarEventos from "./components/Evento/ListarEventos";
+import EditarEvento from "./components/Evento/EditarEvento";
+import CriarEvento from "./components/Evento/CriarEvento";
+import Comprar from "./components/Comprar/Comprar";
+import ListarIngressosPessoa from "./components/Ingresso/Pessoa/ListarIngressos";
+import IngressosComprados from "./components/Comprar/ListarCompras";
+import EditarCompra from "./components/Comprar/EditarCompra";
+import CriarIngresso from "./components/Ingresso/Empresa/CriarIngresso";
+import EditarIngresso from "./components/Ingresso/Empresa/EditarIngresso";
+import ListarIngressosEmpresa from "./components/Ingresso/Empresa/ListarIngresso";
+import CriarVenda from "./components/Venda/CriarVenda";
+import EditarVenda from "./components/Venda/EditarVenda";
+import ListarVendas from "./components/Venda/ListarVendas";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
-        <Route path="/listar-eventos" element={<ListarEventos />}></Route>
-        <Route path="/criar-eventos" element={<CriarEvento />}></Route>
-        <Route path="/editar-eventos" element={<EditarEvento />}></Route>
-        <Route path="/dashboard"></Route>
+
+        <Route path="/eventos" element={<ListarEventos />}></Route>
+        <Route path="/criar-evento" element={<CriarEvento />}></Route>
+        <Route path="/editar-evento" element={<EditarEvento />}></Route>
+
+        <Route path="/ingressos" element={<ListarIngressosEmpresa />}></Route>
+        <Route path="/criar-ingresso" element={<CriarIngresso />}></Route>
+        <Route path="/editar-ingresso" element={<EditarIngresso />}></Route>
+
+        <Route path="/vendas" element={<ListarVendas />}></Route>
+        <Route path="/criar-venda" element={<CriarVenda />}></Route>
+        <Route path="/editar-venda" element={<EditarVenda />}></Route>
+
+        <Route path="/carrinho" element={<Comprar />}></Route>
+        <Route path="/meus-ingressos" element={<IngressosComprados />}></Route>
+        <Route path="/editar-compra" element={<EditarCompra />}></Route>
+
+        <Route
+          path="/esportes"
+          element={<ListarIngressosPessoa genero={"Esportes"} />}
+        ></Route>
+        <Route
+          path="/shows"
+          element={<ListarIngressosPessoa genero={"Shows"} />}
+        ></Route>
+        <Route
+          path="/familia"
+          element={<ListarIngressosPessoa genero={"Famílias"} />}
+        ></Route>
       </Routes>
     </Router>
   );
