@@ -15,10 +15,10 @@ function EditarVenda() {
 
   return (
     <>
-      <Cabecalho usuario={"empresa"} />
-      <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">Editar Venda</h2>
-        <form className="formulario">
+      <Cabecalho usuario = {"empresa"} />
+      <main className = "centralizar-xy centralizar-y">
+        <h2 className = "subtitulo">Editar Venda</h2>
+        <form className = "formulario">
           <label>
             Valor do Ingresso
             <input type="number" placeholder="100" className="input-box" />
@@ -27,7 +27,7 @@ function EditarVenda() {
             Quantidade de Ingressos
             <input type="number" placeholder="2" className="input-box" />
           </label>
-          <Botoes botoes={botoes} />
+          <Botoes botoes = {botoes} />
         </form>
       </main>
     </>
