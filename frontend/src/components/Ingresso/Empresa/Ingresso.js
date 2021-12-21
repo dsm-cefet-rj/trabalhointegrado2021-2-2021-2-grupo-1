@@ -10,7 +10,7 @@ function Ingresso() {
 
   return (
     <div>
-      <h2 className="subtitulo">Rock in Rio 2022 - Dia 3</h2>
+      <h2 className="subtitulo">{ingressoNome}</h2>
       <Botao botoes={botao} />
     </div>
   );
