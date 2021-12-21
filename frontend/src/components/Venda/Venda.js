@@ -12,7 +12,7 @@ function Venda() {
     <div>
       <h2 className="subtitulo">Rock in Rio 2021 - Dia 3</h2>
       <p>Ingressos Restantes: 5</p>
-      <Botao botoes={botao} />
+      <Botao botoes = {botao} />
     </div>
   );
 }
