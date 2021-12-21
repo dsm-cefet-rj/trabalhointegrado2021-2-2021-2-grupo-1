@@ -7,11 +7,11 @@ function EditarIngresso() {
   const botoes = [
     {
       nome: "Editar",
-      url: "/ingresso",
+      url: "/ingressos",
     },
     {
       nome: "Remover",
-      url: "/ingresso",
+      url: "/ingressos",
     }
   ]
 
