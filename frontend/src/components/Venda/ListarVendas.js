@@ -9,10 +9,10 @@ function ListaVendas() {
   
   return (
     <>
-      <Cabecalho usuario={"empresa"} />
-      <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">Minhas Vendas</h2>
-        <div className="listagem-container-empresa">
+      <Cabecalho usuario = {"empresa"} />
+      <main className = "centralizar-xy centralizar-y">
+        <h2 className = "subtitulo">Minhas Vendas</h2>
+        <div className = "listagem-container-empresa">
           {vendas.map(({ nome }) => (
             <Venda vendaNome={nome} />
           ))}
