@@ -7,7 +7,7 @@ function CriarIngresso() {
   const botao = [
     {
       nome: "Criar",
-      url: "/",
+      url: "/ingressos",
     },
   ];
 
