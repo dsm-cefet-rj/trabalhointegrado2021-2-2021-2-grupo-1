@@ -34,7 +34,7 @@ function CriarVenda({ vendas, setVendas }) {
       <Cabecalho usuario = {"empresa"} />
       <main className = "centralizar-xy centralizar-y">
         <h2 className = "subtitulo">Criar Venda</h2>
-        <form className = "formulario">
+        <form className = "formulario" onSubmit={checaEnvio}>
           <label>Nome do Evento</label>
           <input
             type="text"
