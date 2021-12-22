@@ -28,7 +28,6 @@ function CriarVenda({ vendas, setVendas }) {
     navigate("/vendas");
   }
 
-
   return (
     <>
       <Cabecalho usuario = {"empresa"} />
