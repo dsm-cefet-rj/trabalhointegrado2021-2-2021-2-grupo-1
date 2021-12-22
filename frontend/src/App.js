@@ -64,7 +64,7 @@ function App() {
     }
   ]);
   
-    const [MeuCarrinho, IngressosComprados] = useState([
+    const [meuCarrinho, ingressosComprados] = useState([
     {
       nomeEvento: "Jogo das Estrelas - 2021",
       eventoCEP: "20271-130",
@@ -110,9 +110,18 @@ function App() {
           path="/editar-venda" element={<EditarVenda />}
         ></Route>
 
-        <Route path="/carrinho" element={<Comprar />}></Route>
-        <Route path="/meus-ingressos" element={<IngressosComprados />}></Route>
+        <Route 
+          path="/carrinho"
+          element={<Comprar meuCarrinho={meuCarrinho} />}
+        ></Route>
+
+        <Route 
+          path="/meus-ingressos" 
+          element={<ListarCompras ingressoComprados={ingressosComprados} />}
+        ></Route>
+
         <Route path="/editar-compra" element={<EditarCompra />}></Route>
+
 
         <Route
           path="/esportes"
