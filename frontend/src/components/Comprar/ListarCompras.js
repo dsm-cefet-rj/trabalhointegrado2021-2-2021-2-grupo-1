@@ -23,9 +23,6 @@ function ListarCompras() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Meus Ingressos</h2>
         <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
       </main>
     </>
   );
