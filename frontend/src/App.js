@@ -70,7 +70,7 @@ function App() {
       eventoCEP: "20271-130",
       lugarIngresso: "Leste-430",
       dataEvento: "2021-12-10t16:00",
-      preçoIngresso: "100",
+      precoIngresso: "100",
     } 
     ]);
 
