@@ -33,6 +33,18 @@ function App() {
       dataFim: "2021-12-25T20:00",
     },
   ]);
+  const [ingressos, setIngressos] = useState([
+    {
+      evento: "Rock in Rio",
+      nome: "Rock in Rio - Dia 3",
+      dados: "Show de musica",
+    },
+    {
+      evento: "Rock in Rio",
+      nome: "Rock in Rio - Dia 4",
+      dados: "Show de musica",
+    },
+  ]);
 
   return (
     <Router>
@@ -49,9 +61,16 @@ function App() {
         ></Route>
         <Route path="/editar-evento" element={<EditarEvento />}></Route>
 
-        <Route path="/ingressos" element={<ListarIngressosEmpresa />}></Route>
-        <Route path="/criar-ingresso" element={<CriarIngresso />}></Route>
-        <Route path="/editar-ingresso" element={<EditarIngresso />}></Route>
+         <Route
+          path="/ingressos"
+          element = {<ListarIngressosEmpresa ingressos = {ingressos} />}
+        ></Route>
+        <Route
+          path="/criar-ingresso"
+          element = {<CriarIngresso ingressos = {ingressos}
+          setIngressos = {setIngressos} />}
+        ></Route>
+        <Route path = "/editar-ingresso" element = {<EditarIngresso />}></Route>
 
         <Route path="/vendas" element={<ListarVendas />}></Route>
         <Route path="/criar-venda" element={<CriarVenda />}></Route>
