@@ -37,14 +37,14 @@ function CriarVenda({ vendas, setVendas }) {
           <label>Nome do Evento</label>
           <input
             type="text"
-            name="nome"
+            name="nomeEvento"
             className="input-box"
             placeholder="Rock in Rio"
             onChange={checaMudanca}
           />
           <label>
             Identificação do Ingresso
-            <select className = "input-box">
+            <select className="input-box" name="idIngresso">
               <option>Rock in Rio 2021 - Dia 5</option>
               <option>Rock in Rio 2021 - Dia 7</option>
             </select>
@@ -59,13 +59,11 @@ function CriarVenda({ vendas, setVendas }) {
           </label>
           <label>
             Valor do Ingresso
-              <input type="number" placeholder="100" className="input-box" />
-              onChange={checaMudanca}
+              <input type="number" placeholder="100" className="input-box" name="valor" onChange={checaMudanca} />
           </label>
           <label>
             Quantidade de Ingressos
-              <input type="number" placeholder="2" className="input-box" />
-              onChange={checaMudanca}
+              <input type="number" placeholder="2" className="input-box" name="quantidade" onChange={checaMudanca} />
           </label>
           <div className="botoes-container">
             <input
