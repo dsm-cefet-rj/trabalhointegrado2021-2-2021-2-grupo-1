@@ -1,6 +1,6 @@
 import Botao from "../Botoes/Botoes";
 
-function Venda() {
+function Venda({venda}) {
   const botao = [
     {
       nome: "Editar",
@@ -10,8 +10,8 @@ function Venda() {
 
   return (
     <div>
-      <h2 className="subtitulo">Rock in Rio 2021 - Dia 3</h2>
-      <p>Ingressos Restantes: 5</p>
+      <h2 className="subtitulo"> {venda.idIngresso} </h2>
+      <p>Ingressos Restantes: {venda.quantidade} </p>
       <Botao botoes = {botao} />
     </div>
   );
