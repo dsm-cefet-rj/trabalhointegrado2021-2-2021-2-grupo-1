@@ -2,44 +2,38 @@ import "./comprar.css";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
-import "../Botoes/Botoes.css";
+//import "../Botoes/Botoes.css";
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Comprar({meuCarrinho,setCompras}) {
-
+function Comprar({
+  meuCarrinho,
+  setMeuCarrinho,
+  ingressosComprados,
+  setIngressosComprados,
+}) {
   const navigate = useNavigate();
 
-   const [Compra, setNovaCompra] = useState({
-    nomeEvento: "",
-    eventoCEP: 0,
-    lugarIngresso:"",
-    dataEvento: "",
-    precoIngresso: "",
-  });
-
-  function checaMudanca(e) {
-    setNovaCompra({
-      ...Compra,
-      [e.target.name]: e.target.value,
-    });
-  }
+  function checaMudanca(e) {}
 
   function checaEnvio(e) {
-    setCompras([...meuCarrinho, Compra]);
+    setIngressosComprados(ingressosComprados.concat(meuCarrinho));
     e.preventDefault();
-    navigate("/ListarCompras");
+    navigate("/meus-ingressos");
+    setMeuCarrinho([]);
   }
-  
+
   return (
     <>
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <>
           <h2 className="subtitulo">
-            Meu carrinho <span>1</span>
+            Meu carrinho <span>{meuCarrinho.length}</span>
           </h2>
-          <Ingresso />
+          {meuCarrinho.map((ingresso, i) => (
+            <Ingresso ingressos={ingresso} key={i} />
+          ))}
           <p className="total-compra">Total: R$ 100,00</p>
         </>
         <h2 className="subtitulo">Finalizar Compra</h2>
@@ -50,7 +44,7 @@ function Comprar({meuCarrinho,setCompras}) {
             name="cpf"
             placeholder="32878887873"
             className="input-box"
-            onChange={checkMudanca}
+            onChange={checaMudanca}
           />
           <label>
             Nome do Cartão de Crédito
@@ -59,7 +53,7 @@ function Comprar({meuCarrinho,setCompras}) {
               name="nome"
               placeholder="Alfredo Alberto de Souza"
               className="input-box"
-              onChange={checkMudanca}
+              onChange={checaMudanca}
             />
           </label>
           <label>
@@ -69,7 +63,7 @@ function Comprar({meuCarrinho,setCompras}) {
               name="num"
               placeholder="3287888787382188"
               className="input-box"
-              onChange={checkMudanca}
+              onChange={checaMudanca}
             />
           </label>
           <label>
@@ -79,26 +73,22 @@ function Comprar({meuCarrinho,setCompras}) {
               name="dataValid"
               placeholder="março de 2024"
               className="input-box"
-              onChange={checkMudanca}
+              onChange={checaMudanca}
             />
           </label>
           <label>
             Código de Segurança
-            <input 
-              type="number" 
+            <input
+              type="number"
               name="cod"
-              placeholder="999" 
+              placeholder="999"
               className="input-box"
-              onChange={checkMudanca}
+              onChange={checaMudanca}
             />
           </label>
-            <div>
-               <input
-                  type="submit"
-                  value="Comprar"
-                  className="botao-compra"
-              />                 
-            </div>  
+          <div className="botoes-container">
+            <input type="submit" value="Comprar" className="botao" />
+          </div>
         </form>
       </main>
     </>

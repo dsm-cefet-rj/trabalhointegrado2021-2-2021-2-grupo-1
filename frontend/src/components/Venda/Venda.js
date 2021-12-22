@@ -1,6 +1,6 @@
 import Botao from "../Botoes/Botoes";
 
-function Venda({venda}) {
+function Venda({ venda }) {
   const botao = [
     {
       nome: "Editar",
@@ -12,7 +12,7 @@ function Venda({venda}) {
     <div>
       <h2 className="subtitulo"> {venda.idIngresso} </h2>
       <p>Ingressos Restantes: {venda.quantidade} </p>
-      <Botao botoes = {botao} />
+      <Botao botoes={botao} />
     </div>
   );
 }

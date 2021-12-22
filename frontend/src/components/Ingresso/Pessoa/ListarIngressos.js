@@ -3,7 +3,8 @@ import "../ingresso.css";
 import Cabecalho from "../../Cabecalho/Cabecalho";
 import Ingresso from "./Ingresso";
 
-function ListarIngresso({ genero }) {
+function ListarIngresso({ genero, ingressos, meuCarrinho, setMeuCarrinho }) {
+  console.log(ingressos);
   const botoes = [
     {
       nome: "Comprar",
@@ -16,10 +17,15 @@ function ListarIngresso({ genero }) {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Ingressos de {genero}</h2>
-        <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
-        <Ingresso botoes={botoes} />
+        {ingressos.map((ingresso, i) => (
+          <Ingresso
+            ingressos={ingresso}
+            comprar={true}
+            meuCarrinho={meuCarrinho}
+            setMeuCarrinho={setMeuCarrinho}
+            key={i}
+          />
+        ))}
       </main>
     </>
   );

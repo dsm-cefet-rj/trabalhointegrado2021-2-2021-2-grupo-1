@@ -33,7 +33,7 @@ function App() {
       dataFim: "2021-12-25T20:00",
     },
   ]);
-  
+
   const [ingressos, setIngressos] = useState([
     {
       evento: "Rock in Rio",
@@ -46,7 +46,7 @@ function App() {
       dados: "Show de musica",
     },
   ]);
-  
+
   const [venda, setVenda] = useState([
     {
       nomeEvento: "Rock in Rio 2021",
@@ -61,18 +61,59 @@ function App() {
       genero: "Musica",
       valor: "200",
       quantidade: "3",
-    }
+    },
   ]);
-  
-    const [meuCarrinho, ingressosComprados,setCompras] = useState([
+
+  const [ingressosPessoa, setingressosPessoa] = useState([
     {
       nomeEvento: "Jogo das Estrelas - 2021",
       eventoCEP: "20271-130",
       lugarIngresso: "Leste-430",
       dataEvento: "2021-12-10t16:00",
       precoIngresso: "100",
-    } 
-    ]);
+    },
+    {
+      nomeEvento: "Jogo das Estrelas - 2021",
+      eventoCEP: "20271-130",
+      lugarIngresso: "Leste-430",
+      dataEvento: "2021-12-10t16:00",
+      precoIngresso: "100",
+    },
+    {
+      nomeEvento: "Jogo das Estrelas - 2021",
+      eventoCEP: "20271-130",
+      lugarIngresso: "Leste-430",
+      dataEvento: "2021-12-10t16:00",
+      precoIngresso: "100",
+    },
+    {
+      nomeEvento: "Jogo das Estrelas - 2021",
+      eventoCEP: "20271-130",
+      lugarIngresso: "Leste-430",
+      dataEvento: "2021-12-10t16:00",
+      precoIngresso: "100",
+    },
+  ]);
+
+  const [meuCarrinho, setMeuCarrinho] = useState([
+    {
+      nomeEvento: "Jogo das Estrelas - 2021",
+      eventoCEP: "20271-130",
+      lugarIngresso: "Leste-430",
+      dataEvento: "2021-12-10t16:00",
+      precoIngresso: "100",
+    },
+  ]);
+
+  const [ingressosComprados, setIngressosComprados] = useState([
+    {
+      nomeEvento: "Jogo das Estrelas - 2021",
+      eventoCEP: "20271-130",
+      lugarIngresso: "Leste-430",
+      dataEvento: "2021-12-10t16:00",
+      precoIngresso: "100",
+    },
+  ]);
 
   return (
     <Router>
@@ -89,51 +130,78 @@ function App() {
         ></Route>
         <Route path="/editar-evento" element={<EditarEvento />}></Route>
 
-         <Route
+        <Route
           path="/ingressos"
-          element = {<ListarIngressosEmpresa ingressos = {ingressos} />}
+          element={<ListarIngressosEmpresa ingressos={ingressos} />}
         ></Route>
         <Route
           path="/criar-ingresso"
-          element = {<CriarIngresso ingressos = {ingressos}
-          setIngressos = {setIngressos} />}
+          element={
+            <CriarIngresso ingressos={ingressos} setIngressos={setIngressos} />
+          }
         ></Route>
-        <Route path = "/editar-ingresso" element = {<EditarIngresso />}></Route>
+        <Route path="/editar-ingresso" element={<EditarIngresso />}></Route>
 
-        <Route 
-          path="/vendas" element={<ListarVendas vendas={vendas} />}
+        <Route path="/vendas" element={<ListarVendas vendas={venda} />}></Route>
+        <Route
+          path="/criar-venda"
+          element={<CriarVenda vendas={venda} setVendas={setVenda} />}
         ></Route>
-        <Route 
-          path="/criar-venda" element={<CriarVenda vendas={vendas} setVendas={setVendas} />}
-        ></Route>
-        <Route 
-          path="/editar-venda" element={<EditarVenda />}
-        ></Route>
+        <Route path="/editar-venda" element={<EditarVenda />}></Route>
 
-        <Route 
+        <Route
           path="/carrinho"
-          element={<Comprar meuCarrinho = {meuCarrinho} setCompras = {setCompras} />}
+          element={
+            <Comprar
+              meuCarrinho={meuCarrinho}
+              setMeuCarrinho={setMeuCarrinho}
+              ingressosComprados={ingressosComprados}
+              setIngressosComprados={setIngressosComprados}
+            />
+          }
         ></Route>
 
-        <Route 
-          path="/meus-ingressos" 
-          element={<ListarCompras ingressoComprados={ingressosComprados} />}
+        <Route
+          path="/meus-ingressos"
+          element={
+            <IngressosComprados ingressosComprados={ingressosComprados} />
+          }
         ></Route>
 
         <Route path="/editar-compra" element={<EditarCompra />}></Route>
 
-
         <Route
           path="/esportes"
-          element={<ListarIngressosPessoa genero={"Esportes"} />}
+          element={
+            <ListarIngressosPessoa
+              genero={"Esportes"}
+              ingressos={ingressosPessoa}
+              meuCarrinho={meuCarrinho}
+              setMeuCarrinho={setMeuCarrinho}
+            />
+          }
         ></Route>
         <Route
           path="/shows"
-          element={<ListarIngressosPessoa genero={"Shows"} />}
+          element={
+            <ListarIngressosPessoa
+              genero={"Shows"}
+              ingressos={ingressosPessoa}
+              meuCarrinho={meuCarrinho}
+              setMeuCarrinho={setMeuCarrinho}
+            />
+          }
         ></Route>
         <Route
           path="/familia"
-          element={<ListarIngressosPessoa genero={"Famílias"} />}
+          element={
+            <ListarIngressosPessoa
+              genero={"Famílias"}
+              ingressos={ingressosPessoa}
+              meuCarrinho={meuCarrinho}
+              setMeuCarrinho={setMeuCarrinho}
+            />
+          }
         ></Route>
       </Routes>
     </Router>

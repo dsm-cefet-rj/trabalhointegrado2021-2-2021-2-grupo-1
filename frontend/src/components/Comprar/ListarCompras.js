@@ -1,7 +1,7 @@
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
 
-function ListarCompras({IngressosComprados}) {
+function ListarCompras({ ingressosComprados }) {
   const botoes = [
     {
       nome: "Gerar",
@@ -21,12 +21,12 @@ function ListarCompras({IngressosComprados}) {
     <>
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">Meus Ingressos</h2>
-        {IngressosComprados.map(({nomeEvento},i) => (
-         <Ingresso> ingressonome={nome} key={i} />
+        <h2 className="subtitulo">
+          Meus Ingressos {ingressosComprados.length}
+        </h2>
+        {ingressosComprados.map((ingresso, i) => (
+          <Ingresso botoes={botoes} ingressos={ingresso} key={i} />
         ))}
-          
-        <Ingresso botoes={botoes} />
       </main>
     </>
   );
