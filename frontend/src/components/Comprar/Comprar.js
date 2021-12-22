@@ -6,11 +6,11 @@ import "../Botoes/Botoes.css";
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 
-function Comprar() {
+function Comprar({meuCarrinho,setCompras}) {
 
   const navigate = useNavigate();
 
-    const [Compra, setNovaCompra] = useState({
+   const [Compra, setNovaCompra] = useState({
     nomeEvento: "",
     eventoCEP: 0,
     lugarIngresso:"",
@@ -26,7 +26,7 @@ function Comprar() {
   }
 
   function checaEnvio(e) {
-    setNovaCompra([...ListarCompras, Compra]);
+    setCompras([...meuCarrinho, Compra]);
     e.preventDefault();
     navigate("/ListarCompras");
   }
