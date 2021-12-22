@@ -1,5 +1,5 @@
 import Cabecalho from "../Cabecalho/Cabecalho";
-import Botao from "../Botoes/Botoes";
+import Botoes from "../Botoes/Botoes";
 
 function EditarCompra() {
   const botao = [
