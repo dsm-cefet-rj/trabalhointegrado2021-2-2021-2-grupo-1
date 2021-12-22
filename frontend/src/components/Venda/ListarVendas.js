@@ -1,11 +1,7 @@
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Venda from "./Venda";
 
-function ListaVendas() {
-  const vendas = [
-    {nome: "Rock in Rio 2021",},
-    {nome: "Rock in Rio 2024",},
-  ];
+function ListaVendas({vendas}) {
   
   return (
     <>
