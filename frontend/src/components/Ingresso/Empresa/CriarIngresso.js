@@ -16,7 +16,7 @@ function CriarIngresso() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Ingresso</h2>
-        <form class="formulario">
+        <form className="formulario">
           <label>Selecione um Evento</label>
           <select className="input-box" placeholder="Evento">
             <option>Evento1</option>

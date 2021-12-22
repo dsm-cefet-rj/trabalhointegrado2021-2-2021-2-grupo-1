@@ -1,6 +1,6 @@
 import Botao from "../../Botoes/Botoes";
 
-function Ingresso() {
+function Ingresso({ ingressoNome}) {
   const botao = [
     {
       nome: "Editar",

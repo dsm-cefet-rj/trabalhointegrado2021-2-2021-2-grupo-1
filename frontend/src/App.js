@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
@@ -16,13 +17,36 @@ import EditarVenda from "./components/Venda/EditarVenda";
 import ListarVendas from "./components/Venda/ListarVendas";
 
 function App() {
+  const [eventos, setEventos] = useState([
+    {
+      nome: "Rock in Rio 2021",
+      genero: "Musica",
+      cep: "01001000",
+      dataInicio: "2021-12-24T20:00",
+      dataFim: "2021-12-24T20:00",
+    },
+    {
+      nome: "Rock in Rio 2021",
+      genero: "Musica",
+      cep: "01001000",
+      dataInicio: "2021-12-25T20:00",
+      dataFim: "2021-12-25T20:00",
+    },
+  ]);
+
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
 
-        <Route path="/eventos" element={<ListarEventos />}></Route>
-        <Route path="/criar-evento" element={<CriarEvento />}></Route>
+        <Route
+          path="/eventos"
+          element={<ListarEventos eventos={eventos} />}
+        ></Route>
+        <Route
+          path="/criar-evento"
+          element={<CriarEvento eventos={eventos} setEventos={setEventos} />}
+        ></Route>
         <Route path="/editar-evento" element={<EditarEvento />}></Route>
 
         <Route path="/ingressos" element={<ListarIngressosEmpresa />}></Route>
