@@ -5,7 +5,7 @@ function ListarCompras() {
   const botoes = [
     {
       nome: "Gerar",
-      url: "/",
+      url: "/Gerar-compra",
     },
     {
       nome: "Editar",
@@ -13,7 +13,7 @@ function ListarCompras() {
     },
     {
       nome: "Reembolso",
-      url: "/",
+      url: "/Reembolso",
     },
   ];
 
