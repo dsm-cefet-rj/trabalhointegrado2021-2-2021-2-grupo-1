@@ -9,7 +9,7 @@ function CriarVenda({ vendas, setVendas }) {
 
   const [novaVenda, setNovaVenda] = useState({
     nomeEvento: "",
-    idIngresso: "";
+    idIngresso: "",
     genero: "",
     valor: "",
     quantidade: "",
