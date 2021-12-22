@@ -90,9 +90,15 @@ function App() {
         ></Route>
         <Route path = "/editar-ingresso" element = {<EditarIngresso />}></Route>
 
-        <Route path="/vendas" element={<ListarVendas />}></Route>
-        <Route path="/criar-venda" element={<CriarVenda />}></Route>
-        <Route path="/editar-venda" element={<EditarVenda />}></Route>
+        <Route 
+          path="/vendas" element={<ListarVendas vendas={vendas} />}
+        ></Route>
+        <Route 
+          path="/criar-venda" element={<CriarVenda vendas={vendas} setVendas={setVendas} />}
+        ></Route>
+        <Route 
+          path="/editar-venda" element={<EditarVenda />}
+        ></Route>
 
         <Route path="/carrinho" element={<Comprar />}></Route>
         <Route path="/meus-ingressos" element={<IngressosComprados />}></Route>
