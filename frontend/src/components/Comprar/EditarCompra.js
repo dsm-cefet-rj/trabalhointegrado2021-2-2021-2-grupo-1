@@ -21,7 +21,7 @@ function EditarCompra() {
             className="input-box"
             placeholder="13713799737"
           />
-          <Botao botoes={botao} />
+          <Botoes botoes={botao} />
         </form>
       </main>
     </>
