@@ -33,6 +33,7 @@ function App() {
       dataFim: "2021-12-25T20:00",
     },
   ]);
+  
   const [ingressos, setIngressos] = useState([
     {
       evento: "Rock in Rio",
@@ -45,6 +46,23 @@ function App() {
       dados: "Show de musica",
     },
   ]);
+  
+    const [venda, setVenda] = useState([
+      {
+        nomeEvento: "Rock in Rio 2021",
+        idIngresso: "Rock in Rio - Dia 3";
+        genero: "Musica",
+        valor: "100",
+        quantidade: "5",
+      },
+      {
+        nomeEvento: "Rock in Rio 2021",
+        idIngresso: "Rock in Rio - Dia 4";
+        genero: "Musica",
+        valor: "200",
+        quantidade: "3",
+      }
+    ]);
 
   return (
     <Router>
