@@ -43,42 +43,62 @@ function Comprar({meuCarrinho,setCompras}) {
           <p className="total-compra">Total: R$ 100,00</p>
         </>
         <h2 className="subtitulo">Finalizar Compra</h2>
-        <form className="formulario">
-          CPF
+        <form className="formulario" onSubmit={checaEnvio}>
+          <label>CPF</label>
           <input
             type="number"
+            name="cpf"
             placeholder="32878887873"
             className="input-box"
+            onChange={checkMudanca}
           />
           <label>
             Nome do Cartão de Crédito
             <input
               type="text"
+              name="nome"
               placeholder="Alfredo Alberto de Souza"
               className="input-box"
+              onChange={checkMudanca}
             />
           </label>
           <label>
             Número do Cartão de Crédito
             <input
               type="number"
+              name="num"
               placeholder="3287888787382188"
               className="input-box"
+              onChange={checkMudanca}
             />
           </label>
           <label>
             Data de Validade
             <input
               type="month"
+              name="dataValid"
               placeholder="março de 2024"
               className="input-box"
+              onChange={checkMudanca}
             />
           </label>
           <label>
             Código de Segurança
-            <input type="number" placeholder="999" className="input-box" />
+            <input 
+              type="number" 
+              name="cod"
+              placeholder="999" 
+              className="input-box"
+              onChange={checkMudanca}
+            />
           </label>
-          <Botao botoes={botao} />
+            <div>
+               <input
+                  type="submit"
+                  value="Comprar"
+                  className="botao-compra"
+              />                 
+            </div>  
         </form>
       </main>
     </>
