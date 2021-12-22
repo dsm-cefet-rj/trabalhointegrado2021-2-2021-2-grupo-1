@@ -2,16 +2,35 @@ import "./comprar.css";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
-import Botao from "../Botoes/Botoes";
+import "../Botoes/Botoes.css";
+import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 function Comprar() {
-  const botao = [
-    {
-      nome: "Comprar",
-      url: "/",
-    }
-  ]
 
+  const navigate = useNavigate();
+
+    const [Compra, setNovaCompra] = useState({
+    nomeEvento: "",
+    eventoCEP: 0,
+    lugarIngresso:"",
+    dataEvento: "",
+    precoIngresso: "",
+  });
+
+  function checaMudanca(e) {
+    setNovaCompra({
+      ...Compra,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function checaEnvio(e) {
+    setNovaCompra([...ListarCompras, Compra]);
+    e.preventDefault();
+    navigate("/ListarCompras");
+  }
+  
   return (
     <>
       <Cabecalho usuario={"pessoa"} />
