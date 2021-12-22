@@ -1,7 +1,7 @@
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Venda from "./Venda";
 
-function ListaVendas({venda}) {
+function ListaVendas({vendas}) {
   
   return (
     <>
