@@ -64,7 +64,7 @@ function App() {
     }
   ]);
   
-    const [meuCarrinho, ingressosComprados] = useState([
+    const [meuCarrinho, ingressosComprados,setCompras] = useState([
     {
       nomeEvento: "Jogo das Estrelas - 2021",
       eventoCEP: "20271-130",
@@ -112,7 +112,7 @@ function App() {
 
         <Route 
           path="/carrinho"
-          element={<Comprar meuCarrinho={meuCarrinho} />}
+          element={<Comprar meuCarrinho = {meuCarrinho} setCompras = {setCompras} />}
         ></Route>
 
         <Route 
