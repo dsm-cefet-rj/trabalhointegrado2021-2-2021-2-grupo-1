@@ -1,16 +1,28 @@
-import Cabecalho from "../Cabecalho/Cabecalho";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import "../Botoes/botoes.css";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { addEvento } from "../../redux/eventosSlice";
 
-function CriarEvento({ eventos, setEventos }) {
+import Cabecalho from "../Cabecalho/Cabecalho";
+
+function CriarEvento() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const evento = useSelector((state) => state.eventos);
+
+  const maiorId = evento.reduce((previousValue, currentValue) => {
+    return currentValue.id > previousValue ? currentValue.id : previousValue;
+  }, 0);
+  const eventoId = (Number(maiorId) + Number(1)).toString();
 
   const [novoEvento, setNovoEvento] = useState({
+    id: eventoId,
     nome: "",
     genero: "",
-    cep: 0,
+    cep: "",
     dataInicio: "",
     dataFim: "",
   });
@@ -23,9 +35,9 @@ function CriarEvento({ eventos, setEventos }) {
   }
 
   function checaEnvio(e) {
-    setEventos([...eventos, novoEvento]);
+    dispatch(addEvento(novoEvento));
     e.preventDefault();
-    navigate("/eventos");
+    navigate("/empresa/eventos");
   }
 
   return (
@@ -41,13 +53,20 @@ function CriarEvento({ eventos, setEventos }) {
             className="input-box"
             placeholder="Rock in Rio"
             onChange={checaMudanca}
+            required
+            autoFocus
           />
           <label>
             Genero
-            <select className="input-box" name="genero" onChange={checaMudanca}>
-              <option>Esportes</option>
-              <option>Shows</option>
-              <option>Família</option>
+            <select
+              className="input-box"
+              name="genero"
+              onChange={checaMudanca}
+              required
+            >
+              <option value="esporte">Esportes</option>
+              <option value="musica">Música</option>
+              <option value="familia">Família</option>
             </select>
           </label>
           <label>
@@ -58,6 +77,7 @@ function CriarEvento({ eventos, setEventos }) {
               name="cep"
               className="input-box"
               onChange={checaMudanca}
+              required
             />
           </label>
           <label>
@@ -67,6 +87,7 @@ function CriarEvento({ eventos, setEventos }) {
               className="input-box"
               name="dataInicio"
               onChange={checaMudanca}
+              required
             />
           </label>
           <label>
@@ -76,6 +97,7 @@ function CriarEvento({ eventos, setEventos }) {
               className="input-box"
               name="dataFim"
               onChange={checaMudanca}
+              required
             />
           </label>
           <div className="botoes-container">

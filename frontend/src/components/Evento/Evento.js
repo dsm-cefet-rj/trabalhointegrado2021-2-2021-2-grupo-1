@@ -1,16 +1,16 @@
 import Botao from "../Botoes/Botoes";
 
-function Evento({ eventoNome }) {
+function Evento({ evento }) {
   const botao = [
     {
       nome: "Editar",
-      url: "/editar-evento",
+      url: `/empresa/evento/${evento.id}`,
     },
   ];
 
   return (
     <div>
-      <h2 className="subtitulo">{eventoNome}</h2>
+      <h2 className="subtitulo">{evento.nome}</h2>
       <Botao botoes={botao} />
     </div>
   );

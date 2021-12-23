@@ -1,0 +1,62 @@
+{
+  "eventos": [
+    {
+      "id": "1",
+      "nome": "Rock in Rio 2022",
+      "genero": "musica",
+      "cep": "01001000",
+      "dataInicio": "2021-12-24T20:00",
+      "dataFim": "2021-12-24T20:00"
+    },
+    {
+      "id": "2",
+      "nome": "Rock in Rio 2022",
+      "genero": "musica",
+      "cep": "01001000",
+      "dataInicio": "2021-12-24T20:00",
+      "dataFim": "2021-12-24T20:00"
+    }
+  ],
+  "ingressos": [
+    {
+      "id": "1",
+      "eventoId": "1",
+      "nome": "Rock in Rio - Dia 3",
+      "descricao": "Show de musica"
+    },
+    {
+      "id": "2",
+      "eventoId": "1",
+      "nome": "Rock in Rio - Dia 4",
+      "descricao": "Show de musica"
+    }
+  ],
+  "vendas":[
+    {
+      "id": "1",
+      "ingressoId": "1",
+      "valor": "100",
+      "quantidade": "5"
+    },
+    {
+      "id": "2",
+      "ingressoId": "2",
+      "valor": "200",
+      "quantidade": "10"
+    }
+  ],
+  "compras:":[
+    {
+      "id":"1",
+      "ingressoId": "1",
+      "quantidade": "5",
+      "cpf": "12345678901"
+    },
+    {
+      "id":"2",
+      "ingressoId": "2",
+      "quantidade": "10",
+      "cpf": "12345678901"
+    }
+  ] 
+}

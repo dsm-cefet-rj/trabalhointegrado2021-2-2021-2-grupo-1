@@ -1,47 +1,116 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+
+import { editEvento, deleteEvento } from "../../redux/eventosSlice";
+
 import Cabecalho from "../Cabecalho/Cabecalho";
-import Botoes from "../Botoes/Botoes";
 
 function EditarEvento() {
-  const botoes = [
-    {
-      nome: "Editar",
-      url: "/",
-    },
-    {
-      nome: "Remover",
-      url: "/",
-    },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const evento = useSelector((state) => state.eventos.find((e) => e.id === id));
+
+  const [eventoEditado, setEventoEditado] = useState({
+    id: evento.id,
+    nome: evento.nome,
+    genero: evento.genero,
+    cep: evento.cep,
+    dataInicio: evento.dataInicio,
+    dataFim: evento.dataFim,
+  });
+
+  function checaMudanca(e) {
+    setEventoEditado({
+      ...eventoEditado,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function checaEnvio(e) {
+    dispatch(editEvento(eventoEditado));
+    e.preventDefault();
+    navigate("/empresa/eventos");
+  }
+
+  function deletaEvento(e) {
+    dispatch(deleteEvento(evento.id));
+    e.preventDefault();
+    navigate("/empresa/eventos");
+  }
 
   return (
     <>
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Editar Evento</h2>
-        <form className="formulario">
+        <form className="formulario" onSubmit={checaEnvio}>
           <label>Nome do Evento</label>
-          <input type="text" className="input-box" placeholder="Rock in Rio" />
+          <input
+            type="text"
+            className="input-box"
+            name="nome"
+            onChange={checaMudanca}
+            defaultValue={evento.nome}
+            required
+          />
           <label>
             Gênero
-            <select className="input-box">
-              <option>Esportes</option>
-              <option>Shows</option>
-              <option>Família</option>
+            <select
+              className="input-box"
+              name="genero"
+              defaultValue={evento.genero}
+              onChange={checaMudanca}
+              required
+            >
+              <option value="esportes">Esportes</option>
+              <option value="musica">Musica</option>
+              <option value="familia">Família</option>
             </select>
           </label>
           <label>
             CEP
-            <input type="number" placeholder="20270090" className="input-box" />
+            <input
+              type="number"
+              defaultValue={evento.cep}
+              name="cep"
+              className="input-box"
+              onChange={checaMudanca}
+              required
+            />
           </label>
           <label>
             Começo Do Evento
-            <input type="datetime-local" className="input-box" />
+            <input
+              type="datetime-local"
+              defaultValue={evento.dataInicio}
+              name="dataInicio"
+              className="input-box"
+              onChange={checaMudanca}
+              required
+            />
           </label>
           <label>
             Finalização do Evento
-            <input type="datetime-local" className="input-box" />
+            <input
+              type="datetime-local"
+              defaultValue={evento.dataFim}
+              name="dataFim"
+              className="input-box"
+              onChange={checaMudanca}
+              required
+            />
           </label>
-          <Botoes botoes={botoes} />
+          <div className="botoes-container">
+            <input type="submit" value="Editar" className="botao" />
+            <input
+              type="button"
+              value="Deletar"
+              className="botao botao-perigo"
+              onClick={deletaEvento}
+            />
+          </div>
         </form>
       </main>
     </>

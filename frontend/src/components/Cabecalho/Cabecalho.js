@@ -18,20 +18,16 @@ function Cabecalho({ usuario }) {
 
   const menuListaEmpresa = [
     {
-      pathName: "/criar-evento",
+      pathName: "/empresa/criar-evento",
       itemName: "Criar Evento",
     },
     {
-      pathName: "/criar-ingresso",
+      pathName: "/empresa/criar-ingresso",
       itemName: "Criar Ingresso",
     },
     {
-      pathName: "/criar-venda",
+      pathName: "/empresa/criar-venda",
       itemName: "Vender",
-    },
-    {
-      pathName: "/vendas",
-      itemName: "Minhas Vendas",
     },
   ];
 
@@ -82,10 +78,13 @@ function Cabecalho({ usuario }) {
             empresa: (
               <ul className="menu-conteudo centralizar-xy centralizar-x">
                 <li>
-                  <Link to={"/eventos"}>Eventos</Link>
+                  <Link to={"/empresa/eventos"}>Eventos</Link>
                 </li>
                 <li>
-                  <Link to={"/ingressos"}>Ingressos</Link>
+                  <Link to={"/empresa/ingressos"}>Ingressos</Link>
+                </li>
+                <li>
+                  <Link to={"/empresa/vendas"}>Vendas</Link>
                 </li>
               </ul>
             ),
