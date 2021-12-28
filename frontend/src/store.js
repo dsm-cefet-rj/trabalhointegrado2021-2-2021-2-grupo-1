@@ -6,7 +6,7 @@ import vendasSlice from "./redux/vendasSlice";
 const store = configureStore({
   reducer: {
     eventos: eventosSlice,
-    vendas: vendasSlicer,
+    vendas: vendasSlice,
   },
 });
 
