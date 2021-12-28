@@ -21,12 +21,17 @@ import ListarIngressosEmpresa from "./components/Ingresso/Empresa/ListarIngresso
 import CriarVenda from "./components/Venda/CriarVenda";
 import EditarVenda from "./components/Venda/EditarVenda";
 import ListarVendas from "./components/Venda/ListarVendas";
+import { fetchVendas } from "./redux/vendasSlice";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchEventos());
+  }, []);
+  
+  useEffect(() => {
+    dispatch(fetchVendas());
   }, []);
 
   return (
@@ -52,15 +57,13 @@ function App() {
               />
             }
           />
-          <Route path="/editar-ingresso" element={<EditarIngresso />} />
+          */}
+          
+        <Route path="/empresa/vendas" element={<ListarVendas />} />
+        <Route path="/empresa/venda/:id" element={<EditarVenda />} />
+        <Route path="/empresa/criar-venda" element={<CriarVenda />} />
 
-          <Route path="/vendas" element={<ListarVendas vendas={venda} />} />
-          <Route
-            path="/criar-venda"
-            element={<CriarVenda vendas={venda} setVendas={setVenda} />}
-          />
-          <Route path="/editar-venda" element={<EditarVenda />} />
-
+          {/*
           <Route
             path="/carrinho"
             element={
@@ -72,6 +75,7 @@ function App() {
               />
             }
           />
+          
 
           <Route
             path="/meus-ingressos"
@@ -79,7 +83,8 @@ function App() {
               <IngressosComprados ingressosComprados={ingressosComprados} />
             }
           />
-
+          
+          
           <Route path="/editar-compra" element={<EditarCompra />} />
 
           <Route
