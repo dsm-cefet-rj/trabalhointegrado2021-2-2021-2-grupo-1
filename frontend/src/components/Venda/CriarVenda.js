@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import "../Botoes/botoes.css";
 
-import { addVenda } from "../../redux/eventosSlice";
+import { addVenda } from "../../redux/vendasSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 
