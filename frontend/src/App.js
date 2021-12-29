@@ -18,6 +18,7 @@ import ListarIngressosPessoa from "./components/Ingresso/Pessoa/ListarIngressos"
 import CriarIngresso from "./components/Ingresso/Empresa/CriarIngresso";
 import EditarIngresso from "./components/Ingresso/Empresa/EditarIngresso";
 import ListarIngressosEmpresa from "./components/Ingresso/Empresa/ListarIngresso";
+import {fetchIngressos} from "./redux/ingressosSlice";
 
 import CriarVenda from "./components/Venda/CriarVenda";
 import EditarVenda from "./components/Venda/EditarVenda";
@@ -48,21 +49,9 @@ function App() {
         <Route path="/empresa/evento/:id" element={<EditarEvento />} />
         <Route path="/empresa/criar-evento" element={<CriarEvento />} />
 
-        {/* 
-          <Route
-            path="/ingressos"
-            element={<ListarIngressosEmpresa ingressos={ingressos} />}
-          />
-          <Route
-            path="/criar-ingresso"
-            element={
-              <CriarIngresso
-                ingressos={ingressos}
-                setIngressos={setIngressos}
-              />
-            }
-          />
-          */}
+        <Route path="/empresa/ingressos" element={<ListarIngressosEmpresa />} />
+        <Route path="/empresa/ingresso/:id" element={<EditarIngresso />} />
+        <Route path="/empresa/criar-ingresso" element={<CriarIngresso />} />
           
         <Route path="/empresa/vendas" element={<ListarVendas />} />
         <Route path="/empresa/venda/:id" element={<EditarVenda />} />
