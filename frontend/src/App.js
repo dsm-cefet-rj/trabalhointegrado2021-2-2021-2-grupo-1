@@ -39,6 +39,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchComprar());
   }, []);
+  useEffect(() => {
+    dispatch(fetchIngressos());
+  }, []);
+
   
   return (
     <Router>
