@@ -8,15 +8,15 @@ import { addVenda } from "../../redux/vendasSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 
-function CriarEvento() {
+function CriarVenda() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const evento = useSelector((state) => state.vendas);
+  const venda = useSelector((state) => state.vendas);
 
-  const maiorId = evento.reduce((previousValue, currentValue) => {
+  const maiorId = venda.reduce((previousValue, currentValue) => {
     return currentValue.id > previousValue ? currentValue.id : previousValue;
   }, 0);
-  const eventoId = (Number(maiorId) + Number(1)).toString();
+  const vendaId = (Number(maiorId) + Number(1)).toString();
 
   const [novaVenda, setNovaVenda] = useState({
     nomeEvento: "",
