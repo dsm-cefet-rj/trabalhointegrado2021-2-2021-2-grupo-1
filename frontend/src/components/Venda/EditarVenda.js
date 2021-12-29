@@ -13,7 +13,7 @@ function EditarVenda() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const evento = useSelector((state) => state.eventos.find((e) => e.id === id));
+  const venda = useSelector((state) => state.vendas.find((e) => e.id === id));
 
   const [vendaEditada, setVendaEditada] = useState({
     nomeEvento: venda.nome,
@@ -24,8 +24,8 @@ function EditarVenda() {
   });
 
   function checaMudanca(e) {
-    setEventoEditado({
-      ...eventoEditado,
+    setVendaEditada({
+      ...VendaEditada,
       [e.target.name]: e.target.value,
     });
   }
