@@ -1,14 +1,41 @@
+import { useNavigate,useParams } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { useState } from "react";
+
+import { editCompra, deleteComprar } from "../../redux/comprarSlice";
+
 import Cabecalho from "../Cabecalho/Cabecalho";
-import Botoes from "../Botoes/Botoes";
-
 function EditarCompra() {
-  const botao = [
-    {
-      nome: "Editar",
-      url: "/editar-compra",
-    },
-  ];
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {id} = useParams();
+  const compra = useSelector((state) => state.comprar.find((e) => e.id === id));
+  
+  const [ compraEditada, setcompraEditada ] = useState({
+    cpfCompra : compra.cpf,
+    idCompra : compra.id,
+  });
+  
+  function checaMudanca(e) {
+    setcompraEditada({
+      ...compraEditada,
+      [e.target.name]: e.target.value,
+    });
+  }
+  
+  function checaEnvio(e){
+    dispatch(editCompra(compraEditada));
+    e.preventDefault();
+    navigate("/meus-ingressos");
+  }
+  
+  function deletaCompra(e){
+    dispatch(deleteComprar(compra.id));
+    e.preventDefault();
+    navigate("meus-ingressos");
+  }
+ 
   return (
     <>
       <Cabecalho usuario={"pessoa"} />
@@ -20,8 +47,16 @@ function EditarCompra() {
             type="number"
             className="input-box"
             placeholder="13713799737"
+            name: "cpfCompra"
+            onChange={checaMudanca}
           />
-          <Botoes botoes={botao} />
+            <div className=""botoes-container>
+            <input
+              type = "submit",
+              value = "Editar",
+              className = "botao botao-sucesso",
+            />
+            <div/>
         </form>
       </main>
     </>
