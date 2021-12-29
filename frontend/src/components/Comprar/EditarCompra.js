@@ -56,7 +56,7 @@ function EditarCompra() {
               value = "Editar",
               className = "botao botao-sucesso",
             />
-            <div/>
+            </div>
         </form>
       </main>
     </>
