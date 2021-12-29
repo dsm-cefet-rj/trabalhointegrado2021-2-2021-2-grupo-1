@@ -5,23 +5,23 @@ import Ingresso from "../Ingresso/Pessoa/Ingresso";
 //import "../Botoes/Botoes.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addCompra } from "../../redux/ComprarSlice.js";
 
-function Comprar({
-  meuCarrinho,
-  setMeuCarrinho,
-  ingressosComprados,
-  setIngressosComprados,
-}) {
+
+
+function Comprar() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const compra = useSelector((state)=>state.Comprar);
+  
   function checaMudanca(e) {}
 
   function checaEnvio(e) {
-    setIngressosComprados(ingressosComprados.concat(meuCarrinho));
+    dispatch(addCompra(meuCarrinho));
     e.preventDefault();
     navigate("/meus-ingressos");
-    setMeuCarrinho([]);
-  }
+ }
 
   return (
     <>
