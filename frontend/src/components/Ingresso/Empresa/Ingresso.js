@@ -1,17 +1,17 @@
 import Botao from "../../Botoes/Botoes";
 
-function Ingresso({ ingressoNome}) {
+function Ingresso({ ingresso}) {
   const botao = [
     {
       nome: "Editar",
-      url: "/editar-ingresso",
+      url: `/empresa/ingresso/${ingresso.id}`,
     },
   ];
 
   return (
     <div>
-      <h2 className="subtitulo">{ingressoNome}</h2>
-      <Botao botoes={botao} />
+      <h2 className = "subtitulo" > {ingresso.nome} </h2>
+      <Botao botoes = {botao} />
     </div>
   );
 }
