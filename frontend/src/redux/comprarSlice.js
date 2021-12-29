@@ -9,7 +9,7 @@ export const fetchComprar = createAsyncThunk(
   }
 );
 
-const ComprarSlice = createSlice({
+const comprarSlice = createSlice({
   name: "Comprar",
   initialState,
   reducers: {
