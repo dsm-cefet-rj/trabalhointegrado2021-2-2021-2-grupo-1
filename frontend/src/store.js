@@ -9,6 +9,7 @@ const store = configureStore({
     eventos: eventosSlice,
     vendas: vendasSlice,
     comprar: ComprarSlice,
+    ingressos: ingressosSlice,
   },
 });
 
