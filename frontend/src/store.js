@@ -7,6 +7,7 @@ const store = configureStore({
   reducer: {
     eventos: eventosSlice,
     vendas: vendasSlice,
+    comprar: ComprarSlice,
   },
 });
 
