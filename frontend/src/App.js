@@ -12,6 +12,7 @@ import { fetchEventos } from "./redux/eventosSlice";
 import Comprar from "./components/Comprar/Comprar";
 import EditarCompra from "./components/Comprar/EditarCompra";
 import IngressosComprados from "./components/Comprar/ListarCompras";
+import {fetchComprar} from "./redux/ComprarSlice";
 
 import ListarIngressosPessoa from "./components/Ingresso/Pessoa/ListarIngressos";
 import CriarIngresso from "./components/Ingresso/Empresa/CriarIngresso";
@@ -34,6 +35,10 @@ function App() {
     dispatch(fetchVendas());
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchComprar());
+  }, []);
+  
   return (
     <Router>
       <Routes>
@@ -62,31 +67,12 @@ function App() {
         <Route path="/empresa/vendas" element={<ListarVendas />} />
         <Route path="/empresa/venda/:id" element={<EditarVenda />} />
         <Route path="/empresa/criar-venda" element={<CriarVenda />} />
-
-          {/*
-          <Route
-            path="/carrinho"
-            element={
-              <Comprar
-                meuCarrinho={meuCarrinho}
-                setMeuCarrinho={setMeuCarrinho}
-                ingressosComprados={ingressosComprados}
-                setIngressosComprados={setIngressosComprados}
-              />
-            }
-          />
-          
-
-          <Route
-            path="/meus-ingressos"
-            element={
-              <IngressosComprados ingressosComprados={ingressosComprados} />
-            }
-          />
-          
-          
-          <Route path="/editar-compra" element={<EditarCompra />} />
-
+       
+        <Route path="/carrinho" element={<Comprar/>} />
+        <Route path="/meus-ingressos" element={<IngressosComprados/>} />          
+        <Route path="/editar-compra" element={<EditarCompra />} />
+            
+        {/*
           <Route
             path="/esportes"
             element={
