@@ -4,7 +4,7 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 import Venda from "./Venda";
 
 function ListarVendas() {
-  const eventos = useSelector((state) => state.vendas);
+  const vendas = useSelector((state) => state.vendas);
 
   return (
     <>
@@ -12,8 +12,8 @@ function ListarVendas() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Minhas Vendas</h2>
         <div className="listagem-container-empresa">
-          {eventos.length > 0 ? (
-            vendas.map((evento) => <Venda Venda={venda} key={venda.id} />)
+          {vendas.length > 0 ? (
+            vendas.map((venda) => <Venda Venda={venda} key={venda.id} />)
           ) : (
             <h2 className="subtitulo">Nenhuma Venda Cadastrada</h2>
           )}
