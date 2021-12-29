@@ -1,7 +1,11 @@
+import {useSelector} from "react-redux";
+
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
 
-function ListarCompras({ ingressosComprados }) {
+function ListarCompras() {
+  const ingressosComprados = useSelector((state) => state.ingressosComprados);
+  
   const botoes = [
     {
       nome: "Gerar",
@@ -24,9 +28,9 @@ function ListarCompras({ ingressosComprados }) {
         <h2 className="subtitulo">
           Meus Ingressos {ingressosComprados.length}
         </h2>
-        {ingressosComprados.map((ingresso, i) => (
-          <Ingresso botoes={botoes} ingressos={ingresso} key={i} />
-        ))}
+      {ingressosComprados.length > 0 ? (
+        ingressosComprados.map((ingressosComprados) => <Ingresso ingressos={ingressos} key={ingressos.id}/>)
+      )}
       </main>
     </>
   );
