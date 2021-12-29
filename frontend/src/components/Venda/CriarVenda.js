@@ -1,11 +1,22 @@
-import Cabecalho from "../Cabecalho/Cabecalho";
-import Botao from "../Botoes/Botoes";
-
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-function CriarVenda({ vendas, setVendas }) {
+import "../Botoes/botoes.css";
+
+import { addVenda } from "../../redux/eventosSlice";
+
+import Cabecalho from "../Cabecalho/Cabecalho";
+
+function CriarEvento() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const evento = useSelector((state) => state.vendas);
+
+  const maiorId = evento.reduce((previousValue, currentValue) => {
+    return currentValue.id > previousValue ? currentValue.id : previousValue;
+  }, 0);
+  const eventoId = (Number(maiorId) + Number(1)).toString();
 
   const [novaVenda, setNovaVenda] = useState({
     nomeEvento: "",
