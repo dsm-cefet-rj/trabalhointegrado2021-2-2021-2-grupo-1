@@ -6,35 +6,54 @@ import Ingresso from "../Ingresso/Pessoa/Ingresso";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addCompra } from "../../redux/ComprarSlice.js";
-
-
+import { addCompra } from "../../redux/comprarSlice";
 
 function Comprar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const compra = useSelector((state)=>state.Comprar);
-  
-  function checaMudanca(e) {}
+
+  const meuCarrinho = useSelector((state) => state.comprar.meuCarrinho);
+  const ingressos = useSelector((state) => state.ingressos);
+
+  function ingressoNome(ingressoId) {
+    return ingressos.filter(
+      (ingresso) => ingresso.id === meuCarrinho.ingressoId
+    );
+  }
+
+  const valorTotalCarrinho = meuCarrinho.reduce(
+    (previousValue, currentValue) => {
+      return Number(previousValue) + Number(currentValue.valor);
+    },
+    0
+  );
+
+  function checaMudanca(e) {
+    // setEventoEditado({
+    //   ...eventoEditado,
+    //   [e.target.name]: e.target.value,
+    // });
+  }
 
   function checaEnvio(e) {
-    dispatch(addCompra(meuCarrinho));
-    e.preventDefault();
-    navigate("/meus-ingressos");
- }
+    // dispatch(addCompra(meuCarrinho));
+    // e.preventDefault();
+    // navigate("/meus-ingressos");
+  }
 
   return (
     <>
-      <Cabecalho usuario={"pessoa"} />
+      {/* <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <>
           <h2 className="subtitulo">
             Meu carrinho <span>{meuCarrinho.length}</span>
           </h2>
-          {meuCarrinho.map((ingresso, i) => (
-            <Ingresso ingressos={ingresso} key={i} />
-          ))}
-          <p className="total-compra">Total: R$ 100,00</p>
+          {meuCarrinho.length > 0 ? (
+            meuCarrinho.map((e) => console.log(e.venda))
+          ) : (
+            <p>Seu carrinho está vazio!</p>
+          )}
         </>
         <h2 className="subtitulo">Finalizar Compra</h2>
         <form className="formulario" onSubmit={checaEnvio}>
@@ -90,7 +109,7 @@ function Comprar() {
             <input type="submit" value="Comprar" className="botao" />
           </div>
         </form>
-      </main>
+      </main> */}
     </>
   );
 }

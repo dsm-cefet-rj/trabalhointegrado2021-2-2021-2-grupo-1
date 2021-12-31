@@ -11,17 +11,17 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 function CriarVenda() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const venda = useSelector((state) => state.vendas);
+  const vendas = useSelector((state) => state.vendas);
+  const ingressos = useSelector((state) => state.ingressos);
 
-  const maiorId = venda.reduce((previousValue, currentValue) => {
+  const maiorId = vendas.reduce((previousValue, currentValue) => {
     return currentValue.id > previousValue ? currentValue.id : previousValue;
   }, 0);
   const vendaId = (Number(maiorId) + Number(1)).toString();
 
   const [novaVenda, setNovaVenda] = useState({
-    nomeEvento: "",
-    idIngresso: "",
-    genero: "",
+    venda: vendaId,
+    ingressoId: "",
     valor: "",
     quantidade: "",
   });
@@ -34,9 +34,9 @@ function CriarVenda() {
   }
 
   function checaEnvio(e) {
-    setVendas([...vendas, novaVenda]);
+    dispatch(addVenda(novaVenda));
     e.preventDefault();
-    navigate("/vendas");
+    navigate("/empresa/vendas");
   }
 
   return (
@@ -45,31 +45,18 @@ function CriarVenda() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Venda</h2>
         <form className="formulario" onSubmit={checaEnvio}>
-          <label>Nome do Evento</label>
-          <input
-            type="text"
-            name="nomeEvento"
-            className="input-box"
-            placeholder="Rock in Rio"
-            onChange={checaMudanca}
-          />
           <label>
-            Identificação do Ingresso
+            Nome do Ingresso
             <select
               className="input-box"
-              name="idIngresso"
+              name="ingressoId"
               onChange={checaMudanca}
             >
-              <option>Rock in Rio 2021 - Dia 5</option>
-              <option>Rock in Rio 2021 - Dia 7</option>
-            </select>
-          </label>
-          <label>
-            Genero
-            <select className="input-box" name="genero" onChange={checaMudanca}>
-              <option>Esportes</option>
-              <option>Shows</option>
-              <option>Família</option>
+              {ingressos.map((ingresso) => (
+                <option key={ingresso.id} value={ingresso.id}>
+                  {ingresso.nome}
+                </option>
+              ))}
             </select>
           </label>
           <label>

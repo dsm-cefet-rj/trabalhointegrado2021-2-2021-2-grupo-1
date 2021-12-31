@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addIngresso } from "../../../redux/ingressosSlice" 
+import { addIngresso } from "../../../redux/ingressosSlice";
 
 import Cabecalho from "../../Cabecalho/Cabecalho";
 import "../../Botoes/botoes.css";
@@ -10,6 +10,7 @@ function CriarIngresso() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ingresso = useSelector((state) => state.ingressos);
+  const eventos = useSelector((state) => state.eventos);
 
   const maiorId = ingresso.reduce((previousValue, currentValue) => {
     return currentValue.id > previousValue ? currentValue.id : previousValue;
@@ -18,7 +19,7 @@ function CriarIngresso() {
 
   const [novoIngresso, setNovoIngresso] = useState({
     id: ingressoId,
-    nomeEvento: "",
+    eventoId: "",
     nome: "",
     descricao: "",
   });
@@ -37,44 +38,50 @@ function CriarIngresso() {
   }
   return (
     <>
-      <Cabecalho usuario = {"empresa"} />
-      <main className = "centralizar-xy centralizar-y">
-        <h2 className = "subtitulo">Criar Ingresso</h2>
-        <form className = "formulario" onSubmit = {checaEnvio}>
-
+      <Cabecalho usuario={"empresa"} />
+      <main className="centralizar-xy centralizar-y">
+        <h2 className="subtitulo">Criar Ingresso</h2>
+        <form className="formulario" onSubmit={checaEnvio}>
           <label>
             Selecione um Evento
-            <select name = "nomeEvento" className = "input-box"
-            onChange = {checaMudanca} required>
-              <option value = "Evento1">Evento1</option>
-              <option value = "Evento2">Evento2</option>
-          </select>
+            <select
+              name="eventoId"
+              className="input-box"
+              onChange={checaMudanca}
+              required
+            >
+              {eventos.map((evento) => (
+                <option value={evento.id} key={evento.id}>
+                  {evento.nome}
+                </option>
+              ))}
+            </select>
           </label>
 
           <label>Nome do Ingresso</label>
           <input
-            type = "text"
-            name = "nome"
-            className = "input-box"
-            placeholder = "Rock in Rio - 3º Dia"
-            onChange = {checaMudanca}
+            type="text"
+            name="nome"
+            className="input-box"
+            placeholder="Rock in Rio - 3º Dia"
+            onChange={checaMudanca}
             required
           />
-          
+
           <label>Dados Adicionais</label>
           <input
-            type = "text"
-            name = "descricao"
-            placeholder = "Coloque alguma informação sobre o ingresso"
-            className = "input-box"
-            onChange = {checaMudanca}
+            type="text"
+            name="descricao"
+            placeholder="Coloque alguma informação sobre o ingresso"
+            className="input-box"
+            onChange={checaMudanca}
             required
           />
-          <div className = "botoes-container">
+          <div className="botoes-container">
             <input
-              type = "submit"
-              value = "Criar"
-              className = "botao botao-sucesso"
+              type="submit"
+              value="Criar"
+              className="botao botao-sucesso"
             />
           </div>
         </form>

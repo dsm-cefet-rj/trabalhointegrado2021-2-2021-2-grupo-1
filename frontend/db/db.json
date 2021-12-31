@@ -45,16 +45,16 @@
       "quantidade": "10"
     }
   ],
-  "compras:":[
+  "compras":[
     {
       "id":"1",
-      "ingressoId": "1",
+      "vendaId": "1",
       "quantidade": "5",
       "cpf": "12345678901"
     },
     {
       "id":"2",
-      "ingressoId": "2",
+      "vendaId": "2",
       "quantidade": "10",
       "cpf": "12345678901"
     }

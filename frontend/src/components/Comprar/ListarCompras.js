@@ -1,11 +1,11 @@
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
 
 function ListarCompras() {
   const ingressosComprados = useSelector((state) => state.ingressosComprados);
-  
+
   const botoes = [
     {
       nome: "Gerar",
@@ -23,15 +23,20 @@ function ListarCompras() {
 
   return (
     <>
-      <Cabecalho usuario={"pessoa"} />
+      {/* <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">
           Meus Ingressos {ingressosComprados.length}
         </h2>
-      {ingressosComprados.length > 0 ? (
-        ingressosComprados.map((ingressosComprados) => <Ingresso ingressos={ingressos} key={ingressos.id}/>)
-      )}
-      </main>
+        {ingressosComprados.length > 0
+          ? ingressosComprados.map((ingressosComprados) => (
+              <Ingresso
+                ingressos={ingressosComprados}
+                key={ingressosComprados.id}
+              />
+            ))
+          : null}
+      </main> */}
     </>
   );
 }

@@ -1,5 +1,4 @@
 import Cabecalho from "../Cabecalho/Cabecalho";
-import Botoes from "../Botoes/Botoes";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,25 +6,25 @@ import { useState } from "react";
 
 import { editVenda, deleteVenda } from "../../redux/vendasSlice";
 
-import Cabecalho from "../Cabecalho/Cabecalho";
-
 function EditarVenda() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const venda = useSelector((state) => state.vendas.find((e) => e.id === id));
+  const venda = useSelector((state) =>
+    state.vendas.find((venda) => venda.id === id)
+  );
+  const ingressos = useSelector((state) => state.ingressos);
 
   const [vendaEditada, setVendaEditada] = useState({
-    nomeEvento: venda.nome,
-    idIngresso: venda.id,
-    genero: venda.genero,
+    id: venda.id,
+    ingressoId: venda.ingressoId,
     valor: venda.valor,
     quantidade: venda.quantidade,
   });
 
   function checaMudanca(e) {
     setVendaEditada({
-      ...VendaEditada,
+      ...vendaEditada,
       [e.target.name]: e.target.value,
     });
   }
@@ -48,31 +47,18 @@ function EditarVenda() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Venda</h2>
         <form className="formulario" onSubmit={checaEnvio}>
-          <label>Nome do Evento</label>
-          <input
-            type="text"
-            name="nomeEvento"
-            className="input-box"
-            placeholder="Rock in Rio"
-            onChange={checaMudanca}
-          />
           <label>
-            Identificação do Ingresso
+            Nome do Ingresso
             <select
               className="input-box"
-              name="idIngresso"
+              name="ingressoId"
               onChange={checaMudanca}
             >
-              <option>Rock in Rio 2021 - Dia 5</option>
-              <option>Rock in Rio 2021 - Dia 7</option>
-            </select>
-          </label>
-          <label>
-            Genero
-            <select className="input-box" name="genero" onChange={checaMudanca}>
-              <option>Esportes</option>
-              <option>Shows</option>
-              <option>Família</option>
+              {ingressos.map((ingresso) => (
+                <option key={ingresso.id} value={ingresso.id}>
+                  {ingresso.nome}
+                </option>
+              ))}
             </select>
           </label>
           <label>
@@ -82,6 +68,7 @@ function EditarVenda() {
               placeholder="100"
               className="input-box"
               name="valor"
+              defaultValue={venda.valor}
               onChange={checaMudanca}
             />
           </label>
@@ -93,13 +80,16 @@ function EditarVenda() {
               className="input-box"
               name="quantidade"
               onChange={checaMudanca}
+              defaultValue={venda.quantidade}
             />
           </label>
           <div className="botoes-container">
+            <input type="submit" value="Editar" className="botao" />
             <input
-              type="submit"
-              value="Criar"
-              className="botao botao-sucesso"
+              type="button"
+              value="Deletar"
+              className="botao botao-perigo"
+              onClick={deletaVenda}
             />
           </div>
         </form>

@@ -59,13 +59,13 @@ function Cabecalho({ usuario }) {
             pessoa: (
               <ul className="menu-conteudo centralizar-xy centralizar-x">
                 <li>
-                  <Link to="/esportes" className="menu-item ancora">
-                    Esportes
+                  <Link to="/esporte" className="menu-item ancora">
+                    Esporte
                   </Link>
                 </li>
                 <li>
-                  <Link to="/shows" className="menu-item ancora">
-                    Shows
+                  <Link to="/musica" className="menu-item ancora">
+                    Música
                   </Link>
                 </li>
                 <li>
@@ -78,13 +78,19 @@ function Cabecalho({ usuario }) {
             empresa: (
               <ul className="menu-conteudo centralizar-xy centralizar-x">
                 <li>
-                  <Link to={"/empresa/eventos"}>Eventos</Link>
+                  <Link to={"/empresa/eventos"} className="menu-item ancora">
+                    Eventos
+                  </Link>
                 </li>
                 <li>
-                  <Link to={"/empresa/ingressos"}>Ingressos</Link>
+                  <Link to={"/empresa/ingressos"} className="menu-item ancora">
+                    Ingressos
+                  </Link>
                 </li>
                 <li>
-                  <Link to={"/empresa/vendas"}>Vendas</Link>
+                  <Link to={"/empresa/vendas"} className="menu-item ancora">
+                    Vendas
+                  </Link>
                 </li>
               </ul>
             ),
