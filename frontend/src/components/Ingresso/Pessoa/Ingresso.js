@@ -32,15 +32,7 @@ function Ingresso({ botoes, comprar, ingressos, meuCarrinho, setMeuCarrinho }) {
           </li>
         </ul>
       </div>
-      {botoes ? (
-        <Botoes botoes={botoes} />
-      ) : comprar ? (
-        <div className="botoes-container">
-          <button className="botao" onClick={colocaIngressoNoCarrinho}>
-            Comprar
-          </button>
-        </div>
-      ) : null}
+      <div></div>
     </div>
   );
 }
