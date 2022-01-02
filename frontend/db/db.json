@@ -4,7 +4,9 @@
       "id": "1",
       "nome": "Rock in Rio 2022",
       "genero": "musica",
-      "cep": "01001000",
+      "imagem":"https://vejario.abril.com.br/wp-content/uploads/2021/09/WhatsAppImage2020-08-25at16.14.06.jpeg",
+      "cep": "22783127",
+      "local": "Parque dos Atletas",
       "dataInicio": "2021-12-24T20:00",
       "dataFim": "2021-12-24T20:00"
     },
@@ -12,7 +14,9 @@
       "id": "2",
       "nome": "Rock in Rio 2022",
       "genero": "musica",
-      "cep": "01001000",
+      "imagem":"https://vejario.abril.com.br/wp-content/uploads/2021/09/WhatsAppImage2020-08-25at16.14.06.jpeg",
+      "cep": "22783127",
+      "local": "Parque dos Atletas",
       "dataInicio": "2021-12-24T20:00",
       "dataFim": "2021-12-24T20:00"
     }
@@ -49,13 +53,11 @@
     {
       "id":"1",
       "vendaId": "1",
-      "quantidade": "5",
       "cpf": "12345678901"
     },
     {
       "id":"2",
       "vendaId": "2",
-      "quantidade": "10",
       "cpf": "12345678901"
     }
   ] 

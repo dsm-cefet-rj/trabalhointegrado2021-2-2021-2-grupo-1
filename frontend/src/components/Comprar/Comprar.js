@@ -1,25 +1,31 @@
 import "./comprar.css";
 
-import Cabecalho from "../Cabecalho/Cabecalho";
-import Ingresso from "../Ingresso/Pessoa/Ingresso";
-//import "../Botoes/Botoes.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addCompra } from "../../redux/comprarSlice";
+
+import { addCompra, removeTudoMeuCarrinho } from "../../redux/comprarSlice";
+
+import Cabecalho from "../Cabecalho/Cabecalho";
+import Ingresso from "../Ingresso/Pessoa/Ingresso";
 
 function Comprar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const meuCarrinho = useSelector((state) => state.comprar.meuCarrinho);
-  const ingressos = useSelector((state) => state.ingressos);
+  const compras = useSelector((state) => state.comprar.compras);
 
-  function ingressoNome(ingressoId) {
-    return ingressos.filter(
-      (ingresso) => ingresso.id === meuCarrinho.ingressoId
-    );
-  }
+  const maiorId = compras.reduce((previousValue, currentValue) => {
+    return currentValue.id > previousValue ? currentValue.id : previousValue;
+  }, 0);
+  const compraId = (Number(maiorId) + Number(1)).toString();
+
+  const [novaCompra, setNovaCompra] = useState({
+    id: compraId,
+    vendaId: "",
+    cpf: "",
+  });
 
   const valorTotalCarrinho = meuCarrinho.reduce(
     (previousValue, currentValue) => {
@@ -29,31 +35,46 @@ function Comprar() {
   );
 
   function checaMudanca(e) {
-    // setEventoEditado({
-    //   ...eventoEditado,
-    //   [e.target.name]: e.target.value,
-    // });
+    setNovaCompra({
+      ...novaCompra,
+      [e.target.name]: e.target.value,
+    });
   }
 
   function checaEnvio(e) {
-    // dispatch(addCompra(meuCarrinho));
-    // e.preventDefault();
-    // navigate("/meus-ingressos");
+    meuCarrinho.forEach((e) => {
+      dispatch(
+        addCompra({
+          ...novaCompra,
+          vendaId: e.id,
+        })
+      );
+    });
+    navigate("/meus-ingressos");
+    dispatch(removeTudoMeuCarrinho());
+    e.preventDefault();
   }
 
   return (
     <>
-      {/* <Cabecalho usuario={"pessoa"} />
+      <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <>
           <h2 className="subtitulo">
             Meu carrinho <span>{meuCarrinho.length}</span>
           </h2>
           {meuCarrinho.length > 0 ? (
-            meuCarrinho.map((e) => console.log(e.venda))
+            meuCarrinho.map((carrinho) => (
+              <Ingresso
+                tipo={carrinho}
+                vendaMeuCarrinhoOuCompra="carrinho"
+                key={carrinho.id}
+              />
+            ))
           ) : (
-            <p>Seu carrinho está vazio!</p>
+            <p>Seu carrinho está vazio! :(</p>
           )}
+          {meuCarrinho.length > 0 ? <p>Total: {valorTotalCarrinho}</p> : null}
         </>
         <h2 className="subtitulo">Finalizar Compra</h2>
         <form className="formulario" onSubmit={checaEnvio}>
@@ -62,8 +83,9 @@ function Comprar() {
             type="number"
             name="cpf"
             placeholder="32878887873"
-            className="input-box"
             onChange={checaMudanca}
+            className="input-box"
+            required
           />
           <label>
             Nome do Cartão de Crédito
@@ -72,7 +94,7 @@ function Comprar() {
               name="nome"
               placeholder="Alfredo Alberto de Souza"
               className="input-box"
-              onChange={checaMudanca}
+              required
             />
           </label>
           <label>
@@ -82,7 +104,7 @@ function Comprar() {
               name="num"
               placeholder="3287888787382188"
               className="input-box"
-              onChange={checaMudanca}
+              required
             />
           </label>
           <label>
@@ -92,7 +114,7 @@ function Comprar() {
               name="dataValid"
               placeholder="março de 2024"
               className="input-box"
-              onChange={checaMudanca}
+              required
             />
           </label>
           <label>
@@ -102,14 +124,14 @@ function Comprar() {
               name="cod"
               placeholder="999"
               className="input-box"
-              onChange={checaMudanca}
+              required
             />
           </label>
           <div className="botoes-container">
             <input type="submit" value="Comprar" className="botao" />
           </div>
         </form>
-      </main> */}
+      </main>
     </>
   );
 }

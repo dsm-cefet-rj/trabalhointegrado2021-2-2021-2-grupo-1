@@ -21,8 +21,10 @@ function CriarEvento() {
   const [novoEvento, setNovoEvento] = useState({
     id: eventoId,
     nome: "",
+    imagem: "",
     genero: "",
     cep: "",
+    local: "",
     dataInicio: "",
     dataFim: "",
   });
@@ -40,22 +42,40 @@ function CriarEvento() {
     navigate("/empresa/eventos");
   }
 
+  function pegaImagem(imagem) {
+    setNovoEvento({
+      ...novoEvento,
+      imagem: URL.createObjectURL(imagem),
+    });
+  }
+
   return (
     <>
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Evento</h2>
         <form className="formulario" onSubmit={checaEnvio}>
-          <label>Nome do Evento</label>
-          <input
-            type="text"
-            name="nome"
-            className="input-box"
-            placeholder="Rock in Rio"
-            onChange={checaMudanca}
-            required
-            autoFocus
-          />
+          <label>
+            Nome do Evento
+            <input
+              type="text"
+              name="nome"
+              className="input-box"
+              placeholder="Rock in Rio"
+              onChange={checaMudanca}
+              required
+              autoFocus
+            />
+          </label>
+          <label>
+            Imagem do evento
+            <input
+              type="file"
+              name="imagem"
+              className="input-box"
+              onChange={(e) => pegaImagem(e.target.files[0])}
+            />
+          </label>
           <label>
             Genero
             <select
@@ -75,6 +95,17 @@ function CriarEvento() {
               type="number"
               placeholder="20270090"
               name="cep"
+              className="input-box"
+              onChange={checaMudanca}
+              required
+            />
+          </label>
+          <label>
+            Local do Evento
+            <input
+              type="text"
+              placeholder="Maracanã"
+              name="local"
               className="input-box"
               onChange={checaMudanca}
               required

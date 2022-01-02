@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  meuCarrinho: [
-    {
-      id: "1",
-      vendaId: "1",
-      quantidade: "5",
-      cpf: "12345678901",
-    },
-  ],
+  meuCarrinho: [],
   compras: [],
 };
 
@@ -27,6 +20,17 @@ const comprarSlice = createSlice({
       return {
         ...state,
         meuCarrinho: [...state.meuCarrinho, action.payload],
+      };
+    },
+    removeItemMeuCarrinho: (state, action) => {
+      const index = state.meuCarrinho.findIndex((e) => e.id === action.payload);
+
+      state.meuCarrinho.splice(index, 1);
+    },
+    removeTudoMeuCarrinho: (state, action) => {
+      return {
+        ...state,
+        meuCarrinho: [],
       };
     },
     addCompra: (state, action) => {
@@ -59,6 +63,12 @@ const comprarSlice = createSlice({
   },
 });
 
-export const { addMeuCarrinho, addCompra, editCompra, deleteCompra } =
-  comprarSlice.actions;
+export const {
+  addMeuCarrinho,
+  removeItemMeuCarrinho,
+  removeTudoMeuCarrinho,
+  addCompra,
+  editCompra,
+  deleteCompra,
+} = comprarSlice.actions;
 export default comprarSlice.reducer;

@@ -1,52 +1,146 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import "../ingresso.css";
 import "../../Botoes/botoes.css";
 
-import { useDispatch } from "react-redux";
+import {
+  addMeuCarrinho,
+  removeItemMeuCarrinho,
+} from "../../../redux/comprarSlice";
 
-import { addMeuCarrinho } from "../../../redux/comprarSlice";
-import { useNavigate } from "react-router-dom";
-
-function Ingresso({ venda }) {
+function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ingresso = useSelector((state) =>
-    state.ingressos.find((ingresso) => ingresso.id === venda.ingressoId)
-  );
-  const evento = useSelector((state) =>
-    state.eventos.find((evento) => evento.id === ingresso.eventoId)
-  );
+  const state = useSelector((state) => {
+    if (vendaMeuCarrinhoOuCompra === "venda") {
+      const ingresso = state.ingressos.find(
+        (ingresso) => ingresso.id === tipo.ingressoId
+      );
+      const evento = state.eventos.find(
+        (evento) => evento.id === ingresso.eventoId
+      );
+
+      return {
+        ingresso,
+        evento,
+      };
+    } else if (vendaMeuCarrinhoOuCompra === "carrinho") {
+      const ingresso = state.ingressos.find(
+        (ingresso) => ingresso.id === tipo.ingressoId
+      );
+      const evento = state.eventos.find(
+        (evento) => evento.id === ingresso.eventoId
+      );
+
+      return {
+        ingresso,
+        evento,
+      };
+    } else if (vendaMeuCarrinhoOuCompra === "compra") {
+      const venda = state.vendas.find((venda) => venda.id === tipo.vendaId);
+
+      const ingresso = state.ingressos.find(
+        (ingresso) => ingresso.id === venda.ingressoId
+      );
+      const evento = state.eventos.find(
+        (evento) => evento.id === ingresso.eventoId
+      );
+
+      return {
+        ingresso,
+        evento,
+      };
+    }
+  });
+
+  const [enderecoEvento, setEnderecoEvento] = useState({});
+
+  useEffect(async () => {
+    const url = `https://viacep.com.br/ws/${state.evento.cep}/json/`;
+    const res = await axios.get(url);
+    const { logradouro, localidade, bairro } = await res.data;
+
+    setEnderecoEvento({ logradouro, localidade, bairro });
+  }, [state.evento]);
 
   function colocaIngressoNoCarrinho() {
     navigate("/carrinho");
-    dispatch(addMeuCarrinho(venda));
+    dispatch(addMeuCarrinho(tipo));
+  }
+
+  function tirarIngressoDoCarrinho() {
+    dispatch(removeItemMeuCarrinho(tipo.id));
+  }
+
+  function formataEndereco() {
+    return `${enderecoEvento.logradouro}, ${enderecoEvento.localidade} - ${enderecoEvento.bairro}`;
+  }
+
+  function formataData(data) {
+    const ano = /\d{1,4}/.exec(data);
+    const mes = /(?<=-)\d{1,2}/.exec(data);
+    const dia = /(?<=-)\d{1,2}(?=T)/.exec(data);
+    const horario = /(?<=T).+/.exec(data);
+
+    return `${dia}/${mes}/${ano} ${horario}`;
   }
 
   return (
     <div className="ingresso-container">
-      <h2 className="subtitulo evento-nome">{evento.nome}</h2>
+      <h2 className="subtitulo evento-nome">{state.evento.nome}</h2>
       <img
-        src="https://www.lance.com.br/files/article_main/uploads/2020/06/21/5eefd5243192a.jpeg"
+        src={state.evento.imagem}
         alt="imagem do ingresso"
         className="ingresso-imagem"
       />
       <div className="ingresso-detalhe">
         <ul>
-          <li className="ingresso-detalhe-item">{ingresso.nome}</li>
-          <li className="ingresso-detalhe-item">{evento.cep}</li>
-          <li className="ingresso-detalhe-item">{evento.dataInicio}</li>
-          <li className="ingresso-detalhe-item">R$ {venda.valor}</li>
+          <li className="ingresso-detalhe-item">{state.ingresso.nome}</li>
+          <li className="ingresso-detalhe-item">{formataEndereco()}</li>
+          <li className="ingresso-detalhe-item">{state.evento.local}</li>
+          <li className="ingresso-detalhe-item">
+            {formataData(state.evento.dataInicio)}
+          </li>
+          {vendaMeuCarrinhoOuCompra === "venda" ? (
+            <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
+          ) : null}
         </ul>
       </div>
       <div className="botoes-container">
-        <button
-          className="botao"
-          type="button"
-          onClick={colocaIngressoNoCarrinho}
-        >
-          Comprar
-        </button>
+        {vendaMeuCarrinhoOuCompra === "venda" ? (
+          <button
+            className="botao"
+            type="button"
+            onClick={colocaIngressoNoCarrinho}
+          >
+            Comprar
+          </button>
+        ) : vendaMeuCarrinhoOuCompra === "compra" ? (
+          <>
+            <Link to={`/meu-ingresso/${tipo.id}`} className="botao">
+              Editar
+            </Link>
+            <Link to={`/`} className="botao">
+              Gerar
+            </Link>
+            <Link to={`/`} className="botao">
+              Revender
+            </Link>
+          </>
+        ) : (
+          vendaMeuCarrinhoOuCompra === "carrinho" && (
+            <button
+              type="button"
+              onClick={tirarIngressoDoCarrinho}
+              className="botao botao-perigo"
+            >
+              Remover
+            </button>
+          )
+        )}
       </div>
     </div>
   );

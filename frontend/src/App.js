@@ -54,7 +54,7 @@ function App() {
 
         <Route path="/carrinho" element={<Comprar />} />
         <Route path="/meus-ingressos" element={<IngressosComprados />} />
-        <Route path="/editar-compra" element={<EditarCompra />} />
+        <Route path="/meu-ingresso/:id" element={<EditarCompra />} />
 
         <Route
           path="/esporte"

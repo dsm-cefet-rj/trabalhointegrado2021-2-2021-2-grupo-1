@@ -20,7 +20,7 @@ function CriarVenda() {
   const vendaId = (Number(maiorId) + Number(1)).toString();
 
   const [novaVenda, setNovaVenda] = useState({
-    venda: vendaId,
+    id: vendaId,
     ingressoId: "",
     valor: "",
     quantidade: "",

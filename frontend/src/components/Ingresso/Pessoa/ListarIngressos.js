@@ -7,6 +7,35 @@ import Ingresso from "./Ingresso";
 
 function ListarIngresso({ genero }) {
   const vendas = useSelector((state) => state.vendas);
+  const ingressos = useSelector((state) => state.ingressos);
+  const eventos = useSelector((state) => state.eventos);
+
+  function verificaSeHaEvento() {
+    const haEvento = vendas.filter(
+      (venda) =>
+        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero === genero
+    );
+    const naoHaEvento = vendas.every(
+      (venda) =>
+        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero === genero
+    );
+
+    if (haEvento.length > 0) {
+      return haEvento.map((venda) => (
+        <Ingresso
+          tipo={venda}
+          vendaMeuCarrinhoOuCompra={"venda"}
+          key={venda.id}
+        />
+      ));
+    } else if (!naoHaEvento) {
+      return (
+        <p className="centralizar-xy">
+          Não há nenhum ingresso nessa categoria! :(
+        </p>
+      );
+    }
+  }
 
   return (
     <>
@@ -22,9 +51,7 @@ function ListarIngresso({ genero }) {
             ? " Família"
             : null}
         </h2>
-        {vendas.map((venda) => (
-          <Ingresso venda={venda} key={venda.id} />
-        ))}
+        <div className="ingresso-container">{verificaSeHaEvento()}</div>
       </main>
     </>
   );

@@ -1,42 +1,32 @@
 import { useSelector } from "react-redux";
 
+import "../Ingresso/ingresso.css";
+
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
 
 function ListarCompras() {
-  const ingressosComprados = useSelector((state) => state.ingressosComprados);
-
-  const botoes = [
-    {
-      nome: "Gerar",
-      url: "/Gerar-compra",
-    },
-    {
-      nome: "Editar",
-      url: "/editar-compra",
-    },
-    {
-      nome: "Reembolso",
-      url: "/Reembolso",
-    },
-  ];
+  const compras = useSelector((state) => state.comprar.compras);
 
   return (
     <>
-      {/* <Cabecalho usuario={"pessoa"} />
+      <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
-        <h2 className="subtitulo">
-          Meus Ingressos {ingressosComprados.length}
-        </h2>
-        {ingressosComprados.length > 0
-          ? ingressosComprados.map((ingressosComprados) => (
+        <h2 className="subtitulo">Meus Ingressos {compras.length}</h2>
+        <div className="ingresso-container">
+          {compras.length > 0 ? (
+            compras.map((compra) => (
               <Ingresso
-                ingressos={ingressosComprados}
-                key={ingressosComprados.id}
+                tipo={compra}
+                vendaMeuCarrinhoOuCompra={"compra"}
+                key={compra.id}
               />
             ))
-          : null}
-      </main> */}
+          ) : (
+            <p>Você ainda não comprou nenhum ingresso! :(</p>
+          )}
+        </div>
+      </main>
     </>
   );
 }
