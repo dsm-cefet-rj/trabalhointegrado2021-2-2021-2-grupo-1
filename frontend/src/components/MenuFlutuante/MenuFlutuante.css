@@ -3,7 +3,8 @@
   position: relative;
 }
 
-.menu-flutuante > a {
+.menu-flutuante > .ancora {
+  background-color: transparent;
   font-size: 0.8rem;
 }
 
@@ -16,8 +17,14 @@
   border-radius: 2px;
 }
 
-.menu-flutuante-conteudo > a {
+.menu-flutuante-conteudo > a,
+.menu-flutuante-conteudo > button {
   display: block;
   margin: 30px;
+  text-align: center;
   font-size: 0.8rem;
+}
+
+.menu-flutuante-conteudo > button {
+  background-color: transparent;
 }

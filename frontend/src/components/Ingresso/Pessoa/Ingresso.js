@@ -9,13 +9,20 @@ import "../../Botoes/botoes.css";
 import {
   addMeuCarrinho,
   removeItemMeuCarrinho,
+  deleteCompra,
 } from "../../../redux/comprarSlice";
+
+import { addVenda } from "../../../redux/vendasSlice";
 
 function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const vendas = useSelector((state) => state.vendas);
   const state = useSelector((state) => {
-    if (vendaMeuCarrinhoOuCompra === "venda") {
+    if (
+      vendaMeuCarrinhoOuCompra === "venda" ||
+      vendaMeuCarrinhoOuCompra === "revenda"
+    ) {
       const ingresso = state.ingressos.find(
         (ingresso) => ingresso.id === tipo.ingressoId
       );
@@ -50,6 +57,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
       );
 
       return {
+        venda,
         ingresso,
         evento,
       };
@@ -58,12 +66,16 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
 
   const [enderecoEvento, setEnderecoEvento] = useState({});
 
-  useEffect(async () => {
-    const url = `https://viacep.com.br/ws/${state.evento.cep}/json/`;
-    const res = await axios.get(url);
-    const { logradouro, localidade, bairro } = await res.data;
+  useEffect(() => {
+    async function getEnderecoEvento() {
+      const url = `https://viacep.com.br/ws/${state.evento.cep}/json/`;
+      const res = await axios.get(url);
+      const { logradouro, localidade, bairro } = await res.data;
 
-    setEnderecoEvento({ logradouro, localidade, bairro });
+      setEnderecoEvento({ logradouro, localidade, bairro });
+    }
+
+    getEnderecoEvento();
   }, [state.evento]);
 
   function colocaIngressoNoCarrinho() {
@@ -88,6 +100,25 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
     return `${dia}/${mes}/${ano} ${horario}`;
   }
 
+  function revender() {
+    const maiorId = vendas.reduce((previousValue, currentValue) => {
+      return currentValue.id > previousValue ? currentValue.id : previousValue;
+    }, 0);
+    const vendaId = (Number(maiorId) + Number(1)).toString();
+
+    dispatch(
+      addVenda({
+        ...state.venda,
+        id: vendaId,
+        valor: state.venda.valor - 20,
+        revenda: true,
+        quantidade: 1,
+      })
+    );
+
+    dispatch(deleteCompra(tipo.id));
+  }
+
   return (
     <div className="ingresso-container">
       <h2 className="subtitulo evento-nome">{state.evento.nome}</h2>
@@ -104,13 +135,19 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
           <li className="ingresso-detalhe-item">
             {formataData(state.evento.dataInicio)}
           </li>
-          {vendaMeuCarrinhoOuCompra === "venda" ? (
-            <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
-          ) : null}
+          {vendaMeuCarrinhoOuCompra === "venda" && (
+            <>
+              <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
+              <li className="ingresso-detalhe-item">
+                Quantidade: {tipo.quantidade}
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div className="botoes-container">
-        {vendaMeuCarrinhoOuCompra === "venda" ? (
+        {vendaMeuCarrinhoOuCompra === "venda" ||
+        vendaMeuCarrinhoOuCompra === "revenda" ? (
           <button
             className="botao"
             type="button"
@@ -126,7 +163,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
             <Link to={`/`} className="botao">
               Gerar
             </Link>
-            <Link to={`/`} className="botao">
+            <Link to={`/revendas`} className="botao" onClick={revender}>
               Revender
             </Link>
           </>

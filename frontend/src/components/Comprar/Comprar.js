@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { addCompra, removeTudoMeuCarrinho } from "../../redux/comprarSlice";
+import { vendaRealizada } from "../../redux/vendasSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
@@ -49,6 +50,8 @@ function Comprar() {
           vendaId: e.id,
         })
       );
+
+      dispatch(vendaRealizada(e.id));
     });
     navigate("/meus-ingressos");
     dispatch(removeTudoMeuCarrinho());

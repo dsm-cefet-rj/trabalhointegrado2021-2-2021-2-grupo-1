@@ -1,10 +1,13 @@
 import "./cabecalho.css";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import MenuFlutuante from "../MenuFlutuante/MenuFlutuante";
 
 function Cabecalho({ usuario }) {
+  const location = useLocation();
+
+  console.log(location.pathname);
   const menuListaPessoa = [
     {
       pathName: "/meus-ingressos",
@@ -13,6 +16,14 @@ function Cabecalho({ usuario }) {
     {
       pathName: "/carrinho",
       itemName: "Meu Carrinho",
+    },
+    {
+      pathName: "/revendas",
+      itemName: "Revendas",
+    },
+    {
+      pathName: "/",
+      itemName: "Sair",
     },
   ];
 
@@ -29,14 +40,35 @@ function Cabecalho({ usuario }) {
       pathName: "/empresa/criar-venda",
       itemName: "Vender",
     },
+    {
+      pathName: "/",
+      itemName: "Sair",
+    },
+  ];
+
+  const menuHome = [
+    {
+      pathName: "/",
+      itemName: "Já Possui uma Conta?",
+    },
+    {
+      pathName: "/",
+      itemName: "Crie uma Conta",
+    },
   ];
 
   return (
     <header>
       <div className="cabecalho-container centralizar-xy">
-        <Link to={"/"}>
-          <h1 className="titulo">Meu Ingresso</h1>
-        </Link>
+        {location.pathname === "/" ? (
+          <Link to={"/"}>
+            <h1 className="titulo">Meu Ingresso</h1>
+          </Link>
+        ) : (
+          <Link to={"/home"}>
+            <h1 className="titulo">Meu Ingresso</h1>
+          </Link>
+        )}
         <div className="usuario-container centralizar-xy">
           {
             {
@@ -49,6 +81,7 @@ function Cabecalho({ usuario }) {
                   lista={menuListaEmpresa}
                 />
               ),
+              home: <MenuFlutuante nomeMenu={"Entre"} lista={menuHome} />,
             }[usuario]
           }
         </div>

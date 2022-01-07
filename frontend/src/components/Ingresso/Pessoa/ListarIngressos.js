@@ -13,11 +13,8 @@ function ListarIngresso({ genero }) {
   function verificaSeHaEvento() {
     const haEvento = vendas.filter(
       (venda) =>
-        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero === genero
-    );
-    const naoHaEvento = vendas.every(
-      (venda) =>
-        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero === genero
+        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero ===
+          genero && venda.quantidade > 0
     );
 
     if (haEvento.length > 0) {
@@ -28,7 +25,7 @@ function ListarIngresso({ genero }) {
           key={venda.id}
         />
       ));
-    } else if (!naoHaEvento) {
+    } else {
       return (
         <p className="centralizar-xy">
           Não há nenhum ingresso nessa categoria! :(

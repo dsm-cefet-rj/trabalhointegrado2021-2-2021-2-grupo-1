@@ -47,7 +47,7 @@ const comprarSlice = createSlice({
         ),
       };
     },
-    deleteComprar: (state, action) => {
+    deleteCompra: (state, action) => {
       const index = state.compras.findIndex((e) => e.id === action.payload);
 
       state.compras.splice(index, 1);

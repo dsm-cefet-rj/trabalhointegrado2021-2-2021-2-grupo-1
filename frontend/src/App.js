@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
+import HomeLogin from "./components/Home/HomeLogin";
 
 import ListarEventos from "./components/Evento/ListarEventos";
 import EditarEvento from "./components/Evento/EditarEvento";
@@ -15,6 +16,8 @@ import IngressosComprados from "./components/Comprar/ListarCompras";
 import { fetchComprar } from "./redux/comprarSlice";
 
 import ListarIngressosPessoa from "./components/Ingresso/Pessoa/ListarIngressos";
+import ListarIngressosRevendidos from "./components/Ingresso/Pessoa/ListarRevendas";
+import ListarPesquisa from "./components/Ingresso/Pessoa/ListarPesquisa";
 import ListarIngressosEmpresa from "./components/Ingresso/Empresa/ListarIngresso";
 import CriarIngresso from "./components/Ingresso/Empresa/CriarIngresso";
 import EditarIngresso from "./components/Ingresso/Empresa/EditarIngresso";
@@ -33,12 +36,13 @@ function App() {
     dispatch(fetchVendas());
     dispatch(fetchComprar());
     dispatch(fetchIngressos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<HomeLogin />} />
+        <Route path="/home" element={<Home />} />
 
         <Route path="/empresa/eventos" element={<ListarEventos />} />
         <Route path="/empresa/evento/:id" element={<EditarEvento />} />
@@ -68,6 +72,8 @@ function App() {
           path="/familia"
           element={<ListarIngressosPessoa genero={"familia"} />}
         />
+        <Route path="/revendas" element={<ListarIngressosRevendidos />} />
+        <Route path="/ingressos/:name" element={<ListarPesquisa />} />
       </Routes>
     </Router>
   );

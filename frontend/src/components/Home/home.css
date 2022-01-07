@@ -18,3 +18,20 @@
   margin-top: 0;
   margin-left: 30px;
 }
+
+.pagina-inicial-chamada {
+  font-size: 2rem;
+}
+
+
+.pagina-inicial-fonte-menor {
+  font-size: 1rem;
+}
+
+.pagina-inicial-fonte-muito-menor {
+  font-size: 0.6rem;
+}
+
+.pagina-inicial-pula-linha {
+  display: block;
+}

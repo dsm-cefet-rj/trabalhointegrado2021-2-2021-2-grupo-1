@@ -1,15 +1,23 @@
+import { useState } from "react";
+
 import "./home.css";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Botao from "../Botoes/Botoes";
 
 function Home() {
+  const [pesquisa, setPesquisa] = useState("");
+
   const botao = [
     {
       nome: "Procurar",
-      url: "/",
+      url: `/ingressos/${pesquisa}`,
     },
   ];
+
+  function checaMudança(e) {
+    setPesquisa(e.target.value);
+  }
 
   return (
     <>
@@ -22,6 +30,7 @@ function Home() {
               type="text"
               placeholder="Nome do Evento"
               className="input-box"
+              onChange={checaMudança}
             />
             <Botao botoes={botao} />
           </form>
