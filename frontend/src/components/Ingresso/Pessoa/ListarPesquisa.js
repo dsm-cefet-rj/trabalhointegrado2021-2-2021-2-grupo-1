@@ -8,7 +8,7 @@ import Cabecalho from "../../Cabecalho/Cabecalho";
 function ListarPesquisa() {
   const { name } = useParams();
 
-  const eventos = useSelector((state) => state.eventos);
+  const eventos = useSelector((state) => state.eventos.eventos);
   const vendas = useSelector((state) => state.vendas);
   const ingressos = useSelector((state) => state.ingressos);
 

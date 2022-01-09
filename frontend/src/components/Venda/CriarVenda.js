@@ -14,14 +14,19 @@ function CriarVenda() {
   const vendas = useSelector((state) => state.vendas);
   const ingressos = useSelector((state) => state.ingressos);
 
-  const maiorId = vendas.reduce((previousValue, currentValue) => {
-    return currentValue.id > previousValue ? currentValue.id : previousValue;
-  }, 0);
-  const vendaId = (Number(maiorId) + Number(1)).toString();
+  const maiorId =
+    vendas.length > 0
+      ? vendas.reduce((previousValue, currentValue) => {
+          return currentValue.id > previousValue
+            ? currentValue.id
+            : previousValue;
+        }, 0)
+      : 1;
+  const vendaId = maiorId === 1 ? 1 : (Number(maiorId) + Number(1)).toString();
 
   const [novaVenda, setNovaVenda] = useState({
     id: vendaId,
-    ingressoId: "",
+    ingressoId: "1",
     valor: "",
     quantidade: "",
   });

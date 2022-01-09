@@ -3,8 +3,12 @@ import { useSelector } from "react-redux";
 import Botao from "../Botoes/Botoes";
 
 function Venda({ venda }) {
+  console.log(venda);
+
   const ingresso = useSelector((state) =>
-    state.ingressos.find((ingresso) => ingresso.id === venda.ingressoId)
+    state.ingressos.find(
+      (ingresso) => String(ingresso.id) === String(venda.ingressoId)
+    )
   );
 
   const botao = [

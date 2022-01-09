@@ -8,7 +8,7 @@ import Ingresso from "./Ingresso";
 function ListarIngresso({ genero }) {
   const vendas = useSelector((state) => state.vendas);
   const ingressos = useSelector((state) => state.ingressos);
-  const eventos = useSelector((state) => state.eventos);
+  const eventos = useSelector((state) => state.eventos.eventos);
 
   function verificaSeHaEvento() {
     const haEvento = vendas.filter(

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addIngresso } from "../../../redux/ingressosSlice";
 
+import { selectAllEventos } from "../../../redux/eventosSlice";
 import Cabecalho from "../../Cabecalho/Cabecalho";
 import "../../Botoes/botoes.css";
 
@@ -10,16 +11,22 @@ function CriarIngresso() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ingresso = useSelector((state) => state.ingressos);
-  const eventos = useSelector((state) => state.eventos);
+  const eventos = useSelector(selectAllEventos);
 
-  const maiorId = ingresso.reduce((previousValue, currentValue) => {
-    return currentValue.id > previousValue ? currentValue.id : previousValue;
-  }, 0);
-  const ingressoId = (Number(maiorId) + Number(1)).toString();
+  const maiorId =
+    ingresso.length > 0
+      ? ingresso.reduce((previousValue, currentValue) => {
+          return currentValue.id > previousValue
+            ? currentValue.id
+            : previousValue;
+        }, 0)
+      : 1;
+  const ingressoId =
+    maiorId === 1 ? 1 : (Number(maiorId) + Number(1)).toString();
 
   const [novoIngresso, setNovoIngresso] = useState({
     id: ingressoId,
-    eventoId: "",
+    eventoId: "1",
     nome: "",
     descricao: "",
   });

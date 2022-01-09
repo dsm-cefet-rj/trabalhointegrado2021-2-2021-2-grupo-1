@@ -1,8 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
-import { editEvento, deleteEvento } from "../../redux/eventosSlice";
+import eventoSchema from "./EventoSchema";
+
+import {
+  selectEventoById,
+  updateEvento,
+  deleteEvento,
+} from "../../redux/eventosSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 
@@ -10,27 +18,28 @@ function EditarEvento() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const evento = useSelector((state) => state.eventos.find((e) => e.id === id));
+  const evento = useSelector((state) => selectEventoById(state, id));
 
-  const [eventoEditado, setEventoEditado] = useState({
-    id: evento.id,
-    nome: evento.nome,
-    genero: evento.genero,
-    cep: evento.cep,
-    dataInicio: evento.dataInicio,
-    dataFim: evento.dataFim,
+  const [eventoForm] = useState(
+    eventoSchema.cast({
+      ...evento,
+    })
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(eventoSchema),
   });
 
-  function checaMudanca(e) {
-    setEventoEditado({
-      ...eventoEditado,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(editEvento(eventoEditado));
-    e.preventDefault();
+  function checaEnvio(evento) {
+    dispatch(
+      updateEvento({
+        ...evento,
+        id,
+      })
+    );
     navigate("/empresa/eventos");
   }
 
@@ -45,62 +54,63 @@ function EditarEvento() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Editar Evento</h2>
-        <form className="formulario" onSubmit={checaEnvio}>
-          <label>Nome do Evento</label>
-          <input
-            type="text"
-            className="input-box"
-            name="nome"
-            onChange={checaMudanca}
-            defaultValue={evento.nome}
-            required
-          />
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+          <label>
+            Nome do Evento
+            <input
+              type="text"
+              className="input-box"
+              defaultValue={eventoForm.nome}
+              placeholder="Rock in Rio"
+              {...register("nome", { required: true })}
+            />
+            <span>{errors.nome?.message}</span>
+          </label>
           <label>
             Gênero
             <select
               className="input-box"
-              name="genero"
-              defaultValue={evento.genero}
-              onChange={checaMudanca}
-              required
+              defaultValue={eventoForm.genero}
+              {...register("genero", { required: true })}
             >
-              <option value="esportes">Esportes</option>
-              <option value="musica">Musica</option>
+              <option value="esporte">Esportes</option>
+              <option value="musica">Música</option>
               <option value="familia">Família</option>
             </select>
+            <span>{errors.genero?.message}</span>
           </label>
           <label>
-            CEP
+            Endereço
             <input
-              type="number"
-              defaultValue={evento.cep}
-              name="cep"
+              type="text"
+              placeholder="Av. Pres. Castelo Branco, Maracanã, Rio de Janeiro - RJ, 20271-130"
               className="input-box"
-              onChange={checaMudanca}
-              required
+              defaultValue={eventoForm.endereco}
+              {...register("endereco", { required: true })}
             />
+            <span>{errors.endereco?.message}</span>
           </label>
           <label>
             Começo Do Evento
             <input
               type="datetime-local"
-              defaultValue={evento.dataInicio}
-              name="dataInicio"
               className="input-box"
-              onChange={checaMudanca}
-              required
+              name="dataInicio"
+              defaultValue={eventoForm.dataInicio}
+              {...register("dataInicio", { required: true })}
             />
+            <span>{errors.dataInicio?.message}</span>
           </label>
           <label>
             Finalização do Evento
             <input
               type="datetime-local"
-              defaultValue={evento.dataFim}
-              name="dataFim"
               className="input-box"
-              onChange={checaMudanca}
-              required
+              name="dataFim"
+              defaultValue={eventoForm.dataFim}
+              {...register("dataFim", { required: true })}
             />
+            <span>{errors.dataFim?.message}</span>
           </label>
           <div className="botoes-container">
             <input type="submit" value="Editar" className="botao" />

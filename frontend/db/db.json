@@ -1,64 +1,6 @@
 {
-  "eventos": [
-    {
-      "id": "1",
-      "nome": "Rock in Rio 2022",
-      "genero": "musica",
-      "imagem":"https://vejario.abril.com.br/wp-content/uploads/2021/09/WhatsAppImage2020-08-25at16.14.06.jpeg",
-      "cep": "22783127",
-      "local": "Parque dos Atletas",
-      "dataInicio": "2021-12-24T20:00",
-      "dataFim": "2021-12-24T20:00"
-    },
-    {
-      "id": "2",
-      "nome": "Jogo das Estrelas",
-      "genero": "esporte",
-      "imagem":"https://www.lance.com.br/files/article_main/uploads/2020/07/05/5f021506106ce.jpeg",
-      "cep": "20271130",
-      "local": "Maracanã",
-      "dataInicio": "2021-12-24T20:00",
-      "dataFim": "2021-12-24T20:00"
-    }
-  ],
-  "ingressos": [
-    {
-      "id": "1",
-      "eventoId": "1",
-      "nome": "Rock in Rio - Dia 3",
-      "descricao": "Show de musica"
-    },
-    {
-      "id": "2",
-      "eventoId": "2",
-      "nome": "Cadeira Leste",
-      "descricao": "Jogo de futebol"
-    }
-  ],
-  "vendas":[
-    {
-      "id": "1",
-      "ingressoId": "1",
-      "valor": "100",
-      "quantidade": "10"
-    },
-    {
-      "id": "2",
-      "ingressoId": "2",
-      "valor": "200",
-      "quantidade": "10"
-    }
-  ],
-  "compras":[
-    {
-      "id":"1",
-      "vendaId": "1",
-      "cpf": "12345678901"
-    },
-    {
-      "id":"2",
-      "vendaId": "2",
-      "cpf": "12345678901"
-    }
-  ] 
+  "eventos": [],
+  "ingressos": [],
+  "vendas": [],
+  "compras": []
 }

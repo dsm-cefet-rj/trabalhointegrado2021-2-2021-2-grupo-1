@@ -1,13 +1,12 @@
-import "./cabecalho.css";
-
 import { Link, useLocation } from "react-router-dom";
+
+import "./cabecalho.css";
 
 import MenuFlutuante from "../MenuFlutuante/MenuFlutuante";
 
 function Cabecalho({ usuario }) {
   const location = useLocation();
 
-  console.log(location.pathname);
   const menuListaPessoa = [
     {
       pathName: "/meus-ingressos",

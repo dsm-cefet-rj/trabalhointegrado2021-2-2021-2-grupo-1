@@ -3,7 +3,7 @@
 /* variaveis */
 :root {
   --main-color: #22223b;
-  --secundary-color: #edf6f9;
+  --secundary-color: #ecf5f9;
 }
 
 /* geral */
@@ -135,6 +135,23 @@ main {
 
 .listagem-container-empresa p {
   margin-left: 30px;
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+}
+
+.input-box-error {
+  margin-bottom: 0;
+}
+
+.input-box-error ~ span {
+  color: red;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  font-size: 0.6rem;
 }
 
 @media (min-width: 768px) {

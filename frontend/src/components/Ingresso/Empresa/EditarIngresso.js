@@ -16,7 +16,7 @@ function EditarIngresso() {
     state.ingressos.find((e) => e.id === id)
   );
 
-  const eventos = useSelector((state) => state.eventos);
+  const eventos = useSelector((state) => state.eventos.eventos);
 
   const [ingressoEditado, setIngressoEditado] = useState({
     id: ingresso.id,

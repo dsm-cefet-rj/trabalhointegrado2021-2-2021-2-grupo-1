@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import eventoSchema from "./EventoSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 import "../Botoes/botoes.css";
 
@@ -11,42 +14,18 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 function CriarEvento() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const evento = useSelector((state) => state.eventos);
-
-  const maiorId = evento.reduce((previousValue, currentValue) => {
-    return currentValue.id > previousValue ? currentValue.id : previousValue;
-  }, 0);
-  const eventoId = (Number(maiorId) + Number(1)).toString();
-
-  const [novoEvento, setNovoEvento] = useState({
-    id: eventoId,
-    nome: "",
-    imagem: "",
-    genero: "",
-    cep: "",
-    local: "",
-    dataInicio: "",
-    dataFim: "",
+  const [eventoForm] = useState(eventoSchema.cast({}));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(eventoSchema),
   });
 
-  function checaMudanca(e) {
-    setNovoEvento({
-      ...novoEvento,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(addEvento(novoEvento));
-    e.preventDefault();
+  function checaEnvio(evento) {
+    dispatch(addEvento(evento));
     navigate("/empresa/eventos");
-  }
-
-  function pegaImagem(imagem) {
-    setNovoEvento({
-      ...novoEvento,
-      imagem: URL.createObjectURL(imagem),
-    });
   }
 
   return (
@@ -54,82 +33,73 @@ function CriarEvento() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Evento</h2>
-        <form className="formulario" onSubmit={checaEnvio}>
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
           <label>
             Nome do Evento
             <input
               type="text"
-              name="nome"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={eventoForm.nome}
               placeholder="Rock in Rio"
-              onChange={checaMudanca}
-              required
-              autoFocus
+              {...register("nome", { required: true })}
             />
+            <span>{errors.nome?.message}</span>
           </label>
           <label>
-            Imagem do evento
-            <input
-              type="file"
-              name="imagem"
-              className="input-box"
-              onChange={(e) => pegaImagem(e.target.files[0])}
-            />
-          </label>
-          <label>
-            Genero
+            Gênero
             <select
-              className="input-box"
-              name="genero"
-              onChange={checaMudanca}
-              required
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={eventoForm.genero}
+              {...register("genero", { required: true })}
             >
               <option value="esporte">Esportes</option>
               <option value="musica">Música</option>
               <option value="familia">Família</option>
             </select>
+            <span>{errors.genero?.message}</span>
           </label>
           <label>
-            CEP
-            <input
-              type="number"
-              placeholder="20270090"
-              name="cep"
-              className="input-box"
-              onChange={checaMudanca}
-              required
-            />
-          </label>
-          <label>
-            Local do Evento
+            Endereço
             <input
               type="text"
-              placeholder="Maracanã"
-              name="local"
-              className="input-box"
-              onChange={checaMudanca}
-              required
+              placeholder="Av. Pres. Castelo Branco, Maracanã, Rio de Janeiro - RJ, 20271-130"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={eventoForm.endereco}
+              {...register("endereco", { required: true })}
             />
+            <span>{errors.endereco?.message}</span>
           </label>
           <label>
             Começo Do Evento
             <input
               type="datetime-local"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
               name="dataInicio"
-              onChange={checaMudanca}
-              required
+              defaultValue={eventoForm.dataInicio}
+              {...register("dataInicio", { required: true })}
             />
+            <span>{errors.dataInicio?.message}</span>
           </label>
           <label>
             Finalização do Evento
             <input
               type="datetime-local"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
               name="dataFim"
-              onChange={checaMudanca}
-              required
+              defaultValue={eventoForm.dataFim}
+              {...register("dataFim", { required: true })}
             />
+            <span>{errors.dataFim?.message}</span>
           </label>
           <div className="botoes-container">
             <input

@@ -1,7 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
 
 import "../ingresso.css";
 import "../../Botoes/botoes.css";
@@ -11,7 +9,6 @@ import {
   removeItemMeuCarrinho,
   deleteCompra,
 } from "../../../redux/comprarSlice";
-
 import { addVenda } from "../../../redux/vendasSlice";
 
 function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
@@ -26,7 +23,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
       const ingresso = state.ingressos.find(
         (ingresso) => ingresso.id === tipo.ingressoId
       );
-      const evento = state.eventos.find(
+      const evento = state.eventos.eventos.find(
         (evento) => evento.id === ingresso.eventoId
       );
 
@@ -64,20 +61,6 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
     }
   });
 
-  const [enderecoEvento, setEnderecoEvento] = useState({});
-
-  useEffect(() => {
-    async function getEnderecoEvento() {
-      const url = `https://viacep.com.br/ws/${state.evento.cep}/json/`;
-      const res = await axios.get(url);
-      const { logradouro, localidade, bairro } = await res.data;
-
-      setEnderecoEvento({ logradouro, localidade, bairro });
-    }
-
-    getEnderecoEvento();
-  }, [state.evento]);
-
   function colocaIngressoNoCarrinho() {
     navigate("/carrinho");
     dispatch(addMeuCarrinho(tipo));
@@ -85,10 +68,6 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
 
   function tirarIngressoDoCarrinho() {
     dispatch(removeItemMeuCarrinho(tipo.id));
-  }
-
-  function formataEndereco() {
-    return `${enderecoEvento.logradouro}, ${enderecoEvento.localidade} - ${enderecoEvento.bairro}`;
   }
 
   function formataData(data) {
@@ -122,15 +101,10 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   return (
     <div className="ingresso-container">
       <h2 className="subtitulo evento-nome">{state.evento.nome}</h2>
-      <img
-        src={state.evento.imagem}
-        alt="imagem do ingresso"
-        className="ingresso-imagem"
-      />
       <div className="ingresso-detalhe">
         <ul>
           <li className="ingresso-detalhe-item">{state.ingresso.nome}</li>
-          <li className="ingresso-detalhe-item">{formataEndereco()}</li>
+          <li className="ingresso-detalhe-item">{state.evento.endereco}</li>
           <li className="ingresso-detalhe-item">{state.evento.local}</li>
           <li className="ingresso-detalhe-item">
             {formataData(state.evento.dataInicio)}
