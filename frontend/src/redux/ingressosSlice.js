@@ -1,34 +1,96 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+import { httpDelete, httpGet, httpPut, httpPost } from "../utils";
+
+const ingressosAdapter = createEntityAdapter();
+
+const initialState = ingressosAdapter.getInitialState({
+  status: "not_loaded",
+});
 
 export const fetchIngressos = createAsyncThunk(
   "ingressos/fetchIngressos",
   async () => {
-    return await (await fetch("http://localhost:3001/ingressos")).json();
+     return await httpGet("http://localhost:3001/ingressos");
+  }
+);
+
+export const addIngresso = createAsyncThunk(
+  "ingressos/addIngresso",
+  async (projeto) => {
+    return await httpPost("http://localhost:3001/ingressos", projeto);
+  }
+);
+
+export const deleteIngresso = createAsyncThunk(
+  "ingressos/deleteIngresso",
+  async (id) => {
+    await httpDelete(`http://localhost:3001/ingressos/${id}`);
+    return id;
+  }
+);
+
+export const updateIngresso = createAsyncThunk(
+  "ingressos/updateIngresso",
+  async (ingresso) => {
+    return await httpPut(`http://localhost:3001/ingressos/${ingresso.id}`, ingresso);
   }
 );
 
 const ingressosSlice = createSlice({
   name: "ingressos",
   initialState,
-  reducers: {
-    addIngresso: (state, action) => [...state, action.payload],
-    editIngresso: (state, action) => {
-      return state.map((e) =>
-        e.id === action.payload.id ? { ...e, ...action.payload } : e
-      );
-    },
-    deleteIngresso: (state, action) => {
-      const index = state.findIndex((e) => e.id === action.payload);
-
-      state.splice(index, 1);
-    },
-  },
   extraReducers: {
-    [fetchIngressos.fulfilled]: (state, action) => action.payload,
-  },
+    [fetchIngressos.fulfilled]: (state, action) => {
+      state.status = "loaded";
+      ingressosAdapter.setAll(state, action.payload);
+},
+[fetchIngressos.pending]: (state, action) => {
+  state.status = "loading";
+},
+[fetchIngressos.rejected]: (state, action) => {
+  state.status = "failed";
+  state.error = "Falha ao buscar projetos: " + action.error.message;
+},
+[addIngresso.fulfilled]: (state, action) => {
+  state.status = "saved";
+  ingressosAdapter.addOne(state, action.payload);
+},
+[addIngresso.pending]: (state, action) => {
+  state.status = "loading";
+},
+[addIngresso.rejected]: (state, action) => {
+  state.status = "failed";
+  state.error = "Falha ao adicionar projeto: " + action.error.message;
+},
+[updateIngresso.fulfilled]: (state, action) => {
+  state.status = "saved";
+  ingressosAdapter.upsertOne(state, action.payload);
+},
+[updateIngresso.pending]: (state, action) => {
+  state.status = "loading";
+},
+[updateIngresso.rejected]: (state, action) => {
+  state.status = "failed";
+  state.error = "Falha ao editar projeto: " + action.error.message;
+},
+[deleteIngresso.fulfilled]: (state, action) => {
+  state.status = "saved";
+  ingressosAdapter.removeOne(state, action.payload);
+},
+[deleteIngresso.pending]: (state, action) => {
+  state.status = "loading";
+},
+[deleteIngresso.rejected]: (state, action) => {
+  state.status = "failed";
+  state.error = "Falha ao deletar projeto: " + action.error.message;
+},
+},
 });
 
-export const { addIngresso, editIngresso, deleteIngresso } = ingressosSlice.actions;
+export const {
+  selectAll: selectAllIngressos,
+  selectById: selectIngressoById,
+  selectIds: selectIngressosIds,
+} = ingressosAdapter.getSelectors((state) => state.ingressos);
 export default ingressosSlice.reducer;
