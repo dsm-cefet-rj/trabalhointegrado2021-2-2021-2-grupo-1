@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import ingressoSchema from "./IngressoSchema"
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { addIngresso } from "../../../redux/ingressosSlice";
 
 import { selectAllEventos } from "../../../redux/eventosSlice";
@@ -10,37 +14,19 @@ import "../../Botoes/botoes.css";
 function CriarIngresso() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ingresso = useSelector((state) => state.ingressos);
   const eventos = useSelector(selectAllEventos);
-
-  const maiorId =
-    ingresso.length > 0
-      ? ingresso.reduce((previousValue, currentValue) => {
-          return currentValue.id > previousValue
-            ? currentValue.id
-            : previousValue;
-        }, 0)
-      : 1;
-  const ingressoId =
-    maiorId === 1 ? 1 : (Number(maiorId) + Number(1)).toString();
-
-  const [novoIngresso, setNovoIngresso] = useState({
-    id: ingressoId,
-    eventoId: "1",
-    nome: "",
-    descricao: "",
+  const [ingressoForm] = useState(ingressoSchema.cast({}));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(ingressoSchema),
+  
   });
 
-  function checaMudanca(e) {
-    setNovoIngresso({
-      ...novoIngresso,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(addIngresso(novoIngresso));
-    e.preventDefault();
+  function checaEnvio(ingresso) {
+    dispatch(addIngresso(ingresso));
     navigate("/empresa/ingressos");
   }
   return (
@@ -48,14 +34,15 @@ function CriarIngresso() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Criar Ingresso</h2>
-        <form className="formulario" onSubmit={checaEnvio}>
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
           <label>
             Selecione um Evento
             <select
-              name="eventoId"
-              className="input-box"
-              onChange={checaMudanca}
-              required
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.eventoId}
+              {...register("eventoId", { required: true })}
             >
               {eventos.map((evento) => (
                 <option value={evento.id} key={evento.id}>
@@ -65,25 +52,32 @@ function CriarIngresso() {
             </select>
           </label>
 
-          <label>Nome do Ingresso</label>
-          <input
-            type="text"
-            name="nome"
-            className="input-box"
-            placeholder="Rock in Rio - 3º Dia"
-            onChange={checaMudanca}
-            required
-          />
-
-          <label>Dados Adicionais</label>
-          <input
-            type="text"
-            name="descricao"
-            placeholder="Coloque alguma informação sobre o ingresso"
-            className="input-box"
-            onChange={checaMudanca}
-            required
-          />
+          <label>
+            Nome do Ingresso
+              <input
+              type="text"
+              placeholder="Rock in Rio - 3º Dia"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.nome}
+              {...register("nome", { required: true })}
+            />
+            <span>{errors.nome?.message}</span>
+          </label>
+          <label>
+            Dados Adicionais
+            <input
+              type="text"
+              placeholder="Coloque alguma informação sobre o ingresso"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.descricao}
+              {...register("descricao", { required: true })}
+            />
+            <span>{errors.descricao?.message}</span>
+          </label>
           <div className="botoes-container">
             <input
               type="submit"

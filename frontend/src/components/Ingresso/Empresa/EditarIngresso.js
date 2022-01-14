@@ -1,40 +1,44 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import ingressoSchema from "./IngressoSchema"
+import { selectAllEventos } from "../../../redux/eventosSlice";
 
 import "../ingresso.css";
 
-import { editIngresso, deleteIngresso } from "../../../redux/ingressosSlice";
-
 import Cabecalho from "../../Cabecalho/Cabecalho";
+
+import {
+  selectIngressoById,
+  updateIngresso,
+  deleteIngresso,
+} from "../../../redux/ingressosSlice";
 
 function EditarIngresso() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const eventos = useSelector(selectAllEventos);
   const ingresso = useSelector((state) =>
-    state.ingressos.find((e) => e.id === id)
-  );
-
-  const eventos = useSelector((state) => state.eventos.eventos);
-
-  const [ingressoEditado, setIngressoEditado] = useState({
-    id: ingresso.id,
-    eventoId: ingresso.eventoId,
-    nome: ingresso.nome,
-    descricao: ingresso.descricao,
+   selectIngressoById(state, id));
+  const [ingressoForm] = useState(ingressoSchema.cast({...ingresso}));
+  const {
+   register,
+   handleSubmit,
+   formState: { errors },
+ } = useForm({
+   resolver: yupResolver(ingressoSchema),
   });
 
-  function checaMudanca(e) {
-    setIngressoEditado({
-      ...ingressoEditado,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(editIngresso(ingressoEditado));
-    e.preventDefault();
+  function checaEnvio(ingresso) {
+    dispatch(
+      updateIngresso({
+        ...ingresso,
+        id,
+      })
+    );
     navigate("/empresa/ingressos");
   }
 
@@ -49,14 +53,15 @@ function EditarIngresso() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo"> Editar Ingresso </h2>
-        <form className="formulario" onSubmit={checaEnvio}>
-          <label> Selecione um Evento </label>
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+        <label>
+          Selecione um Evento
           <select
-            className="input-box"
-            name="eventoId"
-            defaultValue={ingresso.eventoId}
-            onChange={checaMudanca}
-            required
+            className={
+              errors.nome?.message ? "input-box input-box-error" : "input-box"
+            }
+            defaultValue={ingressoForm.eventoId}
+            {...register("eventoId", { required: true })}
           >
             {eventos.map((evento) => (
               <option value={evento.id} key={evento.id}>
@@ -64,22 +69,34 @@ function EditarIngresso() {
               </option>
             ))}
           </select>
-          <label> Nome do Ingresso </label>
-          <input
-            type="text"
-            className="input-box"
-            name="nome"
-            defaultValue={ingresso.nome}
-            onChange={checaMudanca}
-          />
-          <label> Dados Adicionais </label>
-          <input
-            type="text"
-            className="input-box"
-            name="nome"
-            defaultValue={ingresso.descricao}
-            onChange={checaMudanca}
-          />
+        </label>
+
+          <label>
+            Nome do Ingresso
+              <input
+              type="text"
+              placeholder="Rock in Rio - 3º Dia"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.nome}
+              {...register("nome", { required: true })}
+            />
+            <span>{errors.nome?.message}</span>
+          </label>
+          <label>
+            Dados Adicionais
+            <input
+              type="text"
+              placeholder="Coloque alguma informação sobre o ingresso"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.descricao}
+              {...register("descricao", { required: true })}
+            />
+            <span>{errors.descricao?.message}</span>
+          </label>
           <div className="botoes-container">
             <input type="submit" value="Editar" className="botao" />
             <input
