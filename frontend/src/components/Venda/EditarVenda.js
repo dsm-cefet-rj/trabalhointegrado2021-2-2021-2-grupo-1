@@ -2,9 +2,16 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState } from "react";import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
-import { editVenda, deleteVenda } from "../../redux/vendasSlice";
+import vendaSchema from "./VendaSchema";
+
+import {
+  selectVendaById,
+  updateVenda,
+  deleteVenda,
+} from "../../redux/VendasSlice";
 
 function EditarVenda() {
   const dispatch = useDispatch();
@@ -15,24 +22,27 @@ function EditarVenda() {
   );
   const ingressos = useSelector((state) => state.ingressos);
 
-  const [vendaEditada, setVendaEditada] = useState({
-    id: venda.id,
-    ingressoId: venda.ingressoId,
-    valor: venda.valor,
-    quantidade: venda.quantidade,
+const [vendaForm] = useState(
+    vendaSchema.cast({
+      ...venda,
+    })
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(vendaSchema),
   });
 
-  function checaMudanca(e) {
-    setVendaEditada({
-      ...vendaEditada,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(editVenda(vendaEditada));
-    e.preventDefault();
-    navigate("/empresa/vendas");
+  function checaEnvio(venda) {
+    dispatch(
+      updateVenda({
+        ...Venda,
+        id,
+      })
+    );
+    navigate("/empresa/vendass");
   }
 
   function deletaVenda(e) {
@@ -52,8 +62,9 @@ function EditarVenda() {
             <select
               className="input-box"
               name="ingressoId"
-              onChange={checaMudanca}
-            >
+              {...register("nome", { required: true })}
+            />
+              <span>{errors.nome?.message}</span>
               {ingressos.map((ingresso) => (
                 <option key={ingresso.id} value={ingresso.id}>
                   {ingresso.nome}
@@ -69,8 +80,9 @@ function EditarVenda() {
               className="input-box"
               name="valor"
               defaultValue={venda.valor}
-              onChange={checaMudanca}
+              {...register("valor", { required: true })}
             />
+              <span>{errors.valor?.message}</span>
           </label>
           <label>
             Quantidade de Ingressos
@@ -79,9 +91,10 @@ function EditarVenda() {
               placeholder="2"
               className="input-box"
               name="quantidade"
-              onChange={checaMudanca}
               defaultValue={venda.quantidade}
-            />
+            {...register("quantidade", { required: true })}
+            >
+              <span>{errors.quantidade?.message}</span>
           </label>
           <div className="botoes-container">
             <input type="submit" value="Editar" className="botao" />
