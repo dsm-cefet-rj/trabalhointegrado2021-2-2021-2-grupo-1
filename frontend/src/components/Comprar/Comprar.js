@@ -2,7 +2,10 @@ import "./comprar.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import comprarSchema from "./ComprarSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 import { addCompra, removeTudoMeuCarrinho } from "../../redux/comprarSlice";
 import { vendaRealizada } from "../../redux/vendasSlice";
@@ -22,10 +25,12 @@ function Comprar() {
   }, 0);
   const compraId = (Number(maiorId) + Number(1)).toString();
 
-  const [novaCompra, setNovaCompra] = useState({
-    id: compraId,
-    vendaId: "",
-    cpf: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(compraSchema),
   });
 
   const valorTotalCarrinho = meuCarrinho.reduce(
@@ -84,50 +89,53 @@ function Comprar() {
           <label>CPF</label>
           <input
             type="number"
-            name="cpf"
-            placeholder="32878887873"
-            onChange={checaMudanca}
-            className="input-box"
-            required
+               className={
+                   errors.cpf?.message ? "input-box input-box-error" : "input-box"
+               }
+              defaultValue={comprasForm.cpf}
+              {...register("cpf", { required: true })}
           />
           <label>
             Nome do Cartão de Crédito
             <input
               type="text"
-              name="nome"
-              placeholder="Alfredo Alberto de Souza"
-              className="input-box"
-              required
+              className={
+                   errors.nome?.message ? "input-box input-box-error" : "input-box"
+               }
+              defaultValue={comprasForm.nome}
+              {...register("nome", { required: true })}
             />
           </label>
           <label>
             Número do Cartão de Crédito
             <input
               type="number"
-              name="num"
-              placeholder="3287888787382188"
-              className="input-box"
-              required
-            />
+               className={
+                   errors.num?.message ? "input-box input-box-error" : "input-box"
+               }
+              defaultValue={comprasForm.num}
+              {...register("num", { required: true })}
           </label>
           <label>
             Data de Validade
             <input
               type="month"
-              name="dataValid"
-              placeholder="março de 2024"
-              className="input-box"
-              required
+               className={
+                   errors.data?.message ? "input-box input-box-error" : "input-box"
+               }
+              defaultValue={comprasForm.data}
+              {...register("data", { required: true })}
             />
           </label>
           <label>
             Código de Segurança
             <input
               type="number"
-              name="cod"
-              placeholder="999"
-              className="input-box"
-              required
+               className={
+                   errors.cod?.message ? "input-box input-box-error" : "input-box"
+               }
+              defaultValue={comprasForm.cod}
+              {...register("cod", { required: true })}
             />
           </label>
           <div className="botoes-container">
