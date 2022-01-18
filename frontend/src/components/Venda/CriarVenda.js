@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import eventoSchema from "./EventoSchema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 import "../Botoes/botoes.css";
 
@@ -24,23 +27,16 @@ function CriarVenda() {
       : 1;
   const vendaId = maiorId === 1 ? 1 : (Number(maiorId) + Number(1)).toString();
 
-  const [novaVenda, setNovaVenda] = useState({
-    id: vendaId,
-    ingressoId: "1",
-    valor: "",
-    quantidade: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(vendaSchema),
   });
 
-  function checaMudanca(e) {
-    setNovaVenda({
-      ...novaVenda,
-      [e.target.name]: e.target.value,
-    });
-  }
-
   function checaEnvio(e) {
-    dispatch(addVenda(novaVenda));
-    e.preventDefault();
+    dispatch(addVenda(venda));
     navigate("/empresa/vendas");
   }
 
@@ -55,7 +51,6 @@ function CriarVenda() {
             <select
               className="input-box"
               name="ingressoId"
-              onChange={checaMudanca}
             >
               {ingressos.map((ingresso) => (
                 <option key={ingresso.id} value={ingresso.id}>
@@ -63,26 +58,36 @@ function CriarVenda() {
                 </option>
               ))}
             </select>
+            defaultValue={vendaForm.nome}
+            {...register("nome", { required: true })}
           </label>
           <label>
             Valor do Ingresso
             <input
               type="number"
               placeholder="100"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
               name="valor"
-              onChange={checaMudanca}
+              defaultValue={vendaForm.valor}
+              {...register("valor", { required: true })}
             />
+            <span>{errors.valor?.message}</span>
           </label>
           <label>
             Quantidade de Ingressos
             <input
               type="number"
               placeholder="2"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
               name="quantidade"
-              onChange={checaMudanca}
+              defaultValue={vendaForm.quantidade}
+              {...register("quantidade", { required: true })}
             />
+            <span>{errors.quantidade?.message}</span>
           </label>
           <div className="botoes-container">
             <input
