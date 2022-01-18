@@ -1,8 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState } from "react";import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
-import { editCompra } from "../../redux/comprarSlice";
+import ComprarSchema from "./ComprarSchema";
+
+import {
+  editCompra,
+} from "../../redux/ComprarSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 function EditarCompra() {
@@ -13,22 +18,26 @@ function EditarCompra() {
     state.comprar.compras.find((compra) => compra.id === id)
   );
 
-  const [compraEditada, setcompraEditada] = useState({
-    vendaId: compra.vendaId,
-    cpf: compra.cpf,
-    id: compra.id,
+const [compraForm] = useState(
+    comprarSchema.cast({
+      ...comprar,
+    })
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(compraSchema),
   });
 
-  function checaMudanca(e) {
-    setcompraEditada({
-      ...compraEditada,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
-    dispatch(editCompra(compraEditada));
-    e.preventDefault();
+function checaEnvio(compra) {
+    dispatch(
+      editCompra({
+        ...Comprar,
+        id,
+      })
+    );
     navigate("/meus-ingressos");
   }
 
@@ -38,16 +47,16 @@ function EditarCompra() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Editar Compra</h2>
         <form className="formulario" onSubmit={checaEnvio}>
-          <label>CPF do Ingresso</label>
-          <input
-            type="number"
-            className="input-box"
-            placeholder="13713799737"
-            name="cpf"
-            defaultValue={compra.cpf}
-            onChange={checaMudanca}
-            required
-          />
+          <label>CPF do Ingresso
+            <input
+              type="number"
+              className="input-box"
+              placeholder="13713799737"
+              name="cpf"
+              defaultValue={compra.cpf}
+               {...register("cpf", { required: true })}
+            />
+          </label>
           <div className="botoes-container">
             <input
               type="submit"
