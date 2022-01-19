@@ -12,7 +12,7 @@ const initialState = vendasAdapter.getInitialState({
   status: "not_loaded",
 });
 
-export const fetchVendass = createAsyncThunk(
+export const fetchVendas = createAsyncThunk(
   "vendas/fetchVendas",
   async () => {
     return await httpGet("http://localhost:3001/vendas");
@@ -21,8 +21,8 @@ export const fetchVendass = createAsyncThunk(
 
 export const addVenda = createAsyncThunk(
   "vendas/addVenda",
-  async (projeto) => {
-    return await httpPost("http://localhost:3001/vendas", projeto);
+  async (venda) => {
+    return await httpPost("http://localhost:3001/vendas", venda);
   }
 );
 
@@ -54,7 +54,7 @@ const vendasSlice = createSlice({
     },
     [fetchVendas.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao buscar projetos: " + action.error.message;
+      state.error = "Falha ao buscar vendas: " + action.error.message;
     },
     [addVenda.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -65,7 +65,7 @@ const vendasSlice = createSlice({
     },
     [addVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao adicionar projeto: " + action.error.message;
+      state.error = "Falha ao adicionar venda: " + action.error.message;
     },
     [updateVenda.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -76,7 +76,7 @@ const vendasSlice = createSlice({
     },
     [updateVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao editar projeto: " + action.error.message;
+      state.error = "Falha ao editar venda: " + action.error.message;
     },
     [deleteVenda.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -87,7 +87,7 @@ const vendasSlice = createSlice({
     },
     [deleteVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao deletar projeto: " + action.error.message;
+      state.error = "Falha ao deletar venda: " + action.error.message;
     },
   },
 });
@@ -95,7 +95,7 @@ const vendasSlice = createSlice({
 export const {
   selectAll: selectAllVendas,
   selectById: selectVendaById,
-  selectIds: selectVendassIds,
+  selectIds: selectVendasIds,
 } = vendasAdapter.getSelectors((state) => state.vendas);
 
 export default vendasSlice.reducer;

@@ -1,6 +1,62 @@
 {
-  "eventos": [],
-  "ingressos": [],
-  "vendas": [],
-  "compras": []
+  "eventos": [
+    {
+      "nome": "Rock in Rio 2022",
+      "genero": "musica",
+      "endereco": "Av. Salvador Allende, 6500 - Barra da Tijuca, Rio de Janeiro - RJ, 22780-160",
+      "local": "Cidade do Rock",
+      "id": 1
+    }
+  ],
+  "ingressos": [
+    {
+      "eventoId": "1",
+      "nome": "Rock in Rio - Dia 1",
+      "horario": "18:00",
+      "data": "20/09/21",
+      "descricao": "É um ingresso para o Rock in Rio",
+      "id": 1
+    },
+    {
+      "eventoId": "1",
+      "nome": "Rock in Rio - Dia 1",
+      "horario": "18:00",
+      "data": "21/09/21",
+      "descricao": "É um ingresso para o Rock in Rio",
+      "id": 2
+    }
+  ],
+  "vendas": [
+    {
+      "ingressoId": "1",
+      "valor": "500",
+      "quantidade": 8,
+      "id": 1
+    },
+    {
+      "ingressoId": "2",
+      "valor": "500",
+      "quantidade": "10",
+      "id": 2
+    },
+    {
+      "ingressoId": "1",
+      "valor": "480",
+      "revenda": true,
+      "quantidade": "1",
+      "id": 3
+    }
+  ],
+  "compras": [
+    {
+      "cpf": "000.000.000-00",
+      "vendaId": "1",
+      "id": 1
+    },
+    {
+      "cpf": "000.000.000-00",
+      "vendaId": 1,
+      "id": 2
+    }
+  ]
 }

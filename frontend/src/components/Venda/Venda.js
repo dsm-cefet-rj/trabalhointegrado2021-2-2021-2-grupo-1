@@ -1,15 +1,11 @@
 import { useSelector } from "react-redux";
 
+import { selectIngressoById } from "../../redux/ingressosSlice";
+
 import Botao from "../Botoes/Botoes";
 
 function Venda({ venda }) {
-  console.log(venda);
-
-  const ingresso = useSelector((state) =>
-    state.ingressos.find(
-      (ingresso) => String(ingresso.id) === String(venda.ingressoId)
-    )
-  );
+  const ingresso = useSelector((state) => selectIngressoById(state, venda.ingressoId));
 
   const botao = [
     {

@@ -17,14 +17,18 @@ function ListarEventos() {
 
   function mostreEventosDeAcordoComOStatus() {
     if (status === "loading") {
-      return <img src={loader} className="loader" />;
+      return <img src={loader} alt="Imagem de loading" className="loader" />;
     } else if (status === "loaded" || status === "saved") {
       if (eventos.length > 0) {
         return eventos.map((evento) => (
           <Evento evento={evento} key={evento.id} />
         ));
       } else {
-        return <h2 className="subtitulo">Nenhum Evento Cadastrado :(</h2>;
+        return (
+          <p className="centralizar-xy">
+            Não há nenhum evento cadastrado :(
+          </p>
+        );
       }
     } else if (status === "failed") {
       return <p>Erro: {error}</p>;

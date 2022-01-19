@@ -11,14 +11,14 @@ const initialState = ingressosAdapter.getInitialState({
 export const fetchIngressos = createAsyncThunk(
   "ingressos/fetchIngressos",
   async () => {
-     return await httpGet("http://localhost:3001/ingressos");
+    return await httpGet("http://localhost:3001/ingressos");
   }
 );
 
 export const addIngresso = createAsyncThunk(
   "ingressos/addIngresso",
-  async (projeto) => {
-    return await httpPost("http://localhost:3001/ingressos", projeto);
+  async (ingresso) => {
+    return await httpPost("http://localhost:3001/ingressos", ingresso);
   }
 );
 
@@ -44,48 +44,48 @@ const ingressosSlice = createSlice({
     [fetchIngressos.fulfilled]: (state, action) => {
       state.status = "loaded";
       ingressosAdapter.setAll(state, action.payload);
-},
-[fetchIngressos.pending]: (state, action) => {
-  state.status = "loading";
-},
-[fetchIngressos.rejected]: (state, action) => {
-  state.status = "failed";
-  state.error = "Falha ao buscar projetos: " + action.error.message;
-},
-[addIngresso.fulfilled]: (state, action) => {
-  state.status = "saved";
-  ingressosAdapter.addOne(state, action.payload);
-},
-[addIngresso.pending]: (state, action) => {
-  state.status = "loading";
-},
-[addIngresso.rejected]: (state, action) => {
-  state.status = "failed";
-  state.error = "Falha ao adicionar projeto: " + action.error.message;
-},
-[updateIngresso.fulfilled]: (state, action) => {
-  state.status = "saved";
-  ingressosAdapter.upsertOne(state, action.payload);
-},
-[updateIngresso.pending]: (state, action) => {
-  state.status = "loading";
-},
-[updateIngresso.rejected]: (state, action) => {
-  state.status = "failed";
-  state.error = "Falha ao editar projeto: " + action.error.message;
-},
-[deleteIngresso.fulfilled]: (state, action) => {
-  state.status = "saved";
-  ingressosAdapter.removeOne(state, action.payload);
-},
-[deleteIngresso.pending]: (state, action) => {
-  state.status = "loading";
-},
-[deleteIngresso.rejected]: (state, action) => {
-  state.status = "failed";
-  state.error = "Falha ao deletar projeto: " + action.error.message;
-},
-},
+    },
+    [fetchIngressos.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [fetchIngressos.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = "Falha ao buscar ingressos: " + action.error.message;
+    },
+    [addIngresso.fulfilled]: (state, action) => {
+      state.status = "saved";
+      ingressosAdapter.addOne(state, action.payload);
+    },
+    [addIngresso.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [addIngresso.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = "Falha ao adicionar ingresso: " + action.error.message;
+    },
+    [updateIngresso.fulfilled]: (state, action) => {
+      state.status = "saved";
+      ingressosAdapter.upsertOne(state, action.payload);
+    },
+    [updateIngresso.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [updateIngresso.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = "Falha ao editar ingresso: " + action.error.message;
+    },
+    [deleteIngresso.fulfilled]: (state, action) => {
+      state.status = "saved";
+      ingressosAdapter.removeOne(state, action.payload);
+    },
+    [deleteIngresso.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [deleteIngresso.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = "Falha ao deletar ingresso: " + action.error.message;
+    },
+  },
 });
 
 export const {

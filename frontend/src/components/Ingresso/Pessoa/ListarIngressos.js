@@ -1,36 +1,69 @@
 import { useSelector } from "react-redux";
 
-import "../ingresso.css";
+import { selectAllIngressos } from "../../../redux/ingressosSlice";
+import { selectAllVendas } from "../../../redux/vendasSlice";
+import { selectAllEventos } from "../../../redux/eventosSlice";
 
+import "../ingresso.css";
 import Cabecalho from "../../Cabecalho/Cabecalho";
 import Ingresso from "./Ingresso";
+import loader from "../../../assets/loader.gif";
 
 function ListarIngresso({ genero }) {
-  const vendas = useSelector((state) => state.vendas);
-  const ingressos = useSelector((state) => state.ingressos);
-  const eventos = useSelector((state) => state.eventos.eventos);
+  const vendas = useSelector(selectAllVendas);
+  const ingressos = useSelector(selectAllIngressos);
+  const eventos = useSelector(selectAllEventos);
+  const { status, error } = useSelector((state) => {
+    return {
+      status: {
+        eventos: state.eventos.status,
+        ingressos: state.ingressos.status,
+        vendas: state.vendas.status,
+      },
+      error: {
+        eventos: state.eventos.error,
+        ingressos: state.ingressos.error,
+        vendas: state.vendas.error,
+      }
+    }
+  })
 
-  function verificaSeHaEvento() {
-    const haEvento = vendas.filter(
-      (venda) =>
-        eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero ===
-          genero && venda.quantidade > 0
-    );
+  function mostreIngressosDeAcordoComOStatus() {
+    if (status.eventos === "loading" || status.ingressos === "loading" || status.vendas === "loading") {
+      return <img src={loader} alt="Imagem de loading" className="loader" />;
 
-    if (haEvento.length > 0) {
-      return haEvento.map((venda) => (
-        <Ingresso
-          tipo={venda}
-          vendaMeuCarrinhoOuCompra={"venda"}
-          key={venda.id}
-        />
-      ));
-    } else {
-      return (
-        <p className="centralizar-xy">
-          Não há nenhum ingresso nessa categoria! :(
-        </p>
-      );
+    } else if ((status.eventos === "loaded" && status.ingressos === "loaded" && status.vendas === "loaded") || (status.eventos === "saved" || status.ingressos === "saved" || status.vendas === "saved")) {
+      if (vendas.length > 0) {
+        const haEvento = vendas.filter(
+          (venda) =>
+            eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero ===
+            genero && venda.quantidade > 0 && !venda.revenda
+        );
+
+        if (haEvento.length > 0) {
+          return haEvento.map((venda) => (
+            <Ingresso
+              tipo={venda}
+              vendaMeuCarrinhoOuCompra={"venda"}
+              key={venda.id}
+            />
+          ));
+        } else {
+          return (
+            <p className="centralizar-xy">
+              Não há nenhum ingresso nessa categoria :(
+            </p>
+          );
+        }
+      } else {
+        return (
+          <p className="centralizar-xy">
+            Não há nenhum ingresso nessa categoria :(
+          </p>
+        );
+      }
+    } else if (status === "failed") {
+      return <p>Erro: {error}</p>;
     }
   }
 
@@ -43,12 +76,12 @@ function ListarIngresso({ genero }) {
           {genero === "esporte"
             ? " Esporte"
             : genero === "musica"
-            ? " Música"
-            : genero === "familia"
-            ? " Família"
-            : null}
+              ? " Música"
+              : genero === "familia"
+                ? " Família"
+                : null}
         </h2>
-        <div className="ingresso-container">{verificaSeHaEvento()}</div>
+        <div className="ingresso-container">{mostreIngressosDeAcordoComOStatus()}</div>
       </main>
     </>
   );

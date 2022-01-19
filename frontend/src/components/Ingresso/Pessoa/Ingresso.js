@@ -4,54 +4,32 @@ import { useNavigate, Link } from "react-router-dom";
 import "../ingresso.css";
 import "../../Botoes/botoes.css";
 
+import { selectIngressoById } from "../../../redux/ingressosSlice";
+import { selectEventoById } from "../../../redux/eventosSlice";
 import {
   addMeuCarrinho,
   removeItemMeuCarrinho,
   deleteCompra,
-} from "../../../redux/comprarSlice";
-import { addVenda } from "../../../redux/vendasSlice";
+} from "../../../redux/comprasSlice";
+import { selectVendaById, addVenda } from "../../../redux/vendasSlice";
 
 function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const vendas = useSelector((state) => state.vendas);
   const state = useSelector((state) => {
-    if (
-      vendaMeuCarrinhoOuCompra === "venda" ||
-      vendaMeuCarrinhoOuCompra === "revenda"
-    ) {
-      const ingresso = state.ingressos.find(
-        (ingresso) => ingresso.id === tipo.ingressoId
-      );
-      const evento = state.eventos.eventos.find(
-        (evento) => evento.id === ingresso.eventoId
-      );
-
-      return {
-        ingresso,
-        evento,
-      };
-    } else if (vendaMeuCarrinhoOuCompra === "carrinho") {
-      const ingresso = state.ingressos.find(
-        (ingresso) => ingresso.id === tipo.ingressoId
-      );
-      const evento = state.eventos.find(
-        (evento) => evento.id === ingresso.eventoId
-      );
+    if (vendaMeuCarrinhoOuCompra === "venda" || vendaMeuCarrinhoOuCompra === "revenda" ||
+      vendaMeuCarrinhoOuCompra === "carrinho") {
+      const ingresso = selectIngressoById(state, tipo.ingressoId);
+      const evento = selectEventoById(state, ingresso.eventoId);
 
       return {
         ingresso,
         evento,
       };
     } else if (vendaMeuCarrinhoOuCompra === "compra") {
-      const venda = state.vendas.find((venda) => venda.id === tipo.vendaId);
-
-      const ingresso = state.ingressos.find(
-        (ingresso) => ingresso.id === venda.ingressoId
-      );
-      const evento = state.eventos.find(
-        (evento) => evento.id === ingresso.eventoId
-      );
+      const venda = selectVendaById(state, tipo.vendaId);
+      const ingresso = selectIngressoById(state, venda.ingressoId);
+      const evento = selectEventoById(state, ingresso.eventoId);
 
       return {
         venda,
@@ -70,28 +48,13 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
     dispatch(removeItemMeuCarrinho(tipo.id));
   }
 
-  function formataData(data) {
-    const ano = /\d{1,4}/.exec(data);
-    const mes = /(?<=-)\d{1,2}/.exec(data);
-    const dia = /(?<=-)\d{1,2}(?=T)/.exec(data);
-    const horario = /(?<=T).+/.exec(data);
-
-    return `${dia}/${mes}/${ano} ${horario}`;
-  }
-
   function revender() {
-    const maiorId = vendas.reduce((previousValue, currentValue) => {
-      return currentValue.id > previousValue ? currentValue.id : previousValue;
-    }, 0);
-    const vendaId = (Number(maiorId) + Number(1)).toString();
-
     dispatch(
       addVenda({
-        ...state.venda,
-        id: vendaId,
-        valor: state.venda.valor - 20,
+        ingressoId: (state.venda.ingressoId).toString(),
+        valor: (state.venda.valor - 20).toString(),
         revenda: true,
-        quantidade: 1,
+        quantidade: (1).toString(),
       })
     );
 
@@ -107,13 +70,15 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
           <li className="ingresso-detalhe-item">{state.evento.endereco}</li>
           <li className="ingresso-detalhe-item">{state.evento.local}</li>
           <li className="ingresso-detalhe-item">
-            {formataData(state.evento.dataInicio)}
+            {state.ingresso.horario}
           </li>
+          {(vendaMeuCarrinhoOuCompra === "venda" || vendaMeuCarrinhoOuCompra === "revenda") && (
+            <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
+          )}
           {vendaMeuCarrinhoOuCompra === "venda" && (
             <>
-              <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
               <li className="ingresso-detalhe-item">
-                Quantidade: {tipo.quantidade}
+                {tipo.quantidade} ingressos restantes
               </li>
             </>
           )}
@@ -121,7 +86,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
       </div>
       <div className="botoes-container">
         {vendaMeuCarrinhoOuCompra === "venda" ||
-        vendaMeuCarrinhoOuCompra === "revenda" ? (
+          vendaMeuCarrinhoOuCompra === "revenda" ? (
           <button
             className="botao"
             type="button"
@@ -134,7 +99,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
             <Link to={`/meu-ingresso/${tipo.id}`} className="botao">
               Editar
             </Link>
-            <Link to={`/`} className="botao">
+            <Link to={`/comprovante/${tipo.id}`} className="botao">
               Gerar
             </Link>
             <Link to={`/revendas`} className="botao" onClick={revender}>

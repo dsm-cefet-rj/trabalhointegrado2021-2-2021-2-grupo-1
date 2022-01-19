@@ -1,43 +1,39 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { editarCompraSchema }from "./CompraSchema";
 
-import ComprarSchema from "./ComprarSchema";
-
-import {
-  editCompra,
-} from "../../redux/ComprarSlice";
+import { updateCompra, selectCompraById } from "../../redux/comprasSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
+
 function EditarCompra() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const compra = useSelector((state) =>
-    state.comprar.compras.find((compra) => compra.id === id)
-  );
-
-const [compraForm] = useState(
-    comprarSchema.cast({
-      ...comprar,
-    })
-  );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(compraSchema),
+    resolver: yupResolver(editarCompraSchema),
   });
 
-function checaEnvio(compra) {
-    dispatch(
-      editCompra({
-        ...Comprar,
-        id,
-      })
-    );
+  const compra = useSelector((state) => selectCompraById(state, id));
+
+  const [compraForm] = useState(
+    editarCompraSchema.cast({
+      ...compra,
+    })
+  );
+
+  function checaEnvio(teste) {
+    dispatch(updateCompra({
+      ...compra,
+      cpf: teste.cpf,
+    }));
     navigate("/meus-ingressos");
   }
 
@@ -46,16 +42,18 @@ function checaEnvio(compra) {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Editar Compra</h2>
-        <form className="formulario" onSubmit={checaEnvio}>
-          <label>CPF do Ingresso
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+          <label>CPF
             <input
-              type="number"
-              className="input-box"
-              placeholder="13713799737"
-              name="cpf"
-              defaultValue={compra.cpf}
-               {...register("cpf", { required: true })}
+              type="text"
+              placeholder="000.000.000-00"
+              defaultValue={compraForm.cpf}
+              className={
+                errors.cpf?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("cpf", { required: true })}
             />
+            <span>{errors.cpf?.message}</span>
           </label>
           <div className="botoes-container">
             <input

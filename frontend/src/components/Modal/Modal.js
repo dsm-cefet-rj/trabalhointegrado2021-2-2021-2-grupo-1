@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import "./modal.css";
 
@@ -57,7 +58,7 @@ function Modal() {
                         <input type="text" className="input-box" />
                       </label>
                       <div className="botoes-container">
-                        <button className="botao">Entre</button>
+                        <Link to={"/empresa/eventos"} className="botao">Entre</Link>
                       </div>
                     </form>
                   </div>
@@ -73,7 +74,7 @@ function Modal() {
                         <input type="text" className="input-box" />
                       </label>
                       <div className="botoes-container">
-                        <button className="botao">Entre</button>
+                        <Link to={"/home"} className="botao">Entre</Link>
                       </div>
                     </form>
                   </div>

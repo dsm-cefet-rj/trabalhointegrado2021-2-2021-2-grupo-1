@@ -1,14 +1,13 @@
 import "./comprar.css";
 
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import comprarSchema from "./ComprarSchema";
+import { useSelector, useDispatch } from "react-redux";
+import { compraSchema } from "./CompraSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
-import { addCompra, removeTudoMeuCarrinho } from "../../redux/comprarSlice";
-import { vendaRealizada } from "../../redux/vendasSlice";
+import { addCompra, removeTudoMeuCarrinho } from "../../redux/comprasSlice";
+import { updateVenda } from "../../redux/vendasSlice";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 import Ingresso from "../Ingresso/Pessoa/Ingresso";
@@ -16,15 +15,7 @@ import Ingresso from "../Ingresso/Pessoa/Ingresso";
 function Comprar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const meuCarrinho = useSelector((state) => state.comprar.meuCarrinho);
-  const compras = useSelector((state) => state.comprar.compras);
-
-  const maiorId = compras.reduce((previousValue, currentValue) => {
-    return currentValue.id > previousValue ? currentValue.id : previousValue;
-  }, 0);
-  const compraId = (Number(maiorId) + Number(1)).toString();
-
+  const meuCarrinho = useSelector((state) => state.compras.meuCarrinho);
   const {
     register,
     handleSubmit,
@@ -40,27 +31,23 @@ function Comprar() {
     0
   );
 
-  function checaMudanca(e) {
-    setNovaCompra({
-      ...novaCompra,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  function checaEnvio(e) {
+  function checaEnvio(compra) {
     meuCarrinho.forEach((e) => {
       dispatch(
         addCompra({
-          ...novaCompra,
-          vendaId: e.id,
+          cpf: compra.cpf,
+          vendaId: e.id
         })
       );
-
-      dispatch(vendaRealizada(e.id));
+      dispatch(
+        updateVenda({
+          ...e,
+          quantidade: Number(e.quantidade) - 1,
+        })
+      );
     });
     navigate("/meus-ingressos");
     dispatch(removeTudoMeuCarrinho());
-    e.preventDefault();
   }
 
   return (
@@ -69,7 +56,7 @@ function Comprar() {
       <main className="centralizar-xy centralizar-y">
         <>
           <h2 className="subtitulo">
-            Meu carrinho <span>{meuCarrinho.length}</span>
+            Meu carrinho <span>{meuCarrinho.length > 0 && meuCarrinho.length}</span>
           </h2>
           {meuCarrinho.length > 0 ? (
             meuCarrinho.map((carrinho) => (
@@ -85,58 +72,65 @@ function Comprar() {
           {meuCarrinho.length > 0 ? <p>Total: {valorTotalCarrinho}</p> : null}
         </>
         <h2 className="subtitulo">Finalizar Compra</h2>
-        <form className="formulario" onSubmit={checaEnvio}>
-          <label>CPF</label>
-          <input
-            type="number"
-               className={
-                   errors.cpf?.message ? "input-box input-box-error" : "input-box"
-               }
-              defaultValue={comprasForm.cpf}
+        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+          <label>CPF
+            <input
+              type="text"
+              placeholder="000.000.000-00"
+              className={
+                errors.cpf?.message ? "input-box input-box-error" : "input-box"
+              }
               {...register("cpf", { required: true })}
-          />
+            />
+            <span>{errors.cpf?.message}</span>
+          </label>
           <label>
             Nome do Cartão de Crédito
             <input
               type="text"
+              placeholder="Alfredo Alberto de Souza"
               className={
-                   errors.nome?.message ? "input-box input-box-error" : "input-box"
-               }
-              defaultValue={comprasForm.nome}
-              {...register("nome", { required: true })}
+                errors.nome_do_cartao?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("nome_do_cartao", { required: true })}
             />
+            <span>{errors.nome_do_cartao?.message}</span>
           </label>
           <label>
             Número do Cartão de Crédito
             <input
               type="number"
-               className={
-                   errors.num?.message ? "input-box input-box-error" : "input-box"
-               }
-              defaultValue={comprasForm.num}
-              {...register("num", { required: true })}
+              placeholder="3287888787382188"
+              className={
+                errors.numero_do_cartao?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("numero_do_cartao", { required: true })}
+            />
+            <span>{errors.numero_do_cartao?.message}</span>
           </label>
           <label>
             Data de Validade
             <input
-              type="month"
-               className={
-                   errors.data?.message ? "input-box input-box-error" : "input-box"
-               }
-              defaultValue={comprasForm.data}
-              {...register("data", { required: true })}
+              type="text"
+              placeholder="mm/aa"
+              className={
+                errors.data_de_validade?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("data_de_validade", { required: true })}
             />
+            <span>{errors.data_de_validade?.message}</span>
           </label>
           <label>
             Código de Segurança
             <input
               type="number"
-               className={
-                   errors.cod?.message ? "input-box input-box-error" : "input-box"
-               }
-              defaultValue={comprasForm.cod}
-              {...register("cod", { required: true })}
+              placeholder="000"
+              className={
+                errors.codigo_de_seguranca?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("codigo_de_seguranca", { required: true })}
             />
+            <span>{errors.codigo_de_seguranca?.message}</span>
           </label>
           <div className="botoes-container">
             <input type="submit" value="Comprar" className="botao" />

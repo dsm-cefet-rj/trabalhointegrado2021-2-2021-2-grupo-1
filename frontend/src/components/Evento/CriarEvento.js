@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import eventoSchema from "./EventoSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +13,6 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 function CriarEvento() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [eventoForm] = useState(eventoSchema.cast({}));
   const {
     register,
     handleSubmit,
@@ -23,8 +21,10 @@ function CriarEvento() {
     resolver: yupResolver(eventoSchema),
   });
 
+
   function checaEnvio(evento) {
     dispatch(addEvento(evento));
+
     navigate("/empresa/eventos");
   }
 
@@ -35,13 +35,12 @@ function CriarEvento() {
         <h2 className="subtitulo">Criar Evento</h2>
         <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
           <label>
-            Nome do Evento
+            Nome
             <input
               type="text"
               className={
                 errors.nome?.message ? "input-box input-box-error" : "input-box"
               }
-              defaultValue={eventoForm.nome}
               placeholder="Rock in Rio"
               {...register("nome", { required: true })}
             />
@@ -51,9 +50,8 @@ function CriarEvento() {
             Gênero
             <select
               className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
+                errors.genero?.message ? "input-box input-box-error" : "input-box"
               }
-              defaultValue={eventoForm.genero}
               {...register("genero", { required: true })}
             >
               <option value="esporte">Esportes</option>
@@ -68,38 +66,23 @@ function CriarEvento() {
               type="text"
               placeholder="Av. Pres. Castelo Branco, Maracanã, Rio de Janeiro - RJ, 20271-130"
               className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
+                errors.endereco?.message ? "input-box input-box-error" : "input-box"
               }
-              defaultValue={eventoForm.endereco}
               {...register("endereco", { required: true })}
             />
             <span>{errors.endereco?.message}</span>
           </label>
           <label>
-            Começo Do Evento
+            Local
             <input
-              type="datetime-local"
+              type="text"
+              placeholder="Maracanã"
               className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
+                errors.local?.message ? "input-box input-box-error" : "input-box"
               }
-              name="dataInicio"
-              defaultValue={eventoForm.dataInicio}
-              {...register("dataInicio", { required: true })}
+              {...register("local", { required: true })}
             />
-            <span>{errors.dataInicio?.message}</span>
-          </label>
-          <label>
-            Finalização do Evento
-            <input
-              type="datetime-local"
-              className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
-              }
-              name="dataFim"
-              defaultValue={eventoForm.dataFim}
-              {...register("dataFim", { required: true })}
-            />
-            <span>{errors.dataFim?.message}</span>
+            <span>{errors.local?.message}</span>
           </label>
           <div className="botoes-container">
             <input

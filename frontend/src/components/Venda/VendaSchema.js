@@ -3,11 +3,11 @@ import { ptForm } from "yup-locale-pt";
 
 setLocale(ptForm);
 
-const vendaSchema = object({
-  nome: string().required(),
+const eventoSchema = object({
   id: number(),
-  valor: number().required(),
-  quantidade: number().requeired(),
+  ingressoId: string().required(),
+  valor: string().required("É necessário ter um valor."),
+  quantidade: string().required("É necessário ter uma quantidade."),
 });
 
-export default vendaSchema;
+export default eventoSchema;

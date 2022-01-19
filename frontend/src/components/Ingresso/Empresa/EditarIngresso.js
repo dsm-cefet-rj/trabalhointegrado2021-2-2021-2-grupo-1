@@ -4,17 +4,16 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import ingressoSchema from "./IngressoSchema"
+
 import { selectAllEventos } from "../../../redux/eventosSlice";
-
-import "../ingresso.css";
-
-import Cabecalho from "../../Cabecalho/Cabecalho";
-
 import {
   selectIngressoById,
   updateIngresso,
   deleteIngresso,
 } from "../../../redux/ingressosSlice";
+
+import "../ingresso.css";
+import Cabecalho from "../../Cabecalho/Cabecalho";
 
 function EditarIngresso() {
   const dispatch = useDispatch();
@@ -22,14 +21,14 @@ function EditarIngresso() {
   const { id } = useParams();
   const eventos = useSelector(selectAllEventos);
   const ingresso = useSelector((state) =>
-   selectIngressoById(state, id));
-  const [ingressoForm] = useState(ingressoSchema.cast({...ingresso}));
+    selectIngressoById(state, id));
+  const [ingressoForm] = useState(ingressoSchema.cast({ ...ingresso }));
   const {
-   register,
-   handleSubmit,
-   formState: { errors },
- } = useForm({
-   resolver: yupResolver(ingressoSchema),
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(ingressoSchema),
   });
 
   function checaEnvio(ingresso) {
@@ -54,26 +53,25 @@ function EditarIngresso() {
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo"> Editar Ingresso </h2>
         <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
-        <label>
-          Selecione um Evento
-          <select
-            className={
-              errors.nome?.message ? "input-box input-box-error" : "input-box"
-            }
-            defaultValue={ingressoForm.eventoId}
-            {...register("eventoId", { required: true })}
-          >
-            {eventos.map((evento) => (
-              <option value={evento.id} key={evento.id}>
-                {evento.nome}
-              </option>
-            ))}
-          </select>
-        </label>
-
+          <label>
+            Selecione um Evento
+            <select
+              className={
+                errors.eventoId?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.eventoId}
+              {...register("eventoId", { required: true })}
+            >
+              {eventos.map((evento) => (
+                <option value={evento.id} key={evento.id}>
+                  {evento.nome}
+                </option>
+              ))}
+            </select>
+          </label>
           <label>
             Nome do Ingresso
-              <input
+            <input
               type="text"
               placeholder="Rock in Rio - 3º Dia"
               className={
@@ -90,12 +88,38 @@ function EditarIngresso() {
               type="text"
               placeholder="Coloque alguma informação sobre o ingresso"
               className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
+                errors.descricao?.message ? "input-box input-box-error" : "input-box"
               }
               defaultValue={ingressoForm.descricao}
               {...register("descricao", { required: true })}
             />
             <span>{errors.descricao?.message}</span>
+          </label>
+          <label>
+            Horário
+            <input
+              type="text"
+              placeholder="hh:mm"
+              className={
+                errors.horario?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.horario}
+              {...register("horario", { required: true })}
+            />
+            <span>{errors.horario?.message}</span>
+          </label>
+          <label>
+            Data
+            <input
+              type="text"
+              placeholder="dd/mm/aa"
+              className={
+                errors.data?.message ? "input-box input-box-error" : "input-box"
+              }
+              defaultValue={ingressoForm.data}
+              {...register("data", { required: true })}
+            />
+            <span>{errors.data?.message}</span>
           </label>
           <div className="botoes-container">
             <input type="submit" value="Editar" className="botao" />

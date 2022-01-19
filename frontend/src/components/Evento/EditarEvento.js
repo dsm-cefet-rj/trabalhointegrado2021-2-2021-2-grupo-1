@@ -59,7 +59,9 @@ function EditarEvento() {
             Nome do Evento
             <input
               type="text"
-              className="input-box"
+              className={
+                errors.nome?.message ? "input-box input-box-error" : "input-box"
+              }
               defaultValue={eventoForm.nome}
               placeholder="Rock in Rio"
               {...register("nome", { required: true })}
@@ -69,7 +71,9 @@ function EditarEvento() {
           <label>
             Gênero
             <select
-              className="input-box"
+              className={
+                errors.genero?.message ? "input-box input-box-error" : "input-box"
+              }
               defaultValue={eventoForm.genero}
               {...register("genero", { required: true })}
             >
@@ -84,33 +88,26 @@ function EditarEvento() {
             <input
               type="text"
               placeholder="Av. Pres. Castelo Branco, Maracanã, Rio de Janeiro - RJ, 20271-130"
-              className="input-box"
+              className={
+                errors.endereco?.message ? "input-box input-box-error" : "input-box"
+              }
               defaultValue={eventoForm.endereco}
               {...register("endereco", { required: true })}
             />
             <span>{errors.endereco?.message}</span>
           </label>
           <label>
-            Começo Do Evento
+            Local
             <input
-              type="datetime-local"
-              className="input-box"
-              name="dataInicio"
-              defaultValue={eventoForm.dataInicio}
-              {...register("dataInicio", { required: true })}
+              type="text"
+              placeholder="Maracanã"
+              defaultValue={eventoForm.local}
+              className={
+                errors.local?.message ? "input-box input-box-error" : "input-box"
+              }
+              {...register("local", { required: true })}
             />
-            <span>{errors.dataInicio?.message}</span>
-          </label>
-          <label>
-            Finalização do Evento
-            <input
-              type="datetime-local"
-              className="input-box"
-              name="dataFim"
-              defaultValue={eventoForm.dataFim}
-              {...register("dataFim", { required: true })}
-            />
-            <span>{errors.dataFim?.message}</span>
+            <span>{errors.local?.message}</span>
           </label>
           <div className="botoes-container">
             <input type="submit" value="Editar" className="botao" />

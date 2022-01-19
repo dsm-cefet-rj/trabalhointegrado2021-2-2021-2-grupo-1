@@ -21,8 +21,8 @@ export const fetchEventos = createAsyncThunk(
 
 export const addEvento = createAsyncThunk(
   "eventos/addEvento",
-  async (projeto) => {
-    return await httpPost("http://localhost:3001/eventos", projeto);
+  async (evento) => {
+    return await httpPost("http://localhost:3001/eventos", evento);
   }
 );
 
@@ -54,7 +54,7 @@ const eventosSlice = createSlice({
     },
     [fetchEventos.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao buscar projetos: " + action.error.message;
+      state.error = "Falha ao buscar eventos: " + action.error.message;
     },
     [addEvento.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -65,7 +65,7 @@ const eventosSlice = createSlice({
     },
     [addEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao adicionar projeto: " + action.error.message;
+      state.error = "Falha ao adicionar evento: " + action.error.message;
     },
     [updateEvento.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -76,7 +76,7 @@ const eventosSlice = createSlice({
     },
     [updateEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao editar projeto: " + action.error.message;
+      state.error = "Falha ao editar evento: " + action.error.message;
     },
     [deleteEvento.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -87,7 +87,7 @@ const eventosSlice = createSlice({
     },
     [deleteEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao deletar projeto: " + action.error.message;
+      state.error = "Falha ao deletar evento: " + action.error.message;
     },
   },
 });

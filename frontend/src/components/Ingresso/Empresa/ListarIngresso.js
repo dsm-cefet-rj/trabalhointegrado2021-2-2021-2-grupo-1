@@ -15,14 +15,18 @@ function ListarIngressos() {
 
   function mostreIngressosDeAcordoComOStatus() {
     if (status === "loading") {
-      return <img src={loader} className="loader" />;
+      return <img src={loader} alt="Imagem de loading" className="loader" />;
     } else if (status === "loaded" || status === "saved") {
       if (ingressos.length > 0) {
         return ingressos.map((ingresso) => (
           <Ingresso ingresso={ingresso} key={ingresso.id} />
         ));
       } else {
-        return <h2 className="subtitulo">Nenhum Ingresso Cadastrado :(</h2>;
+        return (
+          <p className="centralizar-xy">
+            Não há nenhum ingresso cadastrado :(
+          </p>
+        );;
       }
     } else if (status === "failed") {
       return <p>Erro: {error}</p>;

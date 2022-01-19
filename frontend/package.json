@@ -8,6 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@hookform/resolvers": "^2.8.5",
+    "@react-pdf/renderer": "^2.1.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -28,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server --watch db/db.json --port 3001"
+    "json-server": "json-server --watch db/db.json --port 3001 --delay 2000"
   },
   "eslintConfig": {
     "extends": [

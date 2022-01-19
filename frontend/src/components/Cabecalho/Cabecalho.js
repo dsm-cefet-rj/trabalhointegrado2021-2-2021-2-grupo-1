@@ -59,8 +59,8 @@ function Cabecalho({ usuario }) {
   return (
     <header>
       <div className="cabecalho-container centralizar-xy">
-        {location.pathname === "/" ? (
-          <Link to={"/"}>
+        {location.pathname.includes("/empresa") ? (
+          <Link to={"/empresa/eventos"}>
             <h1 className="titulo">Meu Ingresso</h1>
           </Link>
         ) : (

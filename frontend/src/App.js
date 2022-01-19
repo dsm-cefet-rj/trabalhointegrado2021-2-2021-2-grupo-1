@@ -13,7 +13,7 @@ import { fetchEventos } from "./redux/eventosSlice";
 import Comprar from "./components/Comprar/Comprar";
 import EditarCompra from "./components/Comprar/EditarCompra";
 import IngressosComprados from "./components/Comprar/ListarCompras";
-import { fetchComprar } from "./redux/comprarSlice";
+import { fetchCompras } from "./redux/comprasSlice";
 
 import ListarIngressosPessoa from "./components/Ingresso/Pessoa/ListarIngressos";
 import ListarIngressosRevendidos from "./components/Ingresso/Pessoa/ListarRevendas";
@@ -22,6 +22,8 @@ import ListarIngressosEmpresa from "./components/Ingresso/Empresa/ListarIngresso
 import CriarIngresso from "./components/Ingresso/Empresa/CriarIngresso";
 import EditarIngresso from "./components/Ingresso/Empresa/EditarIngresso";
 import { fetchIngressos } from "./redux/ingressosSlice";
+
+import Comprovante from "./components/Comprovante/Comprovante";
 
 import CriarVenda from "./components/Venda/CriarVenda";
 import EditarVenda from "./components/Venda/EditarVenda";
@@ -34,7 +36,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchEventos());
     dispatch(fetchVendas());
-    dispatch(fetchComprar());
+    dispatch(fetchCompras());
     dispatch(fetchIngressos());
   }, [dispatch]);
 
@@ -59,6 +61,8 @@ function App() {
         <Route path="/carrinho" element={<Comprar />} />
         <Route path="/meus-ingressos" element={<IngressosComprados />} />
         <Route path="/meu-ingresso/:id" element={<EditarCompra />} />
+
+        <Route path="/comprovante/:id" element={<Comprovante />} />
 
         <Route
           path="/esporte"
