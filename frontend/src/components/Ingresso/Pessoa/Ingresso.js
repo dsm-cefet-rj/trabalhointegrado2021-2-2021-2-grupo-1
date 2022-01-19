@@ -69,6 +69,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
           <li className="ingresso-detalhe-item">{state.ingresso.nome}</li>
           <li className="ingresso-detalhe-item">{state.evento.endereco}</li>
           <li className="ingresso-detalhe-item">{state.evento.local}</li>
+          <li className="ingresso-detalhe-item">{state.ingresso.data}</li>
           <li className="ingresso-detalhe-item">
             {state.ingresso.horario}
           </li>
