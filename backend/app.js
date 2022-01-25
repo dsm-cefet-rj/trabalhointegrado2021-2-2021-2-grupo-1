@@ -5,6 +5,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var eventosRouter = require('./routes/eventos');
+var vendasRouter = require('./routes/vendas');
 
 var app = express();
 
@@ -23,5 +24,6 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/eventos', eventosRouter);
+app.use('/eventos', vendasRouter);
 
 module.exports = app;
