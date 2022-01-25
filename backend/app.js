@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var eventosRouter = require('./routes/eventos');
 var vendasRouter = require('./routes/vendas');
 var ingressosRouter = require('./routes/ingressos');
+var comprarRouter = require('./routes/ingressos');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/eventos', eventosRouter);
 app.use('/eventos', vendasRouter);
 app.use('/ingressos', ingressosRouter);
+app.use('/comprar', comprarRouter);
 
 
 module.exports = app;
