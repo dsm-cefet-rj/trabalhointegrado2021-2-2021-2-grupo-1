@@ -3,11 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var eventosRouter = require('./routes/eventos');
 var vendasRouter = require('./routes/vendas');
 var ingressosRouter = require('./routes/ingressos');
-var comprarRouter = require('./routes/ingressos');
+var comprasRouter = require('./routes/compras');
 
 var app = express();
 
@@ -24,11 +23,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', indexRouter);
 app.use('/eventos', eventosRouter);
-app.use('/eventos', vendasRouter);
+app.use('/vendas', vendasRouter);
 app.use('/ingressos', ingressosRouter);
-app.use('/comprar', comprarRouter);
+app.use('/compras', comprasRouter);
 
 
 module.exports = app;

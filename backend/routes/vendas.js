@@ -3,17 +3,18 @@ var router = express.Router();
 
 let vendas = [{
   "id": 1,
+  "ingressoId": "1",
   "nome": "Venda 1",
   "valor": "20",
   "quantidade": "1000",
 }, {
   "id": 2,
+  "ingressoId": "2",
   "nome": "Venda 2",
   "valor": "300",
   "quantidade": "100",
 }]
 
-/* GET users listing. */
 router.route('/')
   .get((req, res, next) => {
     res.statusCode = 200;

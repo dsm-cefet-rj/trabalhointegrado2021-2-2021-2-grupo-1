@@ -18,7 +18,6 @@ let ingressos = [{
     "dadosAdicionais": "Dados Adicionais",
 }]
 
-/* GET users listing. */
 router.route('/')
   .get((req, res, next) => {
     res.statusCode = 200;
