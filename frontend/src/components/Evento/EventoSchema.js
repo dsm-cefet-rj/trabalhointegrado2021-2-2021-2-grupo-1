@@ -1,10 +1,10 @@
-import { string, object, number, setLocale } from "yup";
+import { string, object, setLocale } from "yup";
 import { ptForm } from "yup-locale-pt";
 
 setLocale(ptForm);
 
 const eventoSchema = object({
-  id: number(),
+  id: string(),
   nome: string().required("É necessário ter um nome."),
   genero: string().required(),
   endereco: string().required("É necessário ter um endereço."),

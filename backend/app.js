@@ -1,14 +1,18 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose');
 
-var eventosRouter = require('./routes/eventos');
-var vendasRouter = require('./routes/vendas');
-var ingressosRouter = require('./routes/ingressos');
-var comprasRouter = require('./routes/compras');
+const uri = "mongodb+srv://thales:flamengo@psw.tuxkh.mongodb.net/psw?retryWrites=true&w=majority";
+mongoose.connect(uri);
 
-var app = express();
+const eventosRouter = require('./routes/eventos');
+const vendasRouter = require('./routes/vendas');
+const ingressosRouter = require('./routes/ingressos');
+const comprasRouter = require('./routes/compras');
+
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());

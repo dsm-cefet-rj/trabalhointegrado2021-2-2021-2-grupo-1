@@ -1,53 +1,54 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-let eventos = [{
-  "id": 1,
-  "nome": "Evento 1",
-  "genero": "musica",
-  "endereco": "Rua 1",
-  "local": "São Paulo",
-}, {
-  "id": 2,
-  "nome": "Evento 2",
-  "genero": "musica",
-  "endereco": "Rua 2",
-  "local": "São Paulo",
-}]
+const Eventos = require('../models/eventos');
 
 router.route('/')
-  .get((req, res, next) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(eventos);
+  .get(async (req, res, next) => {
+    try {
+      const eventos = await Eventos.find({});
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(eventos);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
-  .post((req, res, next) => {
-    const id = Math.max(...eventos.map(evento => evento.id)) + 1;
-
-    eventos.push({ ...req.body, id });
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json({
-      ...req.body,
-      id
-    });
+  .post(async (req, res, next) => {
+    try {
+      const evento = await Eventos.create(req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(evento);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
 router.route('/:id')
-  .delete((req, res, next) => {
-    eventos.filter((evento) => evento.id != req.params.id);
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.params.id);
+  .delete(async (req, res, next) => {
+    try {
+      const evento = await Eventos.deleteOne({ id: req.params.id });
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(evento);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
-  .put((req, res, next) => {
-    const evento = eventos.find(evento => evento.id == req.params.id);
-    eventos.splice(eventos.indexOf(evento), 1, { ...evento, ...req.body });
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.body);
+  .put(async (req, res, next) => {
+    try {
+      await Eventos.updateOne({ id: req.params.id }, req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(req.body);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
 module.exports = router;
