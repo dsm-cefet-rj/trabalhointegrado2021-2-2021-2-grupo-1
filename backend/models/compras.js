@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const comprasSchema = new Schema({
-  nome: { type: String, required: true },
-  genero: { type: String, required: true },
-  endereco: { type: String, required: true },
-  local: { type: String, required: true },
+  VendaId: { type: String, required: true },
+  cpf: { type: String, required: true },
 })
 
 comprasSchema.method('toJSON', function () {
