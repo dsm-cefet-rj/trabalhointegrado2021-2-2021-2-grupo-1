@@ -1,56 +1,54 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-let ingressos = [{
-    "id": 1,
-    "eventoId": "1",
-    "nome": "Ingresso 1",
-    "horario": "15:00",
-    "data": "24/12/24",
-    "dadosAdicionais": "Dados Adicionais",
-  
-}, {
-    "id": 2,
-    "eventoId": "2",
-    "nome": "Ingresso 2",
-    "horario": "15:00",
-    "data": "25/12/24",
-    "dadosAdicionais": "Dados Adicionais",
-}]
+const Ingressos = require('../models/ingressos');
 
 router.route('/')
-  .get((req, res, next) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(ingressos);
+  .get(async (req, res, next) => {
+    try {
+      const ingressos = await Ingressos.find({});
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(ingressos);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
-  .post((req, res, next) => {
-    const id = Math.max(...ingressos.map(ingresso => ingresso.id)) + 1;
-
-    ingressos.push({ ...req.body, id });
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json({
-      ...req.body,
-      id
-    });
+  .post(async (req, res, next) => {
+    try {
+      const ingresso = await Ingressos.create(req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(ingresso);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
-router.route('/:id')
-  .delete((req, res, next) => {
-    ingressos.filter((ingresso) => ingresso.id != req.params.id);
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.params.id);
-  })
-  .put((req, res, next) => {
-    const ingresso = ingressos.find(ingresso => ingresso.id == req.params.id);
-    ingressos.splice(ingressos.indexOf(ingresso), 1, { ...ingresso, ...req.body });
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.body);
+  router.route('/:id')
+    .delete(async (req, res, next) => {
+      try {
+        const ingresso = await Ingressos.deleteOne({ id: req.params.id });
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.json(ingresso);
+      } catch (err) {
+        res.statusCode = 404;
+        next(err);
+      }
+    })
+  .put(async (req, res, next) => {
+    try {
+      await Ingressos.updateOne({ id: req.params.id }, req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(req.body);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
 module.exports = router;
