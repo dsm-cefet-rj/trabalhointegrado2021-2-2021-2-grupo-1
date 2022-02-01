@@ -1,53 +1,54 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-let vendas = [{
-  "id": 1,
-  "ingressoId": "1",
-  "nome": "Venda 1",
-  "valor": "20",
-  "quantidade": "1000",
-}, {
-  "id": 2,
-  "ingressoId": "2",
-  "nome": "Venda 2",
-  "valor": "300",
-  "quantidade": "100",
-}]
+const Vendas = require('../models/vendas');
 
 router.route('/')
-  .get((req, res, next) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(vendas);
+  .get(async (req, res, next) => {
+    try {
+      const vendas = await Vendas.find({});
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(vendas);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
-  .post((req, res, next) => {
-    const id = Math.max(...vendas.map(venda => venda.id)) + 1;
-
-    vendas.push({ ...req.body, id });
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json({
-      ...req.body,
-      id
-    });
+  .post(async (req, res, next) => {
+    try {
+      const venda = await Vendas.create(req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(venda);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
 router.route('/:id')
-  .delete((req, res, next) => {
-    vendas.filter((venda) => venda.id != req.params.id);
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.params.id);
+  .delete(async (req, res, next) => {
+    try {
+      const venda = await Vendas.deleteOne({ id: req.params.id });
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(venda);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
-  .put((req, res, next) => {
-    const venda = vendas.find(venda => venda.id == req.params.id);
-    vendas.splice(vendas.indexOf(venda), 1, { ...venda, ...req.body });
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(req.body);
+  .put(async (req, res, next) => {
+    try {
+      await Vendas.updateOne({ id: req.params.id }, req.body);
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.json(req.body);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
   })
 
 module.exports = router;
