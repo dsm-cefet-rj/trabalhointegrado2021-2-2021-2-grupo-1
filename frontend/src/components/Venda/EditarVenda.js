@@ -2,10 +2,11 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react"; import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react"; 
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
-import vendaSchema from "./VendaSchema";
+import vendasSchema from "./VendaSchema";
 
 import { selectAllIngressos } from "../../redux/ingressosSlice";
 import {
