@@ -22,6 +22,7 @@ function EditarIngresso() {
   const eventos = useSelector(selectAllEventos);
   const ingresso = useSelector((state) =>
     selectIngressoById(state, id));
+  console.log(ingresso);
   const [ingressoForm] = useState(ingressoSchema.cast({ ...ingresso }));
   const {
     register,
