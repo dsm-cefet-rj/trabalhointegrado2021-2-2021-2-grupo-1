@@ -26,7 +26,7 @@ function Comprar() {
 
   const valorTotalCarrinho = meuCarrinho.reduce(
     (previousValue, currentValue) => {
-      return Number(previousValue) + Number(currentValue.valor);
+      return previousValue + currentValue.valor;
     },
     0
   );
@@ -43,7 +43,7 @@ function Comprar() {
       dispatch(
         updateVenda({
           ...e,
-          quantidade: Number(e.quantidade) - 1,
+          quantidade: e.quantidade - 1,
         })
       );
     });

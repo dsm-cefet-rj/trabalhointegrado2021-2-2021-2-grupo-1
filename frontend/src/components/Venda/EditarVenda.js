@@ -6,7 +6,7 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
-import vendasSchema from "./VendaSchema";
+import vendaSchema from "./VendaSchema";
 
 import { selectAllIngressos } from "../../redux/ingressosSlice";
 import {

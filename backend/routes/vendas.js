@@ -9,24 +9,22 @@ router.route('/')
     try {
       const vendas = await Vendas.find({});
       res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(vendas);
+      res.status(200).json(vendas);
     } catch (err) {
       res.statusCode = 404;
       next(err);
     }
   })
   .post(async (req, res, next) => {
-    const vendaExists = await Vendas.exists({ ingressoId: req.body.ingressoId, revenda: false });
+    const vendaExists = await Vendas.exists({ ingressoId: req.body.ingressoId });
 
     try {
-      if (vendaExists) {
+      if (vendaExists && req.body.revenda === false) {
         throw "Não é possível existir duas vendas de um mesmo ingresso."
       } else {
         const venda = await Vendas.create(req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(venda);
+        res.status(200).json(venda);
       }
     } catch (err) {
       res.status(406).send({ error: err });
@@ -44,8 +42,7 @@ router.route('/:id')
       } else {
         const venda = await Vendas.deleteOne({ _id: req.params.id });
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(venda);
+        res.status(200).json(venda);
       }
     } catch (err) {
       res.status(406).send({ error: err });
@@ -62,8 +59,7 @@ router.route('/:id')
       } else {
         await Vendas.updateOne({ _id: req.params.id }, req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(req.body);
+        res.status(200).json(req.body);
       }
     } catch (err) {
       res.status(406).send({ error: err })

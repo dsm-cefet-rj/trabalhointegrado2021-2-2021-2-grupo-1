@@ -4,9 +4,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
     "@hookform/resolvers": "^2.8.5",
     "@react-pdf/renderer": "^2.1.0",
     "@reduxjs/toolkit": "^1.7.1",

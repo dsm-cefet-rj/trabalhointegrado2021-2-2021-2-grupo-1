@@ -3,9 +3,9 @@ const { Schema } = mongoose;
 
 const vendasSchema = new Schema({
   ingressoId: { type: String, required: true },
-  valor: { type: String, required: true },
   revenda: { type: Boolean, required: true },
-  quantidade: { type: String, required: true }
+  valor: { type: Number, required: true },
+  quantidade: { type: Number, required: true }
 })
 
 vendasSchema.method('toJSON', function () {

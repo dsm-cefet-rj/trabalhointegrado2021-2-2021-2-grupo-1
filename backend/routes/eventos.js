@@ -9,8 +9,7 @@ router.route('/')
     try {
       const eventos = await Eventos.find({});
       res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(eventos);
+      res.status(200).json(eventos);
     } catch (err) {
       res.statusCode = 404;
       next(err);
@@ -25,11 +24,10 @@ router.route('/')
       } else {
         const evento = await Eventos.create(req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(evento);
+        res.status(200).json(evento);
       }
     } catch (err) {
-      res.status(406).send({ error: err });
+      res.status(400).send({ error: err });
       next(err);
     }
   })
@@ -40,22 +38,20 @@ router.route('/:id')
 
     try {
       if (ingressoExists) {
-        throw "Não é possível excluir evento com ingressos."
+        throw "Não é possível excluir evento com ingressos associados."
       } else {
         const evento = await Eventos.deleteOne({ _id: req.params.id });
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(evento);
+        res.status(200).json(evento);
       }
     } catch (err) {
-      res.status(406).send({ error: err });
+      res.status(400).send({ error: err });
       next(err);
     }
   })
   .put(async (req, res, next) => {
     const ingressoExists = await Ingressos.exists({ eventoId: req.params.id });
     const eventoEditado = await Eventos.find({ _id: req.params.id });
-    console.log(eventoEditado);
 
     try {
       if ((eventoEditado[0].nome != req.body.nome) && ingressoExists) {
@@ -63,11 +59,10 @@ router.route('/:id')
       } else {
         await Eventos.updateOne({ _id: req.params.id }, req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(req.body);
+        res.status(200).json(req.body);
       }
     } catch (err) {
-      res.status(406).send({ error: err })
+      res.status(400).send({ error: err })
       next(err);
     }
   })

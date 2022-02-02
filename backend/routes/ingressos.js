@@ -9,8 +9,8 @@ router.route('/')
     try {
       const ingressos = await Ingressos.find({});
       res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(ingressos);
+      res.status(200).json(ingressos);
+
     } catch (err) {
       res.statusCode = 404;
       next(err);
@@ -23,13 +23,12 @@ router.route('/')
       if (ingressoExists) {
         throw "Não é possível existir dois ingressos com o mesmo nome."
       } else {
-        const evento = await Ingressos.create(req.body);
+        const ingresso = await Ingressos.create(req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(evento);
+        res.status(200).json(ingresso)
       }
     } catch (err) {
-      res.status(406).send({ error: err });
+      res.status(400).send({ error: err });
       next(err);
     }
   })
@@ -40,15 +39,14 @@ router.route('/:id')
 
     try {
       if (venda) {
-        throw "Não é possível excluir ingresso com vendas."
+        throw "Não é possível excluir ingresso com vendas associadas."
       } else {
         const ingresso = await Ingressos.deleteOne({ _id: req.params.id });
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(ingresso);
+        res.status(200).json(ingresso)
       }
     } catch (err) {
-      res.status(406).send({ error: err })
+      res.status(400).send({ error: err })
     }
   })
   .put(async (req, res, next) => {
@@ -57,20 +55,19 @@ router.route('/:id')
 
     try {
       if ((ingressoEditado[0].eventoId != req.body.eventoId) && (ingressoEditado[0].nome != req.body.nome) && venda) {
-        throw "Não é possível trocar o nome e o evento do ingresso com vendas."
+        throw "Não é possível trocar o nome e o evento do ingresso com vendas associadas."
       }
       else if ((ingressoEditado[0].eventoId != req.body.eventoId) && venda) {
-        throw "Não é possível trocar o evento do ingresso com vendas."
+        throw "Não é possível trocar o evento do ingresso com vendas associadas."
       } else if ((ingressoEditado[0].nome != req.body.nome) && venda) {
-        throw "Não é possível trocar o nome do ingresso com vendas."
+        throw "Não é possível trocar o nome do ingresso com vendas associadas."
       } else {
         await Ingressos.updateOne({ _id: req.params.id }, req.body);
         res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 200;
-        res.json(req.body);
+        res.status(200).json(req.body)
       }
     } catch (err) {
-      res.status(406).send({ error: err })
+      res.status(400).send({ error: err })
       next(err);
     }
   })

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import eventosSlice from "./redux/eventosSlice";
-import vendasSlice from "./redux/vendasSlice";
-import comprasSlice from "./redux/comprasSlice";
-import ingressosSlice from "./redux/ingressosSlice";
+import eventosSlice from "./eventosSlice";
+import vendasSlice from "./vendasSlice";
+import comprasSlice from "./comprasSlice";
+import ingressosSlice from "./ingressosSlice";
 
 const store = configureStore({
   reducer: {

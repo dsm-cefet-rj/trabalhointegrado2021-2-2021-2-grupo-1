@@ -52,9 +52,9 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
     dispatch(
       addVenda({
         ingressoId: state.venda.ingressoId,
-        valor: (Number(state.venda.valor) - 20).toString(),
+        valor: state.venda.valor - 20,
         revenda: true,
-        quantidade: "1",
+        quantidade: 1,
       })
     );
 
