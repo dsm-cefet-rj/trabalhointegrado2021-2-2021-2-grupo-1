@@ -4,7 +4,7 @@ const router = express.Router();
 const Compras = require('../models/compras');
 
 router.route('/')
-   .get(async (req, res, next) => {
+  .get(async (req, res, next) => {
     try {
       const compras = await Compras.find({});
       res.setHeader('Content-Type', 'application/json');
@@ -15,7 +15,7 @@ router.route('/')
       next(err);
     }
   })
-   .post(async (req, res, next) => {
+  .post(async (req, res, next) => {
     try {
       const compra = await Compras.create(req.body);
       res.setHeader('Content-Type', 'application/json');
@@ -30,10 +30,10 @@ router.route('/')
 router.route('/:id')
   .delete(async (req, res, next) => {
     try {
-      const compra = await Compras.deleteOne({ id: req.params.id });
+      await Compras.deleteOne({ _id: req.params.id }, req.body);
       res.setHeader('Content-Type', 'application/json');
       res.statusCode = 200;
-      res.json(compra);
+      res.json(req.body);
     } catch (err) {
       res.statusCode = 404;
       next(err);
@@ -41,7 +41,7 @@ router.route('/:id')
   })
   .put(async (req, res, next) => {
     try {
-      await Compras.updateOne({ id: req.params.id }, req.body);
+      await Compras.updateOne({ _id: req.params.id }, req.body);
       res.setHeader('Content-Type', 'application/json');
       res.statusCode = 200;
       res.json(req.body);

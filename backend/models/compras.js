@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const comprasSchema = new Schema({
-  VendaId: { type: String, required: true },
+  vendaId: { type: String, required: true },
   cpf: { type: String, required: true },
 })
 

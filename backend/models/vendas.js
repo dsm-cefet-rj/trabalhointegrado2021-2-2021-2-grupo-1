@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const vendasSchema = new Schema({
-  nome: { type: String, required: true },
-  ingresso: { type: String, required: true },
+  ingressoId: { type: String, required: true },
   valor: { type: String, required: true },
-  quantidade: { type: String, required: true },
+  revenda: { type: Boolean, required: true },
+  quantidade: { type: String, required: true }
 })
 
 vendasSchema.method('toJSON', function () {

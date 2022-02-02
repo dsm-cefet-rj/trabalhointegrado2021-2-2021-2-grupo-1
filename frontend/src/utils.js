@@ -21,8 +21,10 @@ async function client(endpoint, { body, ...customConfig } = {}) {
     if (response.ok) {
       return data;
     }
+    console.log(response);
     throw new Error(response.statusText);
   } catch (err) {
+    console.log(err);
     return Promise.reject(err.message ? err.message : data);
   }
 }

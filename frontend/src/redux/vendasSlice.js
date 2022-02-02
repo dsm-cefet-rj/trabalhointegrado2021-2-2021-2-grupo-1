@@ -3,8 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-
-import { httpDelete, httpGet, httpPut, httpPost } from "../utils";
+import axios from "axios";
 
 const vendasAdapter = createEntityAdapter();
 
@@ -15,29 +14,53 @@ const initialState = vendasAdapter.getInitialState({
 export const fetchVendas = createAsyncThunk(
   "vendas/fetchVendas",
   async () => {
-    return await httpGet("http://localhost:3001/vendas");
+    const res = await axios.get("http://localhost:3001/vendas");
+    return res.data;
   }
 );
 
 export const addVenda = createAsyncThunk(
   "vendas/addVenda",
-  async (venda) => {
-    return await httpPost("http://localhost:3001/vendas", venda);
+  async (venda, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/vendas/`, venda);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const deleteVenda = createAsyncThunk(
   "vendas/deleteVenda",
-  async (id) => {
-    await httpDelete(`http://localhost:3001/vendas/${id}`);
-    return id;
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.delete(`http://localhost:3001/vendas/${id}`);
+      return id;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const updateVenda = createAsyncThunk(
   "vendas/updateVenda",
-  async (venda) => {
-    return await httpPut(`http://localhost:3001/vendas/${venda.id}`, venda);
+  async (venda, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`http://localhost:3001/vendas/${venda.id}`, venda);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
@@ -65,7 +88,7 @@ const vendasSlice = createSlice({
     },
     [addVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao adicionar venda: " + action.error.message;
+      state.error = action.payload;
     },
     [updateVenda.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -76,7 +99,7 @@ const vendasSlice = createSlice({
     },
     [updateVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao editar venda: " + action.error.message;
+      state.error = action.payload;
     },
     [deleteVenda.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -87,7 +110,7 @@ const vendasSlice = createSlice({
     },
     [deleteVenda.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao deletar venda: " + action.error.message;
+      state.error = action.payload;
     },
   },
 });

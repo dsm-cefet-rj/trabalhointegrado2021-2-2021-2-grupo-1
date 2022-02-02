@@ -36,7 +36,8 @@ function Comprar() {
       dispatch(
         addCompra({
           cpf: compra.cpf,
-          vendaId: e.id
+          vendaId: e.id,
+          revenda: false
         })
       );
       dispatch(

@@ -3,8 +3,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const uri = "mongodb+srv://thales:flamengo@psw.tuxkh.mongodb.net/psw?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@psw.tuxkh.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
+
 mongoose.connect(uri);
 
 const eventosRouter = require('./routes/eventos');

@@ -35,9 +35,12 @@ function ListarIngresso({ genero }) {
     } else if ((status.eventos === "loaded" && status.ingressos === "loaded" && status.vendas === "loaded") || (status.eventos === "saved" || status.ingressos === "saved" || status.vendas === "saved")) {
       if (vendas.length > 0) {
         const haEvento = vendas.filter(
-          (venda) =>
-            eventos[ingressos[venda.ingressoId - 1].eventoId - 1].genero ===
-            genero && venda.quantidade > 0 && !venda.revenda
+          (venda) => {
+            const ingresso = ingressos.filter(ingresso => ingresso.id === venda.ingressoId)[0];
+            const evento = eventos.filter(evento => evento.id === ingresso.eventoId)[0];
+
+            return evento.genero === genero && venda.quantidade > 0 && !venda.revenda
+          }
         );
 
         if (haEvento.length > 0) {

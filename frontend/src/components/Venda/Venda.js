@@ -16,7 +16,7 @@ function Venda({ venda }) {
 
   return (
     <div>
-      <h2 className="subtitulo"> {ingresso.nome} </h2>
+      <h2 className="subtitulo">{ingresso.nome} </h2>
       <p>Ingressos Restantes: {venda.quantidade} </p>
       <Botao botoes={botao} />
     </div>

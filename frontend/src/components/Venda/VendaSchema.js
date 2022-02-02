@@ -1,13 +1,13 @@
-import { string, object, number, setLocale } from "yup";
+import { string, object, setLocale } from "yup";
 import { ptForm } from "yup-locale-pt";
 
 setLocale(ptForm);
 
-const vendasSchema = object({
-  id: number(),
+const vendaSchema = object({
+  id: string(),
   ingressoId: string().required(),
   valor: string().required("É necessário ter um valor."),
   quantidade: string().required("É necessário ter uma quantidade."),
 });
 
-export default vendasSchema;
+export default vendaSchema;

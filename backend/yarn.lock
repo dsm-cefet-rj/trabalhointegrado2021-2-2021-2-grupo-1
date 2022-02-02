@@ -148,6 +148,11 @@ destroy@~1.0.4:
   resolved "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
+dotenv@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-15.0.0.tgz#2a585639429bf2c2c62f387f0fffde9c75aafde0"
+  integrity sha512-/l1sXXm79ry34KwwS0y4oVZjB468iw/6u9g1W26dtexKcIJAnVL2pMF+hxQwzZ7LutxOwEgtym9eIxvX33CMKg==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
@@ -372,11 +377,6 @@ negotiator@0.6.2:
   version "0.6.2"
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.2.tgz"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
-
-normalize-mongoose@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/normalize-mongoose/-/normalize-mongoose-1.0.0.tgz#9556fe7e0e44a2066abb2b22bf0c2c8c5bdd3830"
-  integrity sha512-06gKa6YoKRpV4QK0qKI+VZPuVicnmrKyz62QdltvuYOxCbPTZK6Hao0e5s9z1v2iYY1jtZUdam8cgUyILWvwZw==
 
 on-finished@~2.3.0:
   version "2.3.0"

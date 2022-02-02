@@ -24,7 +24,7 @@ function CriarVenda() {
   });
 
   function checaEnvio(venda) {
-    dispatch(addVenda(venda));
+    dispatch(addVenda({ ...venda, revenda: false }));
     navigate("/empresa/vendas");
   }
 

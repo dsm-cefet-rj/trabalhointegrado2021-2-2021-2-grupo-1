@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Eventos = require('../models/eventos');
+const Ingressos = require('../models/ingressos');
 
 router.route('/')
   .get(async (req, res, next) => {
@@ -16,37 +17,57 @@ router.route('/')
     }
   })
   .post(async (req, res, next) => {
+    const eventoExists = await Eventos.exists({ nome: req.body.nome });
+
     try {
-      const evento = await Eventos.create(req.body);
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(evento);
+      if (eventoExists) {
+        throw "Não é possível existir dois eventos com o mesmo nome."
+      } else {
+        const evento = await Eventos.create(req.body);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.json(evento);
+      }
     } catch (err) {
-      res.statusCode = 404;
+      res.status(406).send({ error: err });
       next(err);
     }
   })
 
 router.route('/:id')
   .delete(async (req, res, next) => {
+    const ingressoExists = await Ingressos.exists({ eventoId: req.params.id });
+
     try {
-      const evento = await Eventos.deleteOne({ id: req.params.id });
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(evento);
+      if (ingressoExists) {
+        throw "Não é possível excluir evento com ingressos."
+      } else {
+        const evento = await Eventos.deleteOne({ _id: req.params.id });
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.json(evento);
+      }
     } catch (err) {
-      res.statusCode = 404;
+      res.status(406).send({ error: err });
       next(err);
     }
   })
   .put(async (req, res, next) => {
+    const ingressoExists = await Ingressos.exists({ eventoId: req.params.id });
+    const eventoEditado = await Eventos.find({ _id: req.params.id });
+    console.log(eventoEditado);
+
     try {
-      await Eventos.updateOne({ id: req.params.id }, req.body);
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.json(req.body);
+      if ((eventoEditado[0].nome != req.body.nome) && ingressoExists) {
+        throw "Não é possível editar nome do evento com ingressos associados."
+      } else {
+        await Eventos.updateOne({ _id: req.params.id }, req.body);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.json(req.body);
+      }
     } catch (err) {
-      res.statusCode = 404;
+      res.status(406).send({ error: err })
       next(err);
     }
   })

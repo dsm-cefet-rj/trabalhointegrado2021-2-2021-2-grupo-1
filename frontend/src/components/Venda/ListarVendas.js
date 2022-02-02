@@ -7,31 +7,37 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 import Venda from "./Venda";
 
 function ListarVendas() {
-  const vendas = useSelector(selectAllVendas);
+  const vendas = useSelector(selectAllVendas).filter(venda => !venda.revenda);
   const { status, error } = useSelector((state) => {
     return {
-      status: state.vendas.status,
-      error: state.vendas.error,
+      status: {
+        vendas: state.vendas.status,
+        ingressos: state.ingressos.status,
+      },
+      error: {
+        vendas: state.vendas.error,
+        ingressos: state.ingressos.error,
+      }
     };
   });
 
   function mostreVendasDeAcordoComOStatus() {
-    if (status === "loading") {
+    if (status.vendas === "loading" || status.ingressos === "loading") {
       return <img src={loader} alt="Imagem de loading" className="loader" />;
-    } else if (status === "loaded" || status === "saved") {
+    } else if ((status.vendas === "loaded" || status.vendas === "saved") && (status.ingressos === "loaded" || status.ingressos === "saved")) {
       if (vendas.length > 0) {
-        return vendas.map((venda) => (
-          <Venda venda={venda} key={venda.id} />
-        ));
+        return vendas.map((venda) =>
+          (<Venda venda={venda} key={venda.id} />)
+        );
       } else {
         return (
           <p className="centralizar-xy">
             Não há nenhuma venda cadastrada :(
           </p>
-        );;
+        );
       }
-    } else if (status === "failed") {
-      return <p>Erro: {error}</p>;
+    } else if (status.vendas === "failed") {
+      return <p>Erro: {error.vendas}</p>;
     }
   }
 

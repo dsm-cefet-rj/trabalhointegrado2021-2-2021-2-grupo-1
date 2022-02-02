@@ -3,8 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-
-import { httpDelete, httpGet, httpPut, httpPost } from "../utils";
+import axios from "axios";
 
 const eventosAdapter = createEntityAdapter();
 
@@ -15,29 +14,53 @@ const initialState = eventosAdapter.getInitialState({
 export const fetchEventos = createAsyncThunk(
   "eventos/fetchEventos",
   async () => {
-    return await httpGet("http://localhost:3001/eventos");
+    const res = await axios.get("http://localhost:3001/eventos");
+    return res.data;
   }
 );
 
 export const addEvento = createAsyncThunk(
   "eventos/addEvento",
-  async (evento) => {
-    return await httpPost("http://localhost:3001/eventos", evento);
+  async (evento, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/eventos/`, evento);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const deleteEvento = createAsyncThunk(
   "eventos/deleteEvento",
-  async (id) => {
-    await httpDelete(`http://localhost:3001/eventos/${id}`);
-    return id;
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.delete(`http://localhost:3001/eventos/${id}`);
+      return id;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const updateEvento = createAsyncThunk(
   "eventos/updateEvento",
-  async (evento) => {
-    return await httpPut(`http://localhost:3001/eventos/${evento.id}`, evento);
+  async (evento, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`http://localhost:3001/eventos/${evento.id}`, evento);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
@@ -65,7 +88,7 @@ const eventosSlice = createSlice({
     },
     [addEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao adicionar evento: " + action.error.message;
+      state.error = action.payload;
     },
     [updateEvento.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -76,7 +99,7 @@ const eventosSlice = createSlice({
     },
     [updateEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao editar evento: " + action.error.message;
+      state.error = action.payload;
     },
     [deleteEvento.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -87,7 +110,7 @@ const eventosSlice = createSlice({
     },
     [deleteEvento.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao deletar evento: " + action.error.message;
+      state.error = action.payload;
     },
   },
 });

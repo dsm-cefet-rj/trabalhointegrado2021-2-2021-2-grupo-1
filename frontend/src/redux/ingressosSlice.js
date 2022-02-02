@@ -1,6 +1,9 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-
-import { httpDelete, httpGet, httpPut, httpPost } from "../utils";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 
 const ingressosAdapter = createEntityAdapter();
 
@@ -11,29 +14,53 @@ const initialState = ingressosAdapter.getInitialState({
 export const fetchIngressos = createAsyncThunk(
   "ingressos/fetchIngressos",
   async () => {
-    return await httpGet("http://localhost:3001/ingressos");
+    const res = await axios.get("http://localhost:3001/ingressos");
+    return res.data;
   }
 );
 
 export const addIngresso = createAsyncThunk(
   "ingressos/addIngresso",
-  async (ingresso) => {
-    return await httpPost("http://localhost:3001/ingressos", ingresso);
+  async (ingresso, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(`http://localhost:3001/ingressos/`, ingresso);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const deleteIngresso = createAsyncThunk(
   "ingressos/deleteIngresso",
-  async (id) => {
-    await httpDelete(`http://localhost:3001/ingressos/${id}`);
-    return id;
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.delete(`http://localhost:3001/ingressos/${id}`);
+      return id;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
 export const updateIngresso = createAsyncThunk(
   "ingressos/updateIngresso",
-  async (ingresso) => {
-    return await httpPut(`http://localhost:3001/ingressos/${ingresso.id}`, ingresso);
+  async (ingresso, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`http://localhost:3001/ingressos/${ingresso.id}`, ingresso);
+      return res.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data.error)
+    }
   }
 );
 
@@ -61,7 +88,7 @@ const ingressosSlice = createSlice({
     },
     [addIngresso.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao adicionar ingresso: " + action.error.message;
+      state.error = action.payload;
     },
     [updateIngresso.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -72,7 +99,7 @@ const ingressosSlice = createSlice({
     },
     [updateIngresso.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao editar ingresso: " + action.error.message;
+      state.error = action.payload;
     },
     [deleteIngresso.fulfilled]: (state, action) => {
       state.status = "saved";
@@ -83,7 +110,7 @@ const ingressosSlice = createSlice({
     },
     [deleteIngresso.rejected]: (state, action) => {
       state.status = "failed";
-      state.error = "Falha ao deletar ingresso: " + action.error.message;
+      state.error = action.payload;
     },
   },
 });
@@ -93,4 +120,5 @@ export const {
   selectById: selectIngressoById,
   selectIds: selectIngressosIds,
 } = ingressosAdapter.getSelectors((state) => state.ingressos);
+
 export default ingressosSlice.reducer;

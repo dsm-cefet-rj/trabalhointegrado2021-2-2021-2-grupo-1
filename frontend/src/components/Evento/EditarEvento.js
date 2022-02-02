@@ -19,7 +19,6 @@ function EditarEvento() {
   const navigate = useNavigate();
   const { id } = useParams();
   const evento = useSelector((state) => selectEventoById(state, id));
-  console.log(evento);
 
   const [eventoForm] = useState(
     eventoSchema.cast({
