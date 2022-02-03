@@ -52,85 +52,89 @@ function EditarIngresso() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo"> Editar Ingresso </h2>
-        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
-          <label>
-            Selecione um Evento
-            <select
-              className={
-                errors.eventoId?.message ? "input-box input-box-error" : "input-box"
-              }
-              defaultValue={ingressoForm.eventoId}
-              {...register("eventoId", { required: true })}
-            >
-              {eventos.map((evento) => (
-                <option value={evento.id} key={evento.id}>
-                  {evento.nome}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Nome do Ingresso
-            <input
-              type="text"
-              placeholder="Rock in Rio - 3º Dia"
-              className={
-                errors.nome?.message ? "input-box input-box-error" : "input-box"
-              }
-              defaultValue={ingressoForm.nome}
-              {...register("nome", { required: true })}
-            />
-            <span>{errors.nome?.message}</span>
-          </label>
-          <label>
-            Dados Adicionais
-            <input
-              type="text"
-              placeholder="Coloque alguma informação sobre o ingresso"
-              className={
-                errors.descricao?.message ? "input-box input-box-error" : "input-box"
-              }
-              defaultValue={ingressoForm.descricao}
-              {...register("descricao", { required: true })}
-            />
-            <span>{errors.descricao?.message}</span>
-          </label>
-          <label>
-            Horário
-            <input
-              type="text"
-              placeholder="hh:mm"
-              className={
-                errors.horario?.message ? "input-box input-box-error" : "input-box"
-              }
-              defaultValue={ingressoForm.horario}
-              {...register("horario", { required: true })}
-            />
-            <span>{errors.horario?.message}</span>
-          </label>
-          <label>
-            Data
-            <input
-              type="text"
-              placeholder="dd/mm/aa"
-              className={
-                errors.data?.message ? "input-box input-box-error" : "input-box"
-              }
-              defaultValue={ingressoForm.data}
-              {...register("data", { required: true })}
-            />
-            <span>{errors.data?.message}</span>
-          </label>
-          <div className="botoes-container">
-            <input type="submit" value="Editar" className="botao" />
-            <input
-              type="button"
-              value="Deletar"
-              className="botao botao-perigo"
-              onClick={deletaIngresso}
-            />
-          </div>
-        </form>
+        {ingresso ? (
+          <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+            <label>
+              Selecione um Evento
+              <select
+                className={
+                  errors.eventoId?.message ? "input-box input-box-error" : "input-box"
+                }
+                defaultValue={ingressoForm.eventoId}
+                {...register("eventoId", { required: true })}
+              >
+                {eventos.map((evento) => (
+                  <option value={evento.id} key={evento.id}>
+                    {evento.nome}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Nome do Ingresso
+              <input
+                type="text"
+                placeholder="Rock in Rio - 3º Dia"
+                className={
+                  errors.nome?.message ? "input-box input-box-error" : "input-box"
+                }
+                defaultValue={ingressoForm.nome}
+                {...register("nome", { required: true })}
+              />
+              <span>{errors.nome?.message}</span>
+            </label>
+            <label>
+              Dados Adicionais
+              <input
+                type="text"
+                placeholder="Coloque alguma informação sobre o ingresso"
+                className={
+                  errors.descricao?.message ? "input-box input-box-error" : "input-box"
+                }
+                defaultValue={ingressoForm.descricao}
+                {...register("descricao", { required: true })}
+              />
+              <span>{errors.descricao?.message}</span>
+            </label>
+            <label>
+              Horário
+              <input
+                type="text"
+                placeholder="hh:mm"
+                className={
+                  errors.horario?.message ? "input-box input-box-error" : "input-box"
+                }
+                defaultValue={ingressoForm.horario}
+                {...register("horario", { required: true })}
+              />
+              <span>{errors.horario?.message}</span>
+            </label>
+            <label>
+              Data
+              <input
+                type="text"
+                placeholder="dd/mm/aa"
+                className={
+                  errors.data?.message ? "input-box input-box-error" : "input-box"
+                }
+                defaultValue={ingressoForm.data}
+                {...register("data", { required: true })}
+              />
+              <span>{errors.data?.message}</span>
+            </label>
+            <div className="botoes-container">
+              <input type="submit" value="Editar" className="botao" />
+              <input
+                type="button"
+                value="Deletar"
+                className="botao botao-perigo"
+                onClick={deletaIngresso}
+              />
+            </div>
+          </form>
+        ) : (
+          <p>Ingresso não encontrado.</p>
+        )}
       </main>
     </>
   );

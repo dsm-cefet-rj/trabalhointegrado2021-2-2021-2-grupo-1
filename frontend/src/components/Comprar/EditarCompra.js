@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { editarCompraSchema }from "./CompraSchema";
+import { editarCompraSchema } from "./CompraSchema";
 
 import { updateCompra, selectCompraById } from "../../redux/comprasSlice";
 
@@ -42,27 +42,31 @@ function EditarCompra() {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Editar Compra</h2>
-        <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
-          <label>CPF
-            <input
-              type="text"
-              placeholder="000.000.000-00"
-              defaultValue={compraForm.cpf}
-              className={
-                errors.cpf?.message ? "input-box input-box-error" : "input-box"
-              }
-              {...register("cpf", { required: true })}
-            />
-            <span>{errors.cpf?.message}</span>
-          </label>
-          <div className="botoes-container">
-            <input
-              type="submit"
-              value="Editar"
-              className="botao botao-sucesso"
-            />
-          </div>
-        </form>
+        {compra ? (
+          <form className="formulario" onSubmit={handleSubmit(checaEnvio)}>
+            <label>CPF
+              <input
+                type="text"
+                placeholder="000.000.000-00"
+                defaultValue={compraForm.cpf}
+                className={
+                  errors.cpf?.message ? "input-box input-box-error" : "input-box"
+                }
+                {...register("cpf", { required: true })}
+              />
+              <span>{errors.cpf?.message}</span>
+            </label>
+            <div className="botoes-container">
+              <input
+                type="submit"
+                value="Editar"
+                className="botao botao-sucesso"
+              />
+            </div>
+          </form>
+        ) : (
+          <p>Compra não encontrada.</p>
+        )}
       </main>
     </>
   );
