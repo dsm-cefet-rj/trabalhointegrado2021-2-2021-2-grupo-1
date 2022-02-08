@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
-
+const bodyParser = require('body-parser');
 const Eventos = require('../models/eventos');
 const Ingressos = require('../models/ingressos');
 
+const authenticate = require('../authenticate');
+
+router.use(bodyParser.json());
+
 router.route('/')
-  .get(async (req, res, next) => {
+  .get(authenticate.verifyUser, async (req, res, next) => {
+    console.log(req.user);
     try {
       const eventos = await Eventos.find({});
       res.setHeader('Content-Type', 'application/json');
@@ -15,7 +20,7 @@ router.route('/')
       next(err);
     }
   })
-  .post(async (req, res, next) => {
+  .post(authenticate.verifyUser, async (req, res, next) => {
     const eventoExists = await Eventos.exists({ nome: req.body.nome });
 
     try {
@@ -33,7 +38,7 @@ router.route('/')
   })
 
 router.route('/:id')
-  .delete(async (req, res, next) => {
+  .delete(authenticate.verifyUser, async (req, res, next) => {
     const ingressoExists = await Ingressos.exists({ eventoId: req.params.id });
 
     try {
@@ -49,7 +54,7 @@ router.route('/:id')
       next(err);
     }
   })
-  .put(async (req, res, next) => {
+  .put(authenticate.verifyUser, async (req, res, next) => {
     const ingressoExists = await Ingressos.exists({ eventoId: req.params.id });
     const eventoEditado = await Eventos.find({ _id: req.params.id });
 
