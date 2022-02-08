@@ -48,11 +48,19 @@ function Cabecalho({ usuario }) {
   const menuHome = [
     {
       pathName: "/",
-      itemName: "Já Possui uma Conta?",
+      itemName: "Entrar Empresa",
     },
     {
       pathName: "/",
-      itemName: "Crie uma Conta",
+      itemName: "Entrar Cliente",
+    },
+    {
+      pathName: "/",
+      itemName: "Criar Empresa",
+    },
+    {
+      pathName: "/",
+      itemName: "Criar Cliente",
     },
   ];
 

@@ -1,34 +1,62 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 import "./MenuFlutuante.css";
 
 function MenuFlutuante({ nomeMenu, lista }) {
   const [menuAtivo, setMenuAtivo] = useState(false);
 
+  function logout() {
+    const url = "http://localhost:3001/usuarios/logout";
+    axios.get(url).then((res) => console.log(res)).catch(err => console.log(err));
+  }
+
   function ativaMenu() {
     setMenuAtivo(!menuAtivo);
   }
 
   function menu(path, item, key) {
-    if (item === "Já Possui uma Conta?") {
+    if (item === "Entrar Empresa") {
       return (
-        <button className="ancora" id="possui-conta" key={key}>
+        <button className="ancora" id="entrar-empresa" key={key}>
           {item}
         </button>
       );
-    } else if (item === "Crie uma Conta") {
+    } else if (item === "Entrar Cliente") {
       return (
-        <button className="ancora" id="nao-possui-conta" key={key}>
+        <button className="ancora" id="entrar-cliente" key={key}>
+          {item}
+        </button>
+      );
+    }
+    else if (item === "Criar Empresa") {
+      return (
+        <button className="ancora" id="criar-empresa" key={key}>
+          {item}
+        </button>
+      );
+    }
+    else if (item === "Criar Cliente") {
+      return (
+        <button className="ancora" id="criar-cliente" key={key}>
           {item}
         </button>
       );
     } else {
-      return (
-        <Link className="ancora" to={path} key={key}>
-          {item}
-        </Link>
-      );
+      if (item === "Sair") {
+        return (
+          <Link to={path} onClick={logout} key={key} >
+            Sair
+          </Link>
+        )
+      } else {
+        return (
+          <Link to={path} key={key}>
+            {item}
+          </Link>
+        );
+      }
     }
   }
 
