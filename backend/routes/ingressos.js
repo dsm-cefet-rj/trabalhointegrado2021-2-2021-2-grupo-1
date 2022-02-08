@@ -38,7 +38,7 @@ router.route('/')
           throw "Somente empresas podem criar ingressos."
       }
     } catch (err) {
-      res.status(400).send({ error: err });
+      res.status(!userIsEmpresa ? 401 : 400).send({ error: err });
       next(err);
     }
   })
@@ -61,7 +61,7 @@ router.route('/:id')
         throw "Somente empresas podem deletar ingressos."
       }
     } catch (err) {
-      res.status(400).send({ error: err })
+      res.status(400).send({ error: err });
       next(err);
     }
   })
@@ -85,7 +85,7 @@ router.route('/:id')
           res.status(200).json(req.body)
         }
         } else {
-        throw "Somente empresas podem editar eventos."
+        throw "Somente empresas podem editar ingressos."
       }
     } catch (err) {
       res.status(400).send({ error: err })
