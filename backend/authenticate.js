@@ -1,28 +1,27 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/users');
-var JwtStrategy = require('passport-jwt').Strategy;
-var ExtractJwt = require('passport-jwt').ExtractJwt;
-var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-require('dotenv').config();
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const Usuario = require("./models/usuarios");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(Usuario.authenticate()));
+passport.serializeUser(Usuario.serializeUser());
+passport.deserializeUser(Usuario.deserializeUser());
 
 exports.getToken = function (user) {
   return jwt.sign(user, process.env.KEY,
     { expiresIn: 3600 });
 };
 
-var opts = {};
+const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.KEY;
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts,
   (jwt_payload, done) => {
-    console.log("JWT payload: ", jwt_payload);
-    User.findOne({ _id: jwt_payload._id }, (err, user) => {
+    Usuario.findOne({ _id: jwt_payload._id }, (err, user) => {
       if (err) {
         return done(err, false);
       }
@@ -35,4 +34,4 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
     });
   }));
 
-exports.verifyUser = passport.authenticate('jwt', { session: false }); 
+exports.verifyUser = passport.authenticate("jwt", { session: false }); 

@@ -15,7 +15,9 @@ router.route('/')
       next(err);
     }
   })
-  .post(async (req, res, next) => {
+  .post(authenticate.verifyUser, async (req, res, next) => {
+    const userIsCliente = req.user.tipo === "cliente";
+
     try {
       const compra = await Compras.create(req.body);
       res.setHeader('Content-Type', 'application/json');
