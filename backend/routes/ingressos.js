@@ -3,9 +3,14 @@ const router = express.Router();
 
 const Ingressos = require('../models/ingressos');
 const Vendas = require('../models/vendas');
+const authenticate = require("../authenticate");
+const bodyParser = require("body-parser");
+
+
+router.use(bodyParser.json());
 
 router.route('/')
-  .get(async (req, res, next) => {
+  .get(authenticate.verifyUser, async (req, res, next) => {
     try {
       const ingressos = await Ingressos.find({});
       res.setHeader('Content-Type', 'application/json');
@@ -16,16 +21,21 @@ router.route('/')
       next(err);
     }
   })
-  .post(async (req, res, next) => {
+  .post(authenticate.verifyUser, async (req, res, next) => {
     const ingressoExists = await Ingressos.exists({ nome: req.body.nome });
+    const userIsEmpresa = req.user.tipo === "empresa";
 
     try {
-      if (ingressoExists) {
-        throw "Não é possível existir dois ingressos com o mesmo nome."
+      if (userIsEmpresa) {
+        if (ingressoExists) {
+          throw "Não é possível existir dois ingressos com o mesmo nome."
+        } else {
+          const ingresso = await Ingressos.create(req.body);
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).json(ingresso)
+        }
       } else {
-        const ingresso = await Ingressos.create(req.body);
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(ingresso)
+          throw "Somente empresas podem criar ingressos."
       }
     } catch (err) {
       res.status(400).send({ error: err });
@@ -34,37 +44,48 @@ router.route('/')
   })
 
 router.route('/:id')
-  .delete(async (req, res, next) => {
+  .delete(authenticate.verifyUser, async (req, res, next) => {
     const venda = await Vendas.exists({ ingressoId: req.params.id });
+    const userIsEmpresa = req.user.tipo === "empresa";
 
     try {
-      if (venda) {
-        throw "Não é possível excluir ingresso com vendas associadas."
+      if (userIsEmpresa) {
+        if (venda) {
+          throw "Não é possível excluir ingresso com vendas associadas."
+        } else {
+          const ingresso = await Ingressos.deleteOne({ _id: req.params.id });
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).json(ingresso)
+        }  
       } else {
-        const ingresso = await Ingressos.deleteOne({ _id: req.params.id });
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(ingresso)
+        throw "Somente empresas podem deletar ingressos."
       }
     } catch (err) {
       res.status(400).send({ error: err })
+      next(err);
     }
   })
-  .put(async (req, res, next) => {
+   .put(authenticate.verifyUser, async (req, res, next) => {
     const venda = await Vendas.exists({ ingressoId: req.params.id });
     const ingressoEditado = await Ingressos.find({ _id: req.params.id });
+    const userIsEmpresa = req.user.tipo === "empresa"; 
 
     try {
-      if ((ingressoEditado[0].eventoId != req.body.eventoId) && (ingressoEditado[0].nome != req.body.nome) && venda) {
-        throw "Não é possível trocar o nome e o evento do ingresso com vendas associadas."
-      }
-      else if ((ingressoEditado[0].eventoId != req.body.eventoId) && venda) {
-        throw "Não é possível trocar o evento do ingresso com vendas associadas."
-      } else if ((ingressoEditado[0].nome != req.body.nome) && venda) {
-        throw "Não é possível trocar o nome do ingresso com vendas associadas."
-      } else {
-        await Ingressos.updateOne({ _id: req.params.id }, req.body);
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(req.body)
+      if (userIsEmpresa) {
+        if ((ingressoEditado[0].eventoId != req.body.eventoId) && (ingressoEditado[0].nome != req.body.nome) && venda) {
+          throw "Não é possível trocar o nome e o evento do ingresso com vendas associadas."
+        }
+        else if ((ingressoEditado[0].eventoId != req.body.eventoId) && venda) {
+          throw "Não é possível trocar o evento do ingresso com vendas associadas."
+        } else if ((ingressoEditado[0].nome != req.body.nome) && venda) {
+          throw "Não é possível trocar o nome do ingresso com vendas associadas."
+        } else {
+          await Ingressos.updateOne({ _id: req.params.id }, req.body);
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).json(req.body)
+        }
+        } else {
+        throw "Somente empresas podem editar eventos."
       }
     } catch (err) {
       res.status(400).send({ error: err })
