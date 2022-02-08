@@ -50,7 +50,7 @@ router.route('/:id')
         throw "Somente empresas podem deletar vendas."
       }
     } catch (err) {
-      res.status(400).send({ error: err });
+      res.status(!userIsEmpresa ? 401 : 400).send({ error: err });
       next(err);
     }
   })
