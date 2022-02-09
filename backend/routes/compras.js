@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+const bodyParser = require("body-parser");
 const Compras = require('../models/compras');
+const authenticate = require("../authenticate");
 
-router.route('/')
-  .get(async (req, res, next) => {
+router.use(bodyParser.json());
+
+router.route("/")
+  .get(authenticate.verifyUser, async (req, res, next) => {
     try {
       const compras = await Compras.find({});
-      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Content-Type", "application/json");
       res.statusCode = 200;
       res.json(compras);
     } catch (err) {
@@ -20,7 +24,7 @@ router.route('/')
 
     try {
       const compra = await Compras.create(req.body);
-      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Content-Type", "application/json");
       res.statusCode = 200;
       res.json(compra);
     } catch (err) {
