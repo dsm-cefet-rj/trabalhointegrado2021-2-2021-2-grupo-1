@@ -1,14 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const Vendas = require('../models/vendas');
-const Compras = require('../models/compras');
+const Vendas = require("../models/vendas");
+const Compras = require("../models/compras");
 
-router.route('/')
+const authenticate = require("../authenticate");
+
+router.route("/")
   .get(async (req, res, next) => {
     try {
       const vendas = await Vendas.find({});
-      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Content-Type", "application/json");
       res.status(200).json(vendas);
     } catch (err) {
       res.statusCode = 404;
@@ -23,7 +25,7 @@ router.route('/')
         throw "Não é possível existir duas vendas de um mesmo ingresso."
       } else {
         const venda = await Vendas.create(req.body);
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader("Content-Type", "application/json");
         res.status(200).json(venda);
       }
     } catch (err) {
@@ -32,7 +34,7 @@ router.route('/')
     }
   })
 
-router.route('/:id')
+router.route("/:id")
   .delete(authenticate.verifyUser, async (req, res, next) => {
     const compra = await Compras.exists({ vendaId: req.params.id });
     const userIsEmpresa = req.user.tipo === "empresa";
@@ -64,7 +66,7 @@ router.route('/:id')
         throw "Não é possível trocar o nome da venda com compradores."
       } else {
         await Vendas.updateOne({ _id: req.params.id }, req.body);
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader("Content-Type", "application/json");
         res.status(200).json(req.body);
       }
     } catch (err) {

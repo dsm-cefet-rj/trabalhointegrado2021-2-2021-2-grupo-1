@@ -6,7 +6,6 @@ const Vendas = require('../models/vendas');
 const authenticate = require("../authenticate");
 const bodyParser = require("body-parser");
 
-
 router.use(bodyParser.json());
 
 router.route('/')
@@ -15,7 +14,6 @@ router.route('/')
       const ingressos = await Ingressos.find({});
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(ingressos);
-
     } catch (err) {
       res.statusCode = 404;
       next(err);
@@ -35,7 +33,7 @@ router.route('/')
           res.status(200).json(ingresso)
         }
       } else {
-          throw "Somente empresas podem criar ingressos."
+        throw "Somente empresas podem criar ingressos."
       }
     } catch (err) {
       res.status(!userIsEmpresa ? 401 : 400).send({ error: err });
@@ -56,7 +54,7 @@ router.route('/:id')
           const ingresso = await Ingressos.deleteOne({ _id: req.params.id });
           res.setHeader('Content-Type', 'application/json');
           res.status(200).json(ingresso)
-        }  
+        }
       } else {
         throw "Somente empresas podem deletar ingressos."
       }
@@ -65,10 +63,10 @@ router.route('/:id')
       next(err);
     }
   })
-   .put(authenticate.verifyUser, async (req, res, next) => {
+  .put(authenticate.verifyUser, async (req, res, next) => {
     const venda = await Vendas.exists({ ingressoId: req.params.id });
     const ingressoEditado = await Ingressos.find({ _id: req.params.id });
-    const userIsEmpresa = req.user.tipo === "empresa"; 
+    const userIsEmpresa = req.user.tipo === "empresa";
 
     try {
       if (userIsEmpresa) {
@@ -84,7 +82,7 @@ router.route('/:id')
           res.setHeader('Content-Type', 'application/json');
           res.status(200).json(req.body)
         }
-        } else {
+      } else {
         throw "Somente empresas podem editar ingressos."
       }
     } catch (err) {
