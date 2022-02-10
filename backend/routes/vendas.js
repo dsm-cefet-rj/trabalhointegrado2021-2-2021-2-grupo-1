@@ -35,28 +35,22 @@ router.route("/")
   })
 
 router.route("/:id")
-  .delete(authenticate.verifyUser, async (req, res, next) => {
+  .delete(authenticate.checkUserType(), async (req, res, next) => {
     const compra = await Compras.exists({ vendaId: req.params.id });
-    const userIsEmpresa = req.user.tipo === "empresa";
 
     try {
-      if (userIsEmpresa) {
-        if (compra) {
-          throw "Não é possível excluir venda com compras associados."
-        } else {
-          const venda = await Vendas.deleteOne({ _id: req.params.id });
-          res.setHeader("Content-Type", "application/json");
-          res.status(200).json(venda);
-        }
+      if (compra) {
+        throw "Não é possível excluir venda com compras associados."
       } else {
-        throw "Somente empresas podem deletar vendas."
+        const venda = await Vendas.deleteOne({ _id: req.params.id });
+        res.setHeader("Content-Type", "application/json");
+        res.status(200).json(venda);
       }
     } catch (err) {
-      res.status(!userIsEmpresa ? 401 : 400).send({ error: err });
+      res.status(406).send({ error: err });
       next(err);
     }
   })
-
   .put(async (req, res, next) => {
     const compra = await Compras.exists({ vendaId: req.params.id });
     const vendaEditada = await Vendas.find({ _id: req.params.id });

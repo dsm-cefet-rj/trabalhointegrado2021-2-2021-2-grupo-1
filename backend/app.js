@@ -2,7 +2,11 @@ const express = require("express");
 const passport = require("passport");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
 require("dotenv").config();
+
+const authenticate = require("./authenticate");
 
 const usuariosRouter = require("./routes/usuarios");
 const eventosRouter = require("./routes/eventos");
@@ -28,11 +32,12 @@ app.use(function (req, res, next) {
 });
 
 app.use(passport.initialize());
+app.use(bodyParser.json());
 
 app.use("/usuarios", usuariosRouter);
-app.use("/eventos", eventosRouter);
-app.use("/vendas", vendasRouter);
-app.use("/ingressos", ingressosRouter);
-app.use("/compras", comprasRouter);
+app.use("/eventos", authenticate.verifyUser, eventosRouter);
+app.use("/vendas", authenticate.verifyUser, vendasRouter);
+app.use("/ingressos", authenticate.verifyUser, ingressosRouter);
+app.use("/compras", authenticate.verifyUser, authenticate.checkUserType(), comprasRouter);
 
 module.exports = app;

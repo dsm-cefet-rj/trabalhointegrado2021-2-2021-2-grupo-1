@@ -34,4 +34,23 @@ exports.jwtPassport = passport.use(new JwtStrategy(opts,
     });
   }));
 
-exports.verifyUser = passport.authenticate("jwt", { session: false }); 
+exports.verifyUser = passport.authenticate("jwt", { session: false });
+
+exports.checkUserType = function () {
+  return (req, res, next) => {
+    const url = req.baseUrl;
+    const method = req.method;
+
+    if (url === "/eventos" && req.user.tipo === "empresa") {
+      next();
+    } else if (url === "/ingressos" && req.user.tipo === "empresa") {
+      next();
+    } else if (url === "/vendas" && method === "DELETE" && req.user.tipo === "empresa") {
+      next();
+    } else if (url === "/compras" && req.user.tipo === "cliente") {
+      next();
+    } else {
+      res.sendStatus(401);
+    }
+  };
+}
