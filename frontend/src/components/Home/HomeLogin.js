@@ -2,7 +2,7 @@ import "./home.css";
 
 import Cabecalho from "../Cabecalho/Cabecalho";
 
-import Modal from "../Modal/Modal";
+import UsuarioModal from "../Usuario/UsuarioModal";
 
 function HomeLogin() {
   return (
@@ -14,7 +14,7 @@ function HomeLogin() {
           <span className="pagina-inicial-pula-linha pagina-inicial-fonte-menor">de seus eventos favoritos</span>
           <span className="pagina-inicial-fonte-menor"> e </span>Revenda<span className="pagina-inicial-fonte-muito-menor"> (caso precise)</span>
         </h2>
-        <Modal />
+        <UsuarioModal />
       </main>
     </>
   );

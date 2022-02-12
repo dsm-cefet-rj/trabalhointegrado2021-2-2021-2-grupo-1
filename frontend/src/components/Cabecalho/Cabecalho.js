@@ -1,10 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./cabecalho.css";
 
 import MenuFlutuante from "../MenuFlutuante/MenuFlutuante";
 
 function Cabecalho({ usuario }) {
+  const usuarioLogin = useSelector(state => state.usuarios);
+  const usuarioLogadoNome = usuarioLogin.entities[usuarioLogin.ids[0]]?.user.username;
+
   const location = useLocation();
 
   const menuListaPessoa = [
@@ -80,11 +84,11 @@ function Cabecalho({ usuario }) {
           {
             {
               pessoa: (
-                <MenuFlutuante nomeMenu={"Thales"} lista={menuListaPessoa} />
+                <MenuFlutuante nomeMenu={usuarioLogadoNome} lista={menuListaPessoa} />
               ),
               empresa: (
                 <MenuFlutuante
-                  nomeMenu={"Rock in Rio"}
+                  nomeMenu={usuarioLogadoNome}
                   lista={menuListaEmpresa}
                 />
               ),

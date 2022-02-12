@@ -1,9 +1,9 @@
 import {
-  createAsyncThunk,
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import apiRequest from "../utils/utils";
 
 const eventosAdapter = createEntityAdapter();
 
@@ -11,58 +11,13 @@ const initialState = eventosAdapter.getInitialState({
   status: "not_loaded",
 });
 
-export const fetchEventos = createAsyncThunk(
-  "eventos/fetchEventos",
-  async () => {
-    const res = await axios.get("http://localhost:3001/eventos");
-    return res.data;
-  }
-);
+export const fetchEventos = apiRequest("eventos/fetchEventos", "get");
 
-export const addEvento = createAsyncThunk(
-  "eventos/addEvento",
-  async (evento, { rejectWithValue }) => {
-    try {
-      const res = await axios.post(`http://localhost:3001/eventos/`, evento);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const addEvento = apiRequest("eventos/addEvento", "post");
 
-export const deleteEvento = createAsyncThunk(
-  "eventos/deleteEvento",
-  async (id, { rejectWithValue }) => {
-    try {
-      await axios.delete(`http://localhost:3001/eventos/${id}`);
-      return id;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const deleteEvento = apiRequest("eventos/deleteEvento", "delete");
 
-export const updateEvento = createAsyncThunk(
-  "eventos/updateEvento",
-  async (evento, { rejectWithValue }) => {
-    try {
-      const res = await axios.put(`http://localhost:3001/eventos/${evento.id}`, evento);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const updateEvento = apiRequest("eventos/updateEvento", "put");
 
 const eventosSlice = createSlice({
   name: "eventos",

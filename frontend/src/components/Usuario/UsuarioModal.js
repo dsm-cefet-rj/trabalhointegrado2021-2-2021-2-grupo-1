@@ -1,17 +1,24 @@
 import { useState, useEffect, useRef } from "react";
-import { entrarUsuarioSchema, criarUsuarioSchema } from "./ModalSchema";
+import { entrarUsuarioSchema, criarUsuarioSchema } from "./UsuarioSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import "./modal.css";
+import { loginUsuario } from "../../redux/usuariosSlice";
+
+import "./usuario.css";
 
 function Modal() {
   const [tipoModal, setTipoModal] = useState("");
   const [modalAtivo, setModalAtivo] = useState(false);
+  const usuarioLogin = useSelector(state => state.usuarios);
+
   const ref = useRef(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const entrarUsuario = useForm({
     resolver: yupResolver(entrarUsuarioSchema),
   });
@@ -51,26 +58,35 @@ function Modal() {
     };
   });
 
+  useEffect(() => {
+    const usuarioLogadoTipo = usuarioLogin.entities[usuarioLogin.ids[0]]?.user.tipo;
+
+    if (usuarioLogin.status === "login") {
+      if (usuarioLogadoTipo === "empresa") {
+        navigate("/empresa/eventos")
+      } else if (usuarioLogadoTipo === "cliente") {
+        navigate("/home")
+      }
+    }
+  }, [usuarioLogin]);
+
   function ativaModal() {
     setModalAtivo(!modalAtivo);
   }
 
-  function login(user) {
+  const login = (user) => {
     const userLogin = {
       username: user.email,
       password: user.password,
     }
 
-    const url = "http://localhost:3001/usuarios/login";
-    axios.post(url, userLogin).then(() => {
-      navigate("/empresa/eventos");
-    }).catch(err => console.log(err));
+    dispatch(loginUsuario(userLogin));
   }
 
-  function signup(user) {
+  const signup = (typeUser) => (user) => {
     const userSignup = {
       ...user,
-      tipo: "empresa"
+      tipo: typeUser === "empresa" ? "empresa" : "cliente",
     }
 
     const url = "http://localhost:3001/usuarios/signup";
@@ -118,12 +134,39 @@ function Modal() {
                   </form>
                 </div>
               ) : (tipoModal === "entrar-cliente") ? (
-                <div>entrar-cliente</div>
+                <div className="centralizar-xy centralizar-y">
+                  <h2 className="subtitulo">Entrar Cliente</h2>
+                  <form className="formulario" onSubmit={entrarUsuario.handleSubmit(login)}>
+                    <label>
+                      Email
+                      <input
+                        type="text"
+                        {...entrarUsuario.register("email", { required: true })}
+                      />
+                      <span>{entrarUsuario.formState.errors.email?.message}</span>
+                    </label>
+                    <label>
+                      Senha
+                      <input
+                        type="text"
+                        {...entrarUsuario.register("password", { required: true })}
+                      />
+                      <span>{entrarUsuario.formState.errors.password?.message}</span>
+                    </label>
+                    <div className="botoes-container">
+                      <input
+                        type="submit"
+                        value="Entrar"
+                        className="botao botao-sucesso"
+                      />
+                    </div>
+                  </form>
+                </div>
               )
                 : (tipoModal === "criar-empresa") ? (
                   <div className="centralizar-xy centralizar-y">
                     <h2 className="subtitulo">Criar Empresa</h2>
-                    <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup)}>
+                    <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup("empresa"))}>
                       <label>
                         Nome
                         <input
@@ -159,7 +202,42 @@ function Modal() {
                   </div>
                 ) :
                   (tipoModal === "criar-cliente") && (
-                    <div>criar-cliente</div>
+                    <div className="centralizar-xy centralizar-y">
+                      <h2 className="subtitulo">Criar Cliente</h2>
+                      <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup("cliente"))}>
+                        <label>
+                          Nome
+                          <input
+                            type="text"
+                            {...criarUsuario.register("username", { required: true })}
+                          />
+                          <span>{criarUsuario.formState.errors.username?.message}</span>
+                        </label>
+                        <label>
+                          Email
+                          <input
+                            type="text"
+                            {...criarUsuario.register("email", { required: true })}
+                          />
+                          <span>{criarUsuario.formState.errors.email?.message}</span>
+                        </label>
+                        <label>
+                          Senha
+                          <input
+                            type="text"
+                            {...criarUsuario.register("password", { required: true })}
+                          />
+                          <span>{criarUsuario.formState.errors.password?.message}</span>
+                        </label>
+                        <div className="botoes-container">
+                          <input
+                            type="submit"
+                            value="Criar"
+                            className="botao botao-sucesso"
+                          />
+                        </div>
+                      </form>
+                    </div>
                   )}
             </div>
           </div>

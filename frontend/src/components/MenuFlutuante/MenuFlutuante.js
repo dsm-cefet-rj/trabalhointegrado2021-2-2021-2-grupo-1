@@ -1,15 +1,14 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 
 import "./MenuFlutuante.css";
 
 function MenuFlutuante({ nomeMenu, lista }) {
   const [menuAtivo, setMenuAtivo] = useState(false);
+  const navigate = useNavigate();
 
   function logout() {
-    const url = "http://localhost:3001/usuarios/logout";
-    axios.get(url).then((res) => console.log(res)).catch(err => console.log(err));
+    navigate("/")
   }
 
   function ativaMenu() {
