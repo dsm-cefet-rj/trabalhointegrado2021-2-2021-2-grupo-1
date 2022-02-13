@@ -1,9 +1,9 @@
 import {
-  createAsyncThunk,
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import apiRequest from "../utils/utils";
 
 const vendasAdapter = createEntityAdapter();
 
@@ -11,58 +11,13 @@ const initialState = vendasAdapter.getInitialState({
   status: "not_loaded",
 });
 
-export const fetchVendas = createAsyncThunk(
-  "vendas/fetchVendas",
-  async () => {
-    const res = await axios.get("http://localhost:3001/vendas");
-    return res.data;
-  }
-);
+export const fetchVendas = apiRequest("vendas/fetchVendas", "get");
 
-export const addVenda = createAsyncThunk(
-  "vendas/addVenda",
-  async (venda, { rejectWithValue }) => {
-    try {
-      const res = await axios.post(`http://localhost:3001/vendas/`, venda);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const addVenda = apiRequest("vendas/addVenda", "post");
 
-export const deleteVenda = createAsyncThunk(
-  "vendas/deleteVenda",
-  async (id, { rejectWithValue }) => {
-    try {
-      await axios.delete(`http://localhost:3001/vendas/${id}`);
-      return id;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const deleteVenda = apiRequest("vendas/deleteVenda", "delete");
 
-export const updateVenda = createAsyncThunk(
-  "vendas/updateVenda",
-  async (venda, { rejectWithValue }) => {
-    try {
-      const res = await axios.put(`http://localhost:3001/vendas/${venda.id}`, venda);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const updateVenda = apiRequest("vendas/updateVenda", "put");
 
 const vendasSlice = createSlice({
   name: "vendas",
