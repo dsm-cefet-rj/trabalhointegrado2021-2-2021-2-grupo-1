@@ -1,9 +1,8 @@
 import {
-  createAsyncThunk,
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiRequest from "../utils/utils";
 
 const comprasAdapter = createEntityAdapter();
 
@@ -12,45 +11,13 @@ const initialState = comprasAdapter.getInitialState({
   meuCarrinho: []
 });
 
-export const fetchCompras = createAsyncThunk(
-  "compras/fetchCompras",
-  async () => {
-    const res = await axios.get("http://localhost:3001/compras");
-    return res.data;
-  }
-);
+export const fetchCompras = apiRequest("vendas/fetchCompras", "get");
 
-export const addCompra = createAsyncThunk(
-  "compras/addCompra",
-  async (compra) => {
-    const res = await axios.post("http://localhost:3001/compras", compra);
-    return res.data;
-  }
-);
+export const addCompra = apiRequest("vendas/addCompra", "post");
 
-export const deleteCompra = createAsyncThunk(
-  "compras/deleteCompra",
-  async (id, { rejectWithValue }) => {
-    try {
-      await axios.delete(`http://localhost:3001/compras/${id}`);
-      return id;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const deleteCompra = apiRequest("vendas/deleteCompra", "delete");
 
-export const updateCompra = createAsyncThunk(
-  "compras/updateCompra",
-  async (compra) => {
-    const res = await axios.put(`http://localhost:3001/compras/${compra.id}`, compra);
-    return res.data;
-  }
-);
-
+export const updateCompra = apiRequest("vendas/updateCompra", "put");
 const comprasSlice = createSlice({
   name: "compras",
   initialState,
