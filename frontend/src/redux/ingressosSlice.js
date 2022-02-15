@@ -1,9 +1,9 @@
 import {
-  createAsyncThunk,
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import apiRequest from "../utils/utils";
 
 const ingressosAdapter = createEntityAdapter();
 
@@ -11,58 +11,13 @@ const initialState = ingressosAdapter.getInitialState({
   status: "not_loaded",
 });
 
-export const fetchIngressos = createAsyncThunk(
-  "ingressos/fetchIngressos",
-  async () => {
-    const res = await axios.get("http://localhost:3001/ingressos");
-    return res.data;
-  }
-);
+export const fetchIngressos = apiRequest("eventos/fetchIngressos", "get");
 
-export const addIngresso = createAsyncThunk(
-  "ingressos/addIngresso",
-  async (ingresso, { rejectWithValue }) => {
-    try {
-      const res = await axios.post(`http://localhost:3001/ingressos/`, ingresso);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const addIngresso = apiRequest("ingressos/addIngresso", "post");
 
-export const deleteIngresso = createAsyncThunk(
-  "ingressos/deleteIngresso",
-  async (id, { rejectWithValue }) => {
-    try {
-      await axios.delete(`http://localhost:3001/ingressos/${id}`);
-      return id;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const deleteIngresso = apiRequest("ingressos/deleteIngresso", "delete");
 
-export const updateIngresso = createAsyncThunk(
-  "ingressos/updateIngresso",
-  async (ingresso, { rejectWithValue }) => {
-    try {
-      const res = await axios.put(`http://localhost:3001/ingressos/${ingresso.id}`, ingresso);
-      return res.data;
-    } catch (err) {
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data.error)
-    }
-  }
-);
+export const updateIngresso = apiRequest("ingressos/updateIngresso", "put");
 
 const ingressosSlice = createSlice({
   name: "ingressos",
