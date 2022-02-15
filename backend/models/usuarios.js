@@ -4,10 +4,9 @@ const Schema = mongoose.Schema;
 
 const usuariosSchema = new Schema({
   tipo: { type: String, required: true },
-  email: { type: String, required: true },
   username: { type: String, required: true },
-  password: String,
-})
+  password: String
+});
 
 usuariosSchema.method('toJSON', function () {
   const { __v, _id, ...object } = this.toObject();

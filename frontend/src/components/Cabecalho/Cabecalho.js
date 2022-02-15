@@ -52,20 +52,12 @@ function Cabecalho({ usuario }) {
   const menuHome = [
     {
       pathName: "/",
-      itemName: "Entrar Empresa",
+      itemName: "Criar Conta",
     },
     {
       pathName: "/",
-      itemName: "Entrar Cliente",
-    },
-    {
-      pathName: "/",
-      itemName: "Criar Empresa",
-    },
-    {
-      pathName: "/",
-      itemName: "Criar Cliente",
-    },
+      itemName: "Entrar",
+    }
   ];
 
   return (

@@ -38,10 +38,13 @@ function ListarPesquisa() {
     } else if ((status.eventos === "loaded" && status.vendas === "loaded" && status.ingressos === "loaded") || (status.eventos === "saved" && status.vendas === "saved" && status.ingressos === "saved")) {
       if (vendas.length > 0) {
         const vendasPesquisada = vendas.filter((venda) => {
+          const ingresso = ingressos.filter(ingresso => ingresso.id === venda.ingressoId)[0];
+          const evento = eventos.filter(evento => evento.id === ingresso.eventoId)[0];
+
           return (
-            eventos[ingressos[venda.ingressoId - 1].eventoId - 1].nome
+            evento.nome
               .toLowerCase()
-              .includes(name.toLowerCase()) && venda.quantidade > 0
+              .includes(name.toLowerCase()) && venda.quantidade > 0 && !venda.revenda
           );
         });
 

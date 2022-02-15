@@ -24,6 +24,15 @@ export const loginUsuario = createAsyncThunk(
 const usuariosSlice = createSlice({
   name: "usuarios",
   initialState,
+  reducers: {
+    logoutUsuario: () => {
+      return{
+        status: "not_login",
+        ids: [],
+        entities: {},
+      }
+    }
+  },
   extraReducers: {
     [loginUsuario.fulfilled]: (state, action) => {
       state.status = "login";
@@ -32,9 +41,13 @@ const usuariosSlice = createSlice({
     [loginUsuario.rejected]: (state, action) => {
       state.status = "failed";
       state.error = "Falha ao fazer login";
-    },
+    }
   },
 });
+
+export const {
+  logoutUsuario,
+} = usuariosSlice.actions;
 
 export const {
   selectAll: selectAllUsuarios,

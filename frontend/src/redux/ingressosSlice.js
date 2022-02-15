@@ -3,7 +3,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 
-import apiRequest from "../utils/utils";
+import apiRequest from "../utils/apiRequest";
 
 const ingressosAdapter = createEntityAdapter();
 
@@ -11,7 +11,7 @@ const initialState = ingressosAdapter.getInitialState({
   status: "not_loaded",
 });
 
-export const fetchIngressos = apiRequest("eventos/fetchIngressos", "get");
+export const fetchIngressos = apiRequest("ingressos/fetchIngressos", "get");
 
 export const addIngresso = apiRequest("ingressos/addIngresso", "post");
 

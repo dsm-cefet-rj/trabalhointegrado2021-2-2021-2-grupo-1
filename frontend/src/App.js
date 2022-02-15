@@ -40,52 +40,58 @@ function App() {
 
   useEffect(() => {
     if (usuarioLogin.status === "login") {
+      if (usuarioLogadoTipo === "cliente") {
+        dispatch(fetchCompras());
+      }
       dispatch(fetchEventos());
       dispatch(fetchVendas());
-      dispatch(fetchCompras());
       dispatch(fetchIngressos());
     }
   });
+
+  function redirectPageUnauthorized(tipo, componente) {
+    if (usuarioLogadoTipo === tipo) {
+      return componente;
+    } else return <RotaBloqueada />;
+  }
 
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<HomeLogin />} />
 
-        <Route path="/home" element={usuarioLogadoTipo === "cliente" ? <Home /> : <RotaBloqueada />} />
+        <Route path="/home" element={redirectPageUnauthorized("cliente", <Home />)} />
 
-        <Route path="/empresa/eventos" element={usuarioLogadoTipo === "empresa" ? <ListarEventos /> : <RotaBloqueada />} />
-        <Route path="/empresa/evento/:id" element={usuarioLogadoTipo === "empresa" ? <EditarEvento /> : <RotaBloqueada />} />
-        <Route path="/empresa/criar-evento" element={usuarioLogadoTipo === "empresa" ? <CriarEvento /> : <RotaBloqueada />} />
+        <Route path="/empresa/eventos" element={redirectPageUnauthorized("empresa", <ListarEventos />)} />
+        <Route path="/empresa/evento/:id" element={redirectPageUnauthorized("empresa", <EditarEvento />)} />
+        <Route path="/empresa/criar-evento" element={redirectPageUnauthorized("empresa", <CriarEvento />)} />
 
-        <Route path="/empresa/ingressos" element={usuarioLogadoTipo === "empresa" ? <ListarIngressosEmpresa /> : <RotaBloqueada />} />
-        <Route path="/empresa/ingresso/:id" element={usuarioLogadoTipo === "empresa" ? <EditarIngresso /> : <RotaBloqueada />} />
-        <Route path="/empresa/criar-ingresso" element={usuarioLogadoTipo === "empresa" ? <CriarIngresso /> : <RotaBloqueada />} />
+        <Route path="/empresa/ingressos" element={redirectPageUnauthorized("empresa", <ListarIngressosEmpresa />)} />
+        <Route path="/empresa/ingresso/:id" element={redirectPageUnauthorized("empresa", <EditarIngresso />)} />
+        <Route path="/empresa/criar-ingresso" element={redirectPageUnauthorized("empresa", <CriarIngresso />)} />
 
-        <Route path="/empresa/vendas" element={usuarioLogadoTipo === "empresa" ? <ListarVendas /> : <RotaBloqueada />} />
-        <Route path="/empresa/venda/:id" element={usuarioLogadoTipo === "empresa" ? <EditarVenda /> : <RotaBloqueada />} />
-        <Route path="/empresa/criar-venda" element={usuarioLogadoTipo === "empresa" ? <CriarVenda /> : <RotaBloqueada />} />
+        <Route path="/empresa/vendas" element={redirectPageUnauthorized("empresa", <ListarVendas />)} />
+        <Route path="/empresa/venda/:id" element={redirectPageUnauthorized("empresa", <EditarVenda />)} />
+        <Route path="/empresa/criar-venda" element={redirectPageUnauthorized("empresa", <CriarVenda />)} />
 
-        <Route path="/carrinho" element={usuarioLogadoTipo === "cliente" ? <Comprar /> : <RotaBloqueada />} />
-        <Route path="/meus-ingressos" element={usuarioLogadoTipo === "cliente" ? <IngressosComprados /> : <RotaBloqueada />} />
-        <Route path="/meu-ingresso/:id" element={usuarioLogadoTipo === "cliente" ? <EditarCompra /> : <RotaBloqueada />} />
+        <Route path="/carrinho" element={redirectPageUnauthorized("cliente", <Comprar />)} />
+        <Route path="/meus-ingressos" element={redirectPageUnauthorized("cliente", <IngressosComprados />)} />
+        <Route path="/meu-ingresso/:id" element={redirectPageUnauthorized("cliente", <EditarCompra />)} />
 
-        <Route path="/comprovante/:id" element={usuarioLogadoTipo === "cliente" ? <Comprovante /> : <RotaBloqueada />} />
+        <Route path="/comprovante/:id" element={redirectPageUnauthorized("cliente", <Comprovante />)} />
 
         <Route
           path="/esporte"
-          element={usuarioLogadoTipo === "cliente" ? <ListarIngressosPessoa genero={"esporte"} /> : <RotaBloqueada />}
-        />
+          element={redirectPageUnauthorized("cliente", <ListarIngressosPessoa genero="esporte" />)} />
         <Route
           path="/musica"
-          element={usuarioLogadoTipo === "cliente" ? <ListarIngressosPessoa genero={"musica"} /> : <RotaBloqueada />}
-        />
+          element={redirectPageUnauthorized("cliente", <ListarIngressosPessoa genero="musica" />)} />
         <Route
           path="/familia"
-          element={usuarioLogadoTipo === "cliente" ? <ListarIngressosPessoa genero={"familia"} /> : <RotaBloqueada />}
-        />
-        <Route path="/revendas" element={usuarioLogadoTipo === "cliente" ? <ListarIngressosRevendidos /> : <RotaBloqueada />} />
-        <Route path="/ingressos/:name" element={usuarioLogadoTipo === "cliente" ? <ListarPesquisa /> : <RotaBloqueada />} />
+          element={redirectPageUnauthorized("cliente", <ListarIngressosPessoa genero="familia" />)} />
+
+        <Route path="/revendas" element={redirectPageUnauthorized("cliente", <ListarIngressosRevendidos />)} />
+        <Route path="/ingressos/:name" element={redirectPageUnauthorized("cliente", <ListarPesquisa />)} />
       </Routes>
     </Router>
   );

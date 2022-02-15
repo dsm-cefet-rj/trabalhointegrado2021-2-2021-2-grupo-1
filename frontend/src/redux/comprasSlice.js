@@ -2,7 +2,8 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import apiRequest from "../utils/utils";
+
+import apiRequest from "../utils/apiRequest";
 
 const comprasAdapter = createEntityAdapter();
 
@@ -11,13 +12,14 @@ const initialState = comprasAdapter.getInitialState({
   meuCarrinho: []
 });
 
-export const fetchCompras = apiRequest("vendas/fetchCompras", "get");
+export const fetchCompras = apiRequest("compras/fetchCompras", "get");
 
-export const addCompra = apiRequest("vendas/addCompra", "post");
+export const addCompra = apiRequest("compras/addCompra", "post");
 
-export const deleteCompra = apiRequest("vendas/deleteCompra", "delete");
+export const deleteCompra = apiRequest("compras/deleteCompra", "delete");
 
-export const updateCompra = apiRequest("vendas/updateCompra", "put");
+export const updateCompra = apiRequest("compras/updateCompra", "put");
+
 const comprasSlice = createSlice({
   name: "compras",
   initialState,

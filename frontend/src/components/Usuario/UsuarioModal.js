@@ -13,6 +13,7 @@ import "./usuario.css";
 function Modal() {
   const [tipoModal, setTipoModal] = useState("");
   const [modalAtivo, setModalAtivo] = useState(false);
+  const [signupErro, setSignupErro] = useState("");
   const usuarioLogin = useSelector(state => state.usuarios);
 
   const ref = useRef(null);
@@ -31,21 +32,13 @@ function Modal() {
       setTipoModal("");
       setModalAtivo(false);
     } else if (
-      e.target.id === "entrar-empresa" ||
-      e.target.id === "entrar-cliente" ||
-      e.target.id === "criar-empresa" ||
-      e.target.id === "criar-cliente"
+      e.target.id === "entrar" ||
+      e.target.id === "criar-conta"
     ) {
-      if (e.target.id === "entrar-empresa") {
-        setTipoModal("entrar-empresa");
-      } else if (e.target.id === "entrar-cliente") {
-        setTipoModal("entrar-cliente");
-      } else if (e.target.id === "criar-empresa") {
-        setTipoModal("criar-empresa");
-      } else if (e.target.id === "criar-empresa") {
-        setTipoModal("criar-empresa");
-      } else if (e.target.id === "criar-cliente") {
-        setTipoModal("criar-cliente");
+      if (e.target.id === "entrar") {
+        setTipoModal("entrar");
+      } else if (e.target.id === "criar-conta") {
+        setTipoModal("criar-conta");
       }
       setModalAtivo(true);
     }
@@ -75,24 +68,25 @@ function Modal() {
   }
 
   const login = (user) => {
-    const userLogin = {
-      username: user.email,
-      password: user.password,
-    }
-
-    dispatch(loginUsuario(userLogin));
+    dispatch(loginUsuario(user));
   }
 
-  const signup = (typeUser) => (user) => {
-    const userSignup = {
-      ...user,
-      tipo: typeUser === "empresa" ? "empresa" : "cliente",
-    }
-
+  const signup = async (user) => {
     const url = "http://localhost:3001/usuarios/signup";
-    axios.post(url, userSignup).then(() => {
-      ativaModal();
-    }).catch(err => console.log(err));
+
+    try {
+      await axios.post(url, user);
+      login({
+        username: user.username,
+        password: user.password,
+      })
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+
+      return setSignupErro(err.response.data.error)
+    }
   }
 
   return (
@@ -104,26 +98,33 @@ function Modal() {
               &times;
             </span>
             <div className="entradas-container">
-              {tipoModal === "entrar-empresa" ? (
+              {tipoModal === "entrar" ? (
                 <div className="centralizar-xy centralizar-y">
-                  <h2 className="subtitulo">Entrar Empresa</h2>
+                  <h2 className="subtitulo">Entrar</h2>
                   <form className="formulario" onSubmit={entrarUsuario.handleSubmit(login)}>
                     <label>
-                      Email
+                      Username
                       <input
+                        className={
+                          entrarUsuario.formState.errors.username?.message ? "input-box input-box-error" : "input-box"
+                        }
                         type="text"
-                        {...entrarUsuario.register("email", { required: true })}
+                        {...entrarUsuario.register("username", { required: true })}
                       />
-                      <span>{entrarUsuario.formState.errors.email?.message}</span>
+                      <span>{entrarUsuario.formState.errors.username?.message}</span>
                     </label>
                     <label>
                       Senha
                       <input
-                        type="text"
+                        className={
+                          entrarUsuario.formState.errors.password?.message ? "input-box input-box-error" : "input-box"
+                        }
+                        type="password"
                         {...entrarUsuario.register("password", { required: true })}
                       />
                       <span>{entrarUsuario.formState.errors.password?.message}</span>
                     </label>
+                    <span style={{ color: "red", marginTop: "10px", fontSize: "0.8rem", textAlign: "center", display: "block" }}>{usuarioLogin.error && usuarioLogin.error}</span>
                     <div className="botoes-container">
                       <input
                         type="submit"
@@ -133,112 +134,53 @@ function Modal() {
                     </div>
                   </form>
                 </div>
-              ) : (tipoModal === "entrar-cliente") ? (
+              ) : (tipoModal === "criar-conta") && (
                 <div className="centralizar-xy centralizar-y">
-                  <h2 className="subtitulo">Entrar Cliente</h2>
-                  <form className="formulario" onSubmit={entrarUsuario.handleSubmit(login)}>
+                  <h2 className="subtitulo">Criar Conta</h2>
+                  <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup)}>
                     <label>
-                      Email
+                      Username
                       <input
+                        className={
+                          criarUsuario.formState.errors.username?.message ? "input-box input-box-error" : "input-box"
+                        }
                         type="text"
-                        {...entrarUsuario.register("email", { required: true })}
+                        {...criarUsuario.register("username", { required: true })}
                       />
-                      <span>{entrarUsuario.formState.errors.email?.message}</span>
+                      <span>{criarUsuario.formState.errors.username?.message}</span>
                     </label>
                     <label>
                       Senha
                       <input
-                        type="text"
-                        {...entrarUsuario.register("password", { required: true })}
+                        className={
+                          criarUsuario.formState.errors.password?.message ? "input-box input-box-error" : "input-box"
+                        }
+                        type="password"
+                        {...criarUsuario.register("password", { required: true })}
                       />
-                      <span>{entrarUsuario.formState.errors.password?.message}</span>
+                      <span>{criarUsuario.formState.errors.password?.message}</span>
                     </label>
+                    <label>
+                      Tipo de usuário
+                      <select className={
+                        criarUsuario.formState.errors.tipo?.message ? "input-box input-box-error" : "input-box"
+                      } {...criarUsuario.register("tipo", { required: true })} >
+                        <option value="cliente">Cliente</option>
+                        <option value="empresa">Empresa</option>
+                      </select>
+                      <span>{criarUsuario.formState.errors.nome?.message}</span>
+                    </label>
+                    <span style={{ color: "red", marginTop: "10px", fontSize: "0.8rem", textAlign: "center", display: "block" }}>{signupErro && signupErro}</span>
                     <div className="botoes-container">
                       <input
                         type="submit"
-                        value="Entrar"
+                        value="Criar"
                         className="botao botao-sucesso"
                       />
                     </div>
                   </form>
                 </div>
-              )
-                : (tipoModal === "criar-empresa") ? (
-                  <div className="centralizar-xy centralizar-y">
-                    <h2 className="subtitulo">Criar Empresa</h2>
-                    <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup("empresa"))}>
-                      <label>
-                        Nome
-                        <input
-                          type="text"
-                          {...criarUsuario.register("username", { required: true })}
-                        />
-                        <span>{criarUsuario.formState.errors.username?.message}</span>
-                      </label>
-                      <label>
-                        Email
-                        <input
-                          type="text"
-                          {...criarUsuario.register("email", { required: true })}
-                        />
-                        <span>{criarUsuario.formState.errors.email?.message}</span>
-                      </label>
-                      <label>
-                        Senha
-                        <input
-                          type="text"
-                          {...criarUsuario.register("password", { required: true })}
-                        />
-                        <span>{criarUsuario.formState.errors.password?.message}</span>
-                      </label>
-                      <div className="botoes-container">
-                        <input
-                          type="submit"
-                          value="Criar"
-                          className="botao botao-sucesso"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                ) :
-                  (tipoModal === "criar-cliente") && (
-                    <div className="centralizar-xy centralizar-y">
-                      <h2 className="subtitulo">Criar Cliente</h2>
-                      <form className="formulario" onSubmit={criarUsuario.handleSubmit(signup("cliente"))}>
-                        <label>
-                          Nome
-                          <input
-                            type="text"
-                            {...criarUsuario.register("username", { required: true })}
-                          />
-                          <span>{criarUsuario.formState.errors.username?.message}</span>
-                        </label>
-                        <label>
-                          Email
-                          <input
-                            type="text"
-                            {...criarUsuario.register("email", { required: true })}
-                          />
-                          <span>{criarUsuario.formState.errors.email?.message}</span>
-                        </label>
-                        <label>
-                          Senha
-                          <input
-                            type="text"
-                            {...criarUsuario.register("password", { required: true })}
-                          />
-                          <span>{criarUsuario.formState.errors.password?.message}</span>
-                        </label>
-                        <div className="botoes-container">
-                          <input
-                            type="submit"
-                            value="Criar"
-                            className="botao botao-sucesso"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                  )}
+              )}
             </div>
           </div>
         </div>

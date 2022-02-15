@@ -1,14 +1,19 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
+
+import { logoutUsuario } from "../../redux/usuariosSlice";
 
 import "./MenuFlutuante.css";
 
 function MenuFlutuante({ nomeMenu, lista }) {
   const [menuAtivo, setMenuAtivo] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function logout() {
-    navigate("/")
+    dispatch(logoutUsuario());
+    navigate("/");
   }
 
   function ativaMenu() {
@@ -16,48 +21,36 @@ function MenuFlutuante({ nomeMenu, lista }) {
   }
 
   function menu(path, item, key) {
-    if (item === "Entrar Empresa") {
+    if (item === "Entrar") {
       return (
-        <button className="ancora" id="entrar-empresa" key={key}>
-          {item}
-        </button>
-      );
-    } else if (item === "Entrar Cliente") {
-      return (
-        <button className="ancora" id="entrar-cliente" key={key}>
+        <button className="ancora" id="entrar" key={key}>
           {item}
         </button>
       );
     }
-    else if (item === "Criar Empresa") {
+    else if (item === "Criar Conta") {
       return (
-        <button className="ancora" id="criar-empresa" key={key}>
+        <button className="ancora" id="criar-conta" key={key}>
           {item}
         </button>
       );
     }
-    else if (item === "Criar Cliente") {
+    else if (item === "Sair") {
       return (
-        <button className="ancora" id="criar-cliente" key={key}>
-          {item}
+        <button className="ancora" style={{ margin: "0 auto", marginBottom: "30px" }} onClick={logout} key={key} >
+          Sair
         </button>
+      )
+    }
+    else {
+      return (
+        <Link to={path} className="ancora" key={key}>
+          {item}
+        </Link>
       );
-    } else {
-      if (item === "Sair") {
-        return (
-          <Link to={path} onClick={logout} key={key} >
-            Sair
-          </Link>
-        )
-      } else {
-        return (
-          <Link to={path} key={key}>
-            {item}
-          </Link>
-        );
-      }
     }
   }
+
 
   return (
     <>

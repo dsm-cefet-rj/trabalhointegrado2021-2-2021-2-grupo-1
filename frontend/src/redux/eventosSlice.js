@@ -3,7 +3,7 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 
-import apiRequest from "../utils/utils";
+import apiRequest from "../utils/apiRequest";
 
 const eventosAdapter = createEntityAdapter();
 

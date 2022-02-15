@@ -6,13 +6,13 @@ setLocale(ptForm);
 const criarUsuarioSchema = object({
   id: string(),
   username: string().required("É necessário ter um nome."),
-  email: string().required("É necessário ter um local."),
-  password: string().required("É necessário ter uma senha."),
+  tipo: string().required("É necessário ter um tipo de usuário."),
+  password: string().required("É necessário ter uma senha.")
 });
 
 const entrarUsuarioSchema = object({
   id: string(),
-  email: string().required("É necessário ter um local."),
+  username: string().required("É necessário ter um nome."),
   password: string().required("É necessário ter uma senha."),
 });
 
