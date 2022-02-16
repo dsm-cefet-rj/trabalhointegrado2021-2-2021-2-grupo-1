@@ -14,6 +14,7 @@ const eventosRouter = require("./routes/eventos");
 const vendasRouter = require("./routes/vendas");
 const ingressosRouter = require("./routes/ingressos");
 const comprasRouter = require("./routes/compras");
+const chatRouter = require("./routes/chat");
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@psw.tuxkh.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
 
@@ -35,5 +36,5 @@ app.use("/eventos", authenticate.verifyUser, eventosRouter);
 app.use("/vendas", authenticate.verifyUser, vendasRouter);
 app.use("/ingressos", authenticate.verifyUser, ingressosRouter);
 app.use("/compras", authenticate.verifyUser, authenticate.checkUserType(), comprasRouter);
-
+app.use("/chat", authenticate.verifyUser, authenticate.checkUserType(), chatRouter);
 module.exports = app;
