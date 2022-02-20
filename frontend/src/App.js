@@ -36,10 +36,10 @@ function App() {
   const dispatch = useDispatch();
 
   const usuarioLogin = useSelector(state => state.usuarios);
-  const usuarioLogadoTipo = usuarioLogin.entities[usuarioLogin.ids[0]]?.user.tipo;
+  const usuarioLogadoTipo = JSON.parse(localStorage.getItem("usuario"))?.tipo || usuarioLogin.entities[usuarioLogin.ids[0]]?.user.tipo;
 
   useEffect(() => {
-    if (usuarioLogin.status === "login") {
+    if (usuarioLogin.status === "login" || usuarioLogadoTipo) {
       if (usuarioLogadoTipo === "cliente") {
         dispatch(fetchCompras());
       }

@@ -16,7 +16,7 @@ const ingressosRouter = require("./routes/ingressos");
 const comprasRouter = require("./routes/compras");
 const chatRouter = require("./routes/chat");
 
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@psw.tuxkh.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.tuxkh.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
 
 mongoose.connect(uri);
 

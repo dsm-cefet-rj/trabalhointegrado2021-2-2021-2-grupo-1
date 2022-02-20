@@ -14,6 +14,7 @@ function MenuFlutuante({ nomeMenu, lista }) {
   function logout() {
     dispatch(logoutUsuario());
     navigate("/");
+    localStorage.removeItem("usuario");
   }
 
   function ativaMenu() {

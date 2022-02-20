@@ -5,11 +5,12 @@ setLocale(ptForm);
 
 const ingressoSchema = object({
   id: string(),
+  usuarioId: string(),
   eventoId: string().required(),
-  nome: string().required("É necessário ter um nome."),
+  nome: string().max(80).required("É necessário ter um nome."),
   horario: string().required("É necessário ter um horário.").matches(/^[0-9]{2}:[0-9]{2}$/, "O horário deve ser no formato hh:mm"),
   data: string().required("É necessário ter uma data.").matches(/^[0-9]{2}\/[0-9]{2}\/[0-9]{2}$/, "A data deve ser no formato dd/mm/aa"),
-  descricao: string().required("É necessário ter uma descrição."),
+  descricao: string().max(255).required("É necessário ter uma descrição."),
 });
 
 export default ingressoSchema;

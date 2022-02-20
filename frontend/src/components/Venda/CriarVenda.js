@@ -15,6 +15,7 @@ function CriarVenda() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ingressos = useSelector(selectAllIngressos);
+  const usuarioId = useSelector(state => state.usuarios.entities[state.usuarios.ids[0]]?.id) || JSON.parse(localStorage.getItem("usuario"))?.id;
   const {
     register,
     handleSubmit,
@@ -24,7 +25,7 @@ function CriarVenda() {
   });
 
   function checaEnvio(venda) {
-    dispatch(addVenda({ ...venda, revenda: false }));
+    dispatch(addVenda({ ...venda, usuarioId, revenda: false }));
     navigate("/empresa/vendas");
   }
 

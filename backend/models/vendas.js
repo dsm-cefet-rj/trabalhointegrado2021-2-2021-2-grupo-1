@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const vendasSchema = new Schema({
+  usuarioId: { type: String, required: true },
   ingressoId: { type: String, required: true },
   revenda: { type: Boolean, required: true },
   valor: { type: Number, required: true },

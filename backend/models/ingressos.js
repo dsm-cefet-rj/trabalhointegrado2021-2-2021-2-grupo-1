@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ingressosSchema = new Schema({
+  usuarioId: { type: String, required: true },
   eventoId: { type: String, required: true },
   nome: { type: String, required: true },
   horario: { type: String, required: true },

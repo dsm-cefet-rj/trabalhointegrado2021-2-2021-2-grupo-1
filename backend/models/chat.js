@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const chatSchema = new Schema({
   tipo: { type: String, required: true },
   username: { type: String, required: true },
-  password: String;
-  mensagem: String;
+  password: String,
+  mensagem: String
   
 });
 

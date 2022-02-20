@@ -5,9 +5,10 @@ setLocale(ptForm);
 
 const vendaSchema = object({
   id: string(),
+  usuarioId: string(),
   ingressoId: string().required(),
-  valor: number().required("É necessário ter um valor."),
-  quantidade: number().required("É necessário ter uma quantidade."),
+  valor: number().min(100).max(3000).required("É necessário ter um valor."),
+  quantidade: number().min(10).max(10000).required("É necessário ter uma quantidade."),
 });
 
 export default vendaSchema;

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const eventosSchema = new Schema({
+  usuarioId: { type: String, required: true },
   nome: { type: String, required: true },
   genero: { type: String, required: true },
   endereco: { type: String, required: true },
