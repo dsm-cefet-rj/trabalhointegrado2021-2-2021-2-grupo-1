@@ -18,7 +18,7 @@ export const addchat = apiRequest("chat/addchat", "post");
 
 export const deletechat = apiRequest("chat/deletechat", "delete");
 
-export const updateCompra = apiRequest("chat/updatechat", "put");
+export const deletechat = apiRequest("chat/updatechat", "put");
 
 const chatSlice = createSlice({
   name: "chat",
