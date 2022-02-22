@@ -6,3 +6,4 @@
 ### Lucas Costa Muguet de Magalhaes
 ### Sergio Luis Batista de Souza Lemos Junior
 ### Thales Maia Barreto
+### João Pedro Nogueira Carneiro
