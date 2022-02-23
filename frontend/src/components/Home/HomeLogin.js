@@ -3,8 +3,21 @@ import "./home.css";
 import Cabecalho from "../Cabecalho/Cabecalho";
 
 import UsuarioModal from "../Usuario/UsuarioModal";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function HomeLogin() {
+  const navigate = useNavigate();
+  const usuarioLogadoTipo = JSON.parse(localStorage.getItem("usuario"))?.tipo;
+
+  useEffect(() => {
+    if (usuarioLogadoTipo === "cliente") {
+      navigate("/home")
+    } else if (usuarioLogadoTipo === "empresa") {
+      navigate("/empresa/eventos")
+    }
+  })
+
   return (
     <>
       <Cabecalho usuario={"home"} />

@@ -7,7 +7,7 @@ import MenuFlutuante from "../MenuFlutuante/MenuFlutuante";
 
 function Cabecalho({ usuario }) {
   const usuarioLogin = useSelector(state => state.usuarios);
-  const usuarioLogadoNome = usuarioLogin.entities[usuarioLogin.ids[0]]?.user.username;
+  const usuarioLogadoNome = JSON.parse(localStorage.getItem("usuario"))?.username || usuarioLogin.entities[usuarioLogin.ids[0]]?.user.username;
 
   const location = useLocation();
 

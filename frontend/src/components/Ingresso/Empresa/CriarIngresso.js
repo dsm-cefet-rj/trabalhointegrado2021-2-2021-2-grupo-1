@@ -15,7 +15,8 @@ function CriarIngresso() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const eventos = useSelector(selectAllEventos);
-  
+  const usuarioId = useSelector(state => state.usuarios.entities[state.usuarios.ids[0]]?.id) || JSON.parse(localStorage.getItem("usuario"))?.id;
+
   const {
     register,
     handleSubmit,
@@ -25,7 +26,7 @@ function CriarIngresso() {
   });
 
   function checaEnvio(ingresso) {
-    dispatch(addIngresso(ingresso));
+    dispatch(addIngresso({ ...ingresso, usuarioId }));
     navigate("/empresa/ingressos");
   }
   return (

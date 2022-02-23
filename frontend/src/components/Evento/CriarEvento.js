@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import eventoSchema from "./EventoSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,8 @@ import Cabecalho from "../Cabecalho/Cabecalho";
 function CriarEvento() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const usuarioId = useSelector(state => state.usuarios.entities[state.usuarios.ids[0]]?.id) || JSON.parse(localStorage.getItem("usuario"))?.id;
+
   const {
     register,
     handleSubmit,
@@ -23,7 +25,8 @@ function CriarEvento() {
 
 
   function checaEnvio(evento) {
-    dispatch(addEvento(evento));
+    console.log(usuarioId);
+    dispatch(addEvento({ ...evento, usuarioId }));
 
     navigate("/empresa/eventos");
   }

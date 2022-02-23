@@ -18,10 +18,10 @@ router.route("/")
     }
   })
   .post(async (req, res, next) => {
-    const vendaExists = await Vendas.find({ ingressoId: req.body.ingressoId });
+    const vendaExists = await Vendas.find({ ingressoId: req.body.ingressoId, revenda: req.body.revenda });
 
     try {
-      if (req.body.revenda === vendaExists[0].revenda) {
+      if (vendaExists.length > 0) {
         throw "Não é possível existir duas vendas de um mesmo ingresso."
       } else {
         const venda = await Vendas.create(req.body);

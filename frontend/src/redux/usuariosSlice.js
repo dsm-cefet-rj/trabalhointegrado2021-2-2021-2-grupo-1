@@ -26,7 +26,7 @@ const usuariosSlice = createSlice({
   initialState,
   reducers: {
     logoutUsuario: () => {
-      return{
+      return {
         status: "not_login",
         ids: [],
         entities: {},
@@ -37,6 +37,7 @@ const usuariosSlice = createSlice({
     [loginUsuario.fulfilled]: (state, action) => {
       state.status = "login";
       usuariosAdapter.addOne(state, action.payload);
+      localStorage.setItem("usuario", JSON.stringify({ id: action.payload.id, token: action.payload.token, username: action.payload.user.username, tipo: action.payload.user.tipo }));
     },
     [loginUsuario.rejected]: (state, action) => {
       state.status = "failed";

@@ -8,12 +8,20 @@ const apiRequest = (state, tipo) => createAsyncThunk(
   async (payload, { getState, rejectWithValue }) => {
     const entitie = state.split("/")[0];
     const url = `http://localhost:3001/${entitie}/`;
-    const token = getState().usuarios.entities[getState().usuarios.ids[0]].token;
+    const { token, tipo: usuarioTipo, id: usuarioId } = JSON.parse(localStorage.getItem("usuario")) || getState().usuarios.entities[getState().usuarios.ids[0]];
     const headerAuthentication = { headers: { "Authorization": `Bearer ${token}` } };
+    console.log(usuarioTipo);
 
     if (tipo === "get") {
       const res = await axios.get(url, headerAuthentication);
-      return res.data;
+
+      if (res.data.length > 0) {
+        if ((usuarioTipo === "empresa") || (usuarioTipo === "cliente" && entitie === "compras")) {  
+          return res.data.filter(data => data.usuarioId === usuarioId);
+        } else {
+          return res.data;
+        }
+      }
     } else if (tipo === "post") {
       try {
         const res = await axios.post(url, payload, headerAuthentication);
