@@ -32,10 +32,10 @@ import EditarVenda from "./components/Venda/EditarVenda";
 import ListarVendas from "./components/Venda/ListarVendas";
 import { fetchVendas } from "./redux/vendasSlice";
 
-import Listarchat from "./components/Chat/ListarChat";
-import Editarchat from "./components/Chat/EditarChat";
-import Criarchat from "./components/Chat/CriarChat";
-import { fetchchat } from "./redux/chatSlice";
+// import Listarchat from "./components/Chat/ListarChat";
+// import Editarchat from "./components/Chat/EditarChat";
+// import Criarchat from "./components/Chat/CriarChat";
+// import { fetchchat } from "./redux/chatSlice";
 
 function App() {
   const dispatch = useDispatch();

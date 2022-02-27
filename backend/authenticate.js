@@ -49,9 +49,11 @@ exports.checkUserType = function () {
       next();
     } else if (url === "/compras" && req.user.tipo === "cliente") {
       next();
-    } else if(url === "/chat" && req.user.tipo === "cliente"){
-      next();
-    }else {
+    } 
+    // else if(url === "/chat" && req.user.tipo === "cliente"){
+    //   next();
+    // }
+    else {
       res.sendStatus(401);
     }
   };

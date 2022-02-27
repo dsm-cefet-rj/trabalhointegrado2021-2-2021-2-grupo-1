@@ -16,6 +16,7 @@ import { selectVendaById, addVenda } from "../../../redux/vendasSlice";
 function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const usuarioId = useSelector(state => state.usuarios.entities[state.usuarios.ids[0]]?.id) || JSON.parse(localStorage.getItem("usuario"))?.id;
   const state = useSelector((state) => {
     if (vendaMeuCarrinhoOuCompra === "venda" || vendaMeuCarrinhoOuCompra === "revenda" ||
       vendaMeuCarrinhoOuCompra === "carrinho") {
@@ -51,6 +52,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   function revender() {
     dispatch(
       addVenda({
+        usuarioId,
         ingressoId: state.venda.ingressoId,
         valor: state.venda.valor - 20,
         revenda: true,

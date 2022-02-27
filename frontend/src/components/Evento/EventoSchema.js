@@ -8,7 +8,7 @@ const eventoSchema = object({
   usuarioId: string(),
   nome: string().max(80).required("É necessário ter um nome."),
   genero: string().required(),
-  endereco: string().max(80).required("É necessário ter um endereço."),
+  endereco: string().max(150).required("É necessário ter um endereço."),
   local: string().max(80).required("É necessário ter um local."),
 });
 

@@ -21,7 +21,8 @@ const apiRequest = (state, tipo) => createAsyncThunk(
         } else {
           return res.data;
         }
-      }
+      } else return res.data;
+      
     } else if (tipo === "post") {
       try {
         const res = await axios.post(url, payload, headerAuthentication);
