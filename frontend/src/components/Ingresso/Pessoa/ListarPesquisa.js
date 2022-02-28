@@ -74,7 +74,7 @@ function ListarPesquisa() {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Ingressos de {name}</h2>
-        <div className="ingresso-container">{mostrePesquisaDeAcordoComOStatus()}</div>
+        <div className="listagem-container">{mostrePesquisaDeAcordoComOStatus()}</div>
       </main>
     </>
   );

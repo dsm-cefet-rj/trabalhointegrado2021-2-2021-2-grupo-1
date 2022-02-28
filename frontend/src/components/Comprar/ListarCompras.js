@@ -53,7 +53,7 @@ function ListarCompras() {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Meus Ingressos {compras.length > 0 && compras.length}</h2>
-        <div className="ingresso-container">
+        <div className="listagem-container">
           {mostreComprasDeAcordoComOStatus()}
         </div>
       </main>

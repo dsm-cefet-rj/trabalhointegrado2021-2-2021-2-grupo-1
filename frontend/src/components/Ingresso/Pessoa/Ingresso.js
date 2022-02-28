@@ -51,6 +51,7 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   function revender() {
     dispatch(
       addVenda({
+        usuarioId: "falfjflhfhlfhf",
         ingressoId: state.venda.ingressoId,
         valor: state.venda.valor - 20,
         revenda: true,
@@ -62,23 +63,22 @@ function Ingresso({ tipo, vendaMeuCarrinhoOuCompra }) {
   }
 
   return (
-    <div className="ingresso-container">
-      <h2 className="subtitulo evento-nome">{state.evento.nome}</h2>
+    <div>
+      <h2 className="subtitulo evento-nome">{state.ingresso.nome}</h2>
       <div className="ingresso-detalhe">
         <ul>
-          <li className="ingresso-detalhe-item">{state.ingresso.nome}</li>
-          <li className="ingresso-detalhe-item">{state.evento.endereco}</li>
-          <li className="ingresso-detalhe-item">{state.evento.local}</li>
-          <li className="ingresso-detalhe-item">{state.ingresso.data}</li>
-          <li className="ingresso-detalhe-item">
-            {state.ingresso.horario}
+          <li><span>Endereço:</span> {state.evento.endereco}</li>
+          <li><span>Local:</span> {state.evento.local}</li>
+          <li><span>Data:</span> {state.ingresso.data}</li>
+          <li>
+          <span>Horário:</span> {state.ingresso.horario}
           </li>
           {(vendaMeuCarrinhoOuCompra === "venda" || vendaMeuCarrinhoOuCompra === "revenda") && (
-            <li className="ingresso-detalhe-item">R$ {tipo.valor}</li>
+            <li><span>Preço:</span> R$ {tipo.valor}</li>
           )}
           {vendaMeuCarrinhoOuCompra === "venda" && (
             <>
-              <li className="ingresso-detalhe-item">
+              <li>
                 {tipo.quantidade} ingressos restantes
               </li>
             </>
