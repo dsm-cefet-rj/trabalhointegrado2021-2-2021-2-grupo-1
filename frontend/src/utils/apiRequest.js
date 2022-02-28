@@ -10,7 +10,6 @@ const apiRequest = (state, tipo) => createAsyncThunk(
     const url = `http://localhost:3001/${entitie}/`;
     const { token, tipo: usuarioTipo, id: usuarioId } = JSON.parse(localStorage.getItem("usuario")) || getState().usuarios.entities[getState().usuarios.ids[0]];
     const headerAuthentication = { headers: { "Authorization": `Bearer ${token}` } };
-    console.log(usuarioTipo);
 
     if (tipo === "get") {
       const res = await axios.get(url, headerAuthentication);

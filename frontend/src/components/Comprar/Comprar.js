@@ -62,17 +62,19 @@ function Comprar() {
             Meu carrinho <span>{meuCarrinho.length > 0 && meuCarrinho.length}</span>
           </h2>
           {meuCarrinho.length > 0 ? (
-            meuCarrinho.map((carrinho) => (
-              <Ingresso
-                tipo={carrinho}
-                vendaMeuCarrinhoOuCompra="carrinho"
-                key={carrinho.id}
-              />
-            ))
+            <div className="listagem-container">
+              {meuCarrinho.map((carrinho) => (
+                <Ingresso
+                  tipo={carrinho}
+                  vendaMeuCarrinhoOuCompra="carrinho"
+                  key={carrinho.id}
+                />
+              ))}             
+            </div>
           ) : (
             <p>Seu carrinho está vazio! :(</p>
           )}
-          {meuCarrinho.length > 0 ? <p>Total: {valorTotalCarrinho}</p> : null}
+          {meuCarrinho.length > 0 ? <p style={{marginTop: "30px"}}>Total: R$  {valorTotalCarrinho}</p> : null}
         </>
         {meuCarrinho.length > 0 && (
           <>

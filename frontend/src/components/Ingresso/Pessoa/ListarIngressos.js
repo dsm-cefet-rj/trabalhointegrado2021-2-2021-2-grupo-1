@@ -84,7 +84,7 @@ function ListarIngresso({ genero }) {
                 ? " Família"
                 : null}
         </h2>
-        <div className="ingresso-container">{mostreIngressosDeAcordoComOStatus()}</div>
+        <div className="listagem-container">{mostreIngressosDeAcordoComOStatus()}</div>
       </main>
     </>
   );

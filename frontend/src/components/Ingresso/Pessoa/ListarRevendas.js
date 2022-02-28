@@ -44,7 +44,7 @@ function ListarRevendas() {
       <Cabecalho usuario={"pessoa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Ingressos Revendidos {revendas.length > 0 && revendas.length}</h2>
-        <div className="ingresso-container">{mostreRevendasDeAcordoComOStatus()}</div>
+        <div className="listagem-container">{mostreRevendasDeAcordoComOStatus()}</div>
       </main>
     </>
   );

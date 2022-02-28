@@ -40,7 +40,7 @@ function ListarEventos() {
       <Cabecalho usuario={"empresa"} />
       <main className="centralizar-xy centralizar-y">
         <h2 className="subtitulo">Meus Eventos</h2>
-        <div className="listagem-container-empresa">
+        <div className="listagem-container">
           {mostreEventosDeAcordoComOStatus()}
         </div>
       </main>

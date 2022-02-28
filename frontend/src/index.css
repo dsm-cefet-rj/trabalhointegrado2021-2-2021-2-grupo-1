@@ -117,26 +117,49 @@ main {
   color: #b7c2c5;
 }
 
-.listagem-container-empresa > div {
+.listagem-container{
   display: flex;
-  align-items: center;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 30px;
+  gap: 30px;
 }
 
-.listagem-container-empresa .botoes-container {
+.listagem-container > div {
+  background-color: var(--main-color);
+  border-radius: 10px;
+  color: #fff;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  padding: 30px;
+}
+
+.listagem-container .botoes-container .botao {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.listagem-container .botoes-container .botao:hover {
+  background-color: #fff;
+  color: var(--main-color);
+}
+
+.listagem-container .subtitulo {
   margin-top: 0;
-  margin-left: 30px;
+  margin-bottom: 35px;
 }
 
-.listagem-container-empresa .subtitulo {
-  margin-top: 0;
-  margin-bottom: 0px;
+.listagem-container li {
+  font-size: 0.7rem;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
-.listagem-container-empresa p {
-  margin-left: 30px;
+.listagem-container li > span {
+  color: white;
+  font-weight: bold;
+  font-size: 0.7rem;
 }
 
 .loader {
