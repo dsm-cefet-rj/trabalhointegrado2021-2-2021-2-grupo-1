@@ -61,7 +61,7 @@ function Modal() {
         navigate("/home")
       }
     }
-  }, [usuarioLogin]);
+  }, [navigate, usuarioLogin]);
 
   function ativaModal() {
     setModalAtivo(!modalAtivo);

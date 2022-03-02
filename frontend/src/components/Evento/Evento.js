@@ -13,7 +13,7 @@ function Evento({ evento }) {
       <h2 className="subtitulo">{evento.nome}</h2>
       <ul>
         <li>
-          <span>Gênero:</span> {evento.genero}
+          <span>Gênero:</span> {evento.genero === "musica" ? "música" : (evento.genero === "familia" ? "família" : evento.genero)}
         </li>
         <li><span>Endereço:</span> {evento.endereco}</li>
         <li><span>Local:</span> {evento.local} </li>

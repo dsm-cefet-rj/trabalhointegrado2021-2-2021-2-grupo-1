@@ -6,6 +6,20 @@ var Usuario = require("../models/usuarios");
 
 var authenticate = require("../authenticate");
 
+router.route("/:id")
+  .get(async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+      const user = await Usuario.findOne({ _id: id });
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).json(user.username);
+    } catch (err) {
+      res.statusCode = 404;
+      next(err);
+    }
+  })
+
 router.post("/signup", (req, res) => {
   Usuario.register(new Usuario({ username: req.body.username, email: req.body.email, tipo: req.body.tipo }), req.body.password,
     (err, user) => {

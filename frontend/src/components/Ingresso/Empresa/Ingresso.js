@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { selectEventoById } from "../../../redux/eventosSlice";
 import Botao from "../../Botoes/Botoes";
 import { useSelector } from "react-redux";
 import { selectEventoById } from "../../../redux/eventosSlice";
@@ -12,14 +14,22 @@ function Ingresso({ ingresso }) {
     },
   ];
 
+  const evento = useSelector(state => selectEventoById(state, ingresso.eventoId));
+
   return (
     <div>
-      <h2 className = "subtitulo" > {ingresso.nome} </h2>
-      <p>Evento: {evento.nome}</p>
-      <p>Horário: {ingresso.horario}</p>
-      <p>Data: {ingresso.data}</p>
-      <p>Dados Adicionais: {ingresso.descricao}</p>
-      <Botao botoes = {botao} />
+      <h2 className="subtitulo">{ingresso.nome}</h2>
+      <ul>
+        <li>
+          <span>Evento:</span> {evento.nome}
+        </li>
+        <li>
+          <span>Horário:</span> {ingresso.horario}
+        </li>
+        <li><span>Data:</span> {ingresso.data}</li>
+        <li><span>Descrição:</span> {ingresso.descricao} </li>
+      </ul>
+      <Botao botoes={botao} />
     </div>
   );
 }

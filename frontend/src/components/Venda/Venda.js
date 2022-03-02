@@ -17,9 +17,14 @@ function Venda({ venda }) {
   return (
     <div>
       <h2 className="subtitulo">{ingresso.nome} </h2>
-      <p>Evento: {venda.eventoID}</p>
-      <p>Valor: {venda.valor}</p>
-      <p>Quantidade: {venda.quantidade}</p>
+      <ul>
+        <li>
+          <span>Ingressos Restantes:</span> {venda.quantidade}
+        </li>
+        <li>
+          <span>Valor:</span> R$ {venda.valor}
+        </li>
+      </ul>
       <Botao botoes={botao} />
     </div>
   );

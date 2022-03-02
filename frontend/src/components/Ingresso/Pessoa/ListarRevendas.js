@@ -12,15 +12,21 @@ function ListarRevendas() {
   const revendas = vendas.filter((venda) => venda.revenda && venda.quantidade);
   const { status, error } = useSelector((state) => {
     return {
-      status: state.vendas.status,
-      error: state.vendas.error,
-    };
+      status: {
+        eventos: state.eventos.status,
+        ingressos: state.ingressos.status,
+      },
+      error: {
+        eventos: state.eventos.error,
+        ingressos: state.ingressos.error,
+      }
+    }
   })
 
   function mostreRevendasDeAcordoComOStatus() {
-    if (status === "loading") {
+    if (status.eventos === "loading" || status.ingressos === "loading") {
       return <img src={loader} alt="Imagem de loading" className="loader" />;
-    } else if (status === "loaded" || status === "saved") {
+    } else if ((status.eventos === "loaded" && status.ingressos === "loaded") || (status.eventos === "saved" && status.ingressos === "saved")) {
       if (revendas.length > 0) {
         return revendas.map((revenda) => (
           <Ingresso
@@ -34,7 +40,7 @@ function ListarRevendas() {
           Não há nenhuma revenda nessa categoria :(
         </p>)
       }
-    } else if (status === "failed") {
+    } else if (status.ingressos === "failed") {
       return <p>Erro: {error}</p>;
     }
   }

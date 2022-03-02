@@ -123,6 +123,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
+  margin-bottom: 30px;
 }
 
 .listagem-container > div {
@@ -133,6 +134,10 @@ main {
   max-width: 500px;
   text-align: center;
   padding: 30px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .listagem-container .botoes-container .botao {
