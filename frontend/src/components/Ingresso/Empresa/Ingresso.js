@@ -1,6 +1,10 @@
 import Botao from "../../Botoes/Botoes";
+import { useSelector } from "react-redux";
+import { selectEventoById } from "../../../redux/eventosSlice";
 
 function Ingresso({ ingresso }) {
+  const evento = useSelector((state) => selectEventoById(state, ingresso.eventoId));
+
   const botao = [
     {
       nome: "Editar",
@@ -11,7 +15,7 @@ function Ingresso({ ingresso }) {
   return (
     <div>
       <h2 className = "subtitulo" > {ingresso.nome} </h2>
-      <p>Evento: {ingresso.eventoID}</p>
+      <p>Evento: {evento.nome}</p>
       <p>Horário: {ingresso.horario}</p>
       <p>Data: {ingresso.data}</p>
       <p>Dados Adicionais: {ingresso.descricao}</p>
