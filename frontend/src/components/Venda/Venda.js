@@ -17,7 +17,9 @@ function Venda({ venda }) {
   return (
     <div>
       <h2 className="subtitulo">{ingresso.nome} </h2>
-      <p>Ingressos Restantes: {venda.quantidade} </p>
+      <p>Evento: {venda.eventoID}</p>
+      <p>Valor: {venda.valor}</p>
+      <p>Quantidade: {venda.quantidade}</p>
       <Botao botoes={botao} />
     </div>
   );
