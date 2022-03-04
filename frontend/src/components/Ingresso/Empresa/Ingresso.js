@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectEventoById } from "../../../redux/eventosSlice";
 import Botao from "../../Botoes/Botoes";
-import { useSelector } from "react-redux";
-import { selectEventoById } from "../../../redux/eventosSlice";
 
 function Ingresso({ ingresso }) {
   const evento = useSelector((state) => selectEventoById(state, ingresso.eventoId));
@@ -13,8 +11,6 @@ function Ingresso({ ingresso }) {
       url: `/empresa/ingresso/${ingresso.id}`,
     },
   ];
-
-  const evento = useSelector(state => selectEventoById(state, ingresso.eventoId));
 
   return (
     <div>
